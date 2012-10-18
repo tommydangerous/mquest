@@ -1,9 +1,12 @@
 <%= render 'shared/search' %>
 <div class="pageContent">
+	<p class="pageHeader userShowHeader">
+		<%= @user.name %>'s Requests: <%= @search.size %>
+	</p>
 	<div class="userShowPhoto">
 		<%= link_to 'Accrued Time', '#', class: 'viewTime' %>
 	</div>
-	<p class="pageHeader"><%= @user.name %>'s Requests: <%= @search.size %></p>
+	<div class="clear"></div>
 	<div class="index">
 		<%= render partial: 'user_request', collection: @requests, as: :request %>
 	</div>
