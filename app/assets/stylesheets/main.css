@@ -1,0 +1,64 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+}
+
+.wrapper {
+	overflow-x: hidden;
+}
+
+.content {
+	
+}
+
+p {
+	color: rgb(75, 75, 75);
+	font-family: Helvetica, Arial, sans-serif;
+	margin: 0;
+}
+
+a {
+	color: rgb(48, 157, 207);
+	font-family: Helvetica, Arial, sans-serif;
+	text-decoration: none;
+}
+
+a:focus {
+	outline: none;
+}
+
+.clear {
+	height: 0;
+	font-size: 1px;
+	margin: 0;
+	padding: 0;
+	line-height: 0;
+	clear: both;
+}
+
+.errorExplanation ul {
+	padding: 0 0 0 20px;
+	margin: 0 0 20px 0;
+}
+
+.errorExplanation ul li {
+	color: rgb(255, 25, 0);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	padding: 5px;
+}
+
+.grey {
+	color: rgb(150, 150, 150);
+}
+
+.green {
+	color: rgb(97, 196, 25);
+}
+
+.red {
+	color: rgb(255, 26, 0);
+}

@@ -1,0 +1,66 @@
+<%= content_for :head do %>
+<script>
+$(document).ready(function() {
+	var height = $(window).height();
+	var new_height = height - 106;
+	$('.mainCalendar').css('height', new_height)
+	$(window).resize(function() {
+		var reize_height = $(window).height();
+		var new_resize = reize_height - 106;
+		$('.mainCalendar').css('height', new_resize)
+	})
+	var trCount = $('.calendar tr').length - 1;
+	var heightPercentage = 95 / trCount;
+	$('.calendar td').css('height', heightPercentage + '%');
+})
+</script>
+<% end %>
+<div class="calendarControl">
+	<div class="controlToday">
+		<%= link_to 'Today', date: Date.today %>
+	</div>
+	<div class="controlSelect">
+		<%= form_tag month_select_path, method: :get do %>
+			<div class="action">
+				<%= submit_tag 'View Month', name: nil, tabindex: 3 %>
+			</div>
+			<div class="field selectYear">
+				<%= text_field_tag :year, params[:year], autocomplete: 'off', placeholder: "#{Date.today.strftime('%y')}", tabindex: 2 %>
+			</div>
+			<div class="field selectMonth">
+				<%= text_field_tag :month, params[:month], autocomplete: 'off', placeholder: "#{Date.today.month}", tabindex: 1 %>
+			</div>
+		<% end %> 
+	</div>
+	<div class="controlPrevNext">
+		<div class="prevMonth">
+			<%= link_to image_tag('/assets/prev.png'), date: @date.prev_month %>
+		</div>
+		<div class="nextMonth">
+			<%= link_to image_tag('/assets/next.png'), date: @date.next_month %>
+		</div>
+		<div class="controlMonth">
+			<p><%= @date.strftime("%B %Y") %></p>
+		</div>
+	</div>
+</div>
+<div class="mainCalendar">
+	<%= calendar @date do |date| %>
+		<div class="dateDay">
+			<% if date.month != @date.month %>
+				<%= link_to date.strftime('%b %d'), day_path(date: date) %>
+			<% else %>
+				<%= link_to date.day, day_path(date: date) %>
+			<% end %>
+		</div>
+		<% if @hash[date.to_s] %>
+			<ul>
+				<% @hash[date.to_s].each do |event| %>
+					<li id="event_<%= event.id %>">
+						<%= link_to event.user.name, event.user %> - <%= event.name %>
+					</li>
+				<% end %>
+			</ul>
+		<% end %>
+	<% end %>
+</div>

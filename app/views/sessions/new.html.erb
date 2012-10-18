@@ -1,0 +1,25 @@
+<div class="userNew">
+	<div class="signInLogo">
+		<%= image_tag "/assets/logo.png" %>
+	</div>
+	<%= form_for(:session, url: sessions_path) do |f| %>
+		<div class="userNewForm">
+			<div class="field">
+				<p>Email</p>
+				<%= f.text_field :email, tabindex: 1 %>
+			</div>
+			<div class="field">
+				<p>Password</p>
+				<%= f.password_field :password, tabindex: 2, autocomplete: "off" %>
+			</div>
+			<div class="action signInAction">
+				<%= f.submit "Sign In", tabindex: 3 %>
+			</div>
+			<div class="rememberMe">
+				<p>Remember me</p>
+				<%= check_box_tag :remember_me, 1, params[:remember_me] %>
+			</div>
+		</div>
+	<% end %>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,85 @@
+.header {
+	background: rgb(37, 141, 200);
+	height: 45px;
+	text-align: center;
+	width: 100%;
+}
+
+.header .logo {
+	float: left;
+	margin: 0 0 0 10px;
+}
+
+.header .logo a {
+	display: block;
+	padding: 2px 20px 2px 20px;
+	height: 41px;
+	width: 254px;
+}
+
+.logo img {
+	border: none;
+	height: 41px;
+	width: 254px;
+}
+
+.headerNav {
+	margin: 0 10px 0 0;
+}
+
+.header ul {
+	float: right;
+	list-style-type: none;
+	padding: 0;
+}
+
+.header ul li {
+	display: inline;
+}
+
+.header a {
+	color: rgb(255, 255, 255);
+	float: left;
+	font-size: 15px;
+	padding: 14px 10px;
+}
+
+.header a:hover {
+	background: rgb(32, 124, 202);
+}
+
+/* Account menu */
+.accountMenu {
+	background: rgb(255, 255, 255);
+	border-right: 1px solid rgb(37, 141, 200);
+	border-bottom: 1px solid rgb(37, 141, 200);
+	border-left: 1px solid rgb(37, 141, 200);
+	display: none;
+	position: absolute;
+	right: 10px;
+	top: 45px;
+	width: 200px;
+	z-index: 500;
+}
+
+.accountMenu ul {
+	float: none;
+	margin: 0;
+}
+
+.accountMenu ul li {
+	display: block;
+}
+
+.accountMenu ul li a {
+	color: rgb(100, 100, 100);
+	display: block;
+	float: none;
+	font-size: 14px;
+	padding: 10px 20px;
+	text-align: left;
+}
+
+.accountMenu ul li a:hover {
+	background: rgb(225, 225, 225);
+}

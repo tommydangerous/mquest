@@ -1,0 +1,11 @@
+<div class="searchForm">
+	<%= form_tag request.fullpath.split('?')[0], method: :get do %>
+		<div class="field">
+			<%= text_field_tag :search, params[:search], autocomplete: "off" %>
+		</div>
+		<div class="action">
+			<%= submit_tag "Search", name: nil %>
+			<%= link_to "Clear", request.fullpath.split('?')[0] %>
+		</div>
+	<% end %>
+</div>

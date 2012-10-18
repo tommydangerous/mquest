@@ -1,0 +1,90 @@
+<div class="requestNew">
+	<div class="requestNewHead">
+		<%= image_tag '/assets/logo.png' %>
+		<div>
+			<p class="requestNewHeader">Time Off Request Form</p>
+			<p class="requestNewDate"><%= Date.today.strftime('%B %d, %Y') %></p>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="requestForm">
+		<%= form_for @request do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+			<div class="requestCheckbox">
+				<div class="scheduled">
+					<p>Scheduled?</p>
+					<%= f.check_box :scheduled %>
+				</div>
+				<div class="notScheduled">
+					<p>Called In?</p>
+					<%= f.check_box :called_in %>
+				</div>
+				<div class="notScheduled">
+					<p>Absence Paid?</p>
+					<%= f.check_box :absence_paid %>
+				</div>
+			</div>
+			<div class="requestFormFields">
+				<div class="field">
+					<p>Name</p>
+					<%= text_field_tag :name, "#{current_user.name}", readonly: 'readonly' %>
+				</div>
+				<div class="field requestFormDateRequested">
+					<p>Date(s) Requested</p>
+					<p>
+						<%= f.text_field :request_start, autocomplete: 'off' %>
+						to
+						<%= f.text_field :request_end, autocomplete: 'off' %>
+					</p>
+				</div>
+				<div class="totalTime">
+					<div class="field">
+						<p>Total Days</p>
+						<%= f.text_field :total_days, autocomplete: 'off', placeholder: '5' %>
+					</div>
+					<div class="field">
+						<p>Total # Hours</p>
+						<%= f.text_field :total_hours, autocomplete: 'off', placeholder: '40' %>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="field">
+					<p>Purpose</p>
+					<%= f.select :purpose, request_purpose %>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="field">
+				<p>Comments</p>
+				<%= f.text_area :comments %>
+			</div>
+			<div class="field">
+				<p><b>Note</b></p>
+				<p>
+					Per Company Policy, your supervisor may deny your request at his/her discretion if granting the request will negatively impact the business needs of your department. When possible, follow your department’s specific lead time requirements for all requests.
+				</p>
+			</div>
+			<div class="field">
+				<p><b>Disclaimer</b></p>
+				<p>
+					Your supervisor may request proof of available hours (obtained from your ADP Pay Statement). All requests are verified by P/R before they are processed in the correct payroll period to ensure hours are available. Any time off that cannot be covered by accrued hours will be considered UNPAID.
+				</p>
+			</div>
+			<div class="action">
+				<%= f.submit 'Submit' %>
+				<%= link_to 'Cancel', current_user %>
+			</div>
+		<% end %>
+		<div class="clear"></div>
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+	if ($('#request_scheduled').is(':checked')) {
+		$('.notScheduled').hide();
+	}
+	$('#request_scheduled').live('click', function() {
+		$('.notScheduled').toggle();
+	})
+});
+</script>

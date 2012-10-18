@@ -1,0 +1,29 @@
+<div class="userNew">
+	<p class="userNewHeader">Sign Up</p>
+	<%= form_for @user do |f| %>
+		<div class="userNewForm">
+			<%= render 'shared/error_messages', object: f.object %>
+			<div class="field">
+				<p>Name</p>
+				<%= f.text_field :name, autocomplete: "off" %>
+			</div>
+			<div class="field">
+				<p>Email</p>
+				<%= f.text_field :email, autocomplete: "off" %>
+			</div>
+			<div class="field">
+				<p>Password</p>
+				<%= f.password_field :password, autocomplete: "off" %>
+			</div>
+			<div class="field">
+				<p>Password Confirmation</p>
+				<%= f.password_field :password_confirmation, autocomplete: "off" %>
+			</div>
+			<div class="action">
+				<%= f.submit "Sign Up" %>
+				<%= link_to "Cancel", signin_path %>
+			</div>
+		</div>
+	<% end %>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,29 @@
+<div class="userNew eventNew">
+	<p class="userNewHeader"><%= @title %></p>
+	<%= form_for @event do |f| %>
+		<div class="userNewForm">
+			<%= render 'shared/error_messages', object: f.object %>
+			<div class="field">
+				<p>Event Name</p>
+				<%= f.text_field :name, autocomplete: 'off' %>
+			</div>
+			<div class="field eventNewDate">
+				<p>Start Date</p>
+				<%= text_field_tag :event_start %>
+			</div>
+			<div class="field eventNewDate">
+				<p>End Date</p>
+				<%= text_field_tag :event_end %>
+			</div>
+			<div class="field">
+				<p>User</p>
+				<%= text_field_tag :user_name, '', data: { autocomplete_source: user_list_path } %>
+			</div>
+			<div class="action">
+				<%= f.submit "Save" %>
+				<%= link_to "Cancel", events_path %>
+			</div>
+		</div>
+	<% end %>
+	<div class="clear"></div>
+</div>

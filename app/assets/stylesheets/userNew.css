@@ -1,0 +1,101 @@
+.userNew {
+	margin: 0 auto;
+	padding: 10px 20px 40px 20px;
+	width: 422px;
+}
+
+.userNewHeader {
+	font-size: 28px;
+	padding: 20px 0;
+}
+
+.userNewForm {
+	float: left;
+}
+
+.userNewForm .field {
+	margin-bottom: 18px;
+}
+
+.userNewForm .field p {
+	font-size: 14px;
+	margin-bottom: 8px;
+}
+
+.userNewForm .field input {
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(75, 75, 75);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	padding: 10px;
+	margin: 0;
+	width: 400px;
+}
+
+.userNewForm .field input[type="checkbox"] {
+	margin: 10px 0;
+}
+
+.userNewForm .field input:hover {
+	border: 1px solid rgb(150, 150, 150);
+}
+
+.userNewForm .field input:active, .userNewForm .field input:focus {
+	border: 1px solid rgb(100, 100, 100);
+	outline: none;
+}
+
+.userNewForm .action {
+	padding: 20px 0 0 0;
+	text-align: right;
+}
+
+.userNewForm .action input {
+	background: rgb(99, 182, 219);
+	border: 0px solid rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	padding: 10px 20px;
+	margin: 0;
+}
+
+.userNewForm .action input:hover {
+	cursor: pointer;
+	background: rgb(109, 192, 229);
+}
+
+.userNewForm .action input:focus {
+	background: rgb(109, 192, 229);
+}
+
+.userNewForm .action input:active {
+	background: rgb(89, 172, 209);
+}
+
+.userNewForm .action input:focus, .userNewForm .action input:active {
+	outline: none;
+}
+
+.userNewForm .action a {
+	background: rgb(190, 190, 190);
+	border: 0px solid rgb(0, 0, 0);
+	color: rgb(75, 75, 75);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	padding: 10px 20px;
+	margin: 0 0 0 10px;
+}
+
+.userNewForm .action a:hover {
+	background: rgb(195, 195, 195);
+}
+
+.userNewForm select {
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(75, 75, 75);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	padding: 10px;
+	margin: 0;
+}

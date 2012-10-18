@@ -1,0 +1,87 @@
+.approvedDenied {
+	margin: 0 auto;
+	padding: 20px 40px 0 40px;
+	text-align: center;
+	width: 700px;
+}
+
+.approvedDenied p {
+	font-size: 28px;
+}
+
+.requestDecide {
+	float: right;
+	padding: 20px 0 0 0;
+}
+
+.requestDecide div {
+	float: right;
+}
+
+.requestDecide a {
+	display: block;
+	font-size: 16px;
+	padding: 10px 20px;
+	text-align: center;
+}
+
+.approveRequest a {
+	background: rgb(99, 182, 219);
+	color: rgb(255, 255, 255);
+}
+
+.approveRequest a:hover {
+	background: rgb(109, 192, 229);
+}
+
+.denyRequest input {
+	background: rgb(190, 190, 190);
+	border: none;
+	color: rgb(60, 60, 60);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	margin: 0 0 0 10px;
+	padding: 10px 20px;
+}
+
+.denyRequest input:hover {
+	background: rgb(195, 195, 195);
+}
+
+.denyRequest a {
+	background: rgb(190, 190, 190);
+	color: rgb(60, 60, 60);
+	margin: 0 0 0 10px;
+}
+
+.denyRequest a:hover {
+	background: rgb(195, 195, 195);
+}
+
+/* Conflicts */
+.requestConflicts {
+	margin: 0 auto;
+	padding: 20px 40px 0 40px;
+	width: 700px;
+}
+
+.requestConflicts p {
+	font-size: 12px;
+	margin: 0 0 10px 0;
+}
+
+.requestConflicts ol {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+}
+
+.requestConflicts ol li {
+	border-top: 1px dotted rgb(200, 200, 200);
+	padding: 5px 0 0 0;
+}
+
+.requestConflicts ol li p {
+	margin: 0 0 5px 0;
+}

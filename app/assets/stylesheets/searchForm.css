@@ -1,0 +1,74 @@
+.searchForm {
+	padding: 20px 20px 0 0;
+	position: absolute;
+	right: 0;
+	z-index: 100;
+}
+
+.searchForm .field {
+	margin: 0 0 10px 0;
+}
+
+.searchForm .field input {
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(75, 75, 75);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	padding: 5px;
+	margin: 0;
+	width: 200px;
+}
+
+.searchForm .field input:hover {
+	border: 1px solid rgb(150, 150, 150);
+}
+
+.searchForm .field input:active, .searchForm .field input:focus {
+	border: 1px solid rgb(125, 125, 125);
+	outline: none;
+}
+
+.searchForm .action {
+	float: right;
+}
+
+.searchForm .action input {
+	background: rgb(99, 182, 219);
+	border: 0px solid rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	margin: 0;
+	padding: 6px 10px;
+}
+
+.searchForm .action input:hover {
+	cursor: pointer;
+	background: rgb(109, 192, 229);
+}
+
+.searchForm .action input:focus {
+	background: rgb(109, 192, 229);
+}
+
+.searchForm .action input:active {
+	background: rgb(89, 172, 209);
+}
+
+.searchForm .action input:focus, .searchForm .action input:active {
+	outline: none;
+}
+
+.searchForm .action a {
+	background: rgb(190, 190, 190);
+	border: 0px solid rgb(0, 0, 0);
+	color: rgb(75, 75, 75);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	padding: 6px 10px;
+	margin: 0 0 0 5px;
+}
+
+.searchForm .action a:hover {
+	background: rgb(195, 195, 195);
+}

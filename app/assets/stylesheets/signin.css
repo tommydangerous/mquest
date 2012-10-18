@@ -1,0 +1,22 @@
+.signInLogo {
+	height: 125px;
+	padding: 20px 0 20px 0;
+}
+
+.rememberMe {
+	float: right;
+	padding: 30px 30px 0 0;
+}
+
+.rememberMe p {
+	float: left;
+	font-size: 12px;
+}
+
+.rememberMe input {
+	margin: 0 0 0 8px;
+}
+
+.signInAction {
+	float: right;
+}

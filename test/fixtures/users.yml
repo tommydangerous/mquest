@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  email: MyString
+  encrypted_password: MyString
+  salt: MyString
+  admin: false
+  slug: MyString
+  last_in: 2012-10-17 07:24:08
+  in_count: 1
+
+two:
+  name: MyString
+  email: MyString
+  encrypted_password: MyString
+  salt: MyString
+  admin: false
+  slug: MyString
+  last_in: 2012-10-17 07:24:08
+  in_count: 1

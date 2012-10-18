@@ -1,0 +1,189 @@
+.calendarControl {
+	background: rgb(245, 245, 245);
+	border-bottom: 1px solid rgb(200, 200, 200);
+	height: 50px;
+}
+
+.controlToday {
+	float: left;
+	left: 10px;
+	position: relative;
+	top: 12px;
+}
+
+.controlToday a {
+	background: rgb(235, 235, 235);
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(60, 60, 60);
+	display: block;
+	font-size: 14px;
+	height: 16px;
+	padding: 5px 10px;
+}
+
+.controlToday a:hover {
+	background: rgb(225, 225, 225);
+}
+
+.controlPrevNext {
+	margin: 0 auto;
+	width: 250px;
+}
+
+.controlPrevNext a {
+	display: block;
+	height: 20px;
+	padding: 15px;
+}
+
+.controlPrevNext img {
+	max-height: 20px;
+}
+
+.prevMonth {
+	float: left;
+}
+
+.nextMonth {
+	float: right;
+}
+
+.controlMonth {
+	font-size: 16px;
+	height: 20px;
+	margin: 0 auto;
+	padding: 15px 0;
+	text-align: center;
+	width: 150px;
+}
+
+/* Select */
+.controlSelect {
+	float: right;
+	height: 28px;
+	margin: 0 10px 0 0;
+	position: relative;
+	top: 11px;
+	width: 250px;
+}
+
+.controlSelect .field input {
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(60, 60, 60);
+	float: right;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	padding: 5px;
+	margin: 0 5px 0 0;
+	text-align: center;
+	width: 50px;
+}
+
+.controlSelect .field input:hover {
+	border: 1px solid rgb(150, 150, 150);
+}
+
+.controlSelect .field input:focus {
+	border: 1px solid rgb(150, 150, 150);
+	outline: none;
+}
+
+.controlSelect .action input {
+	background: rgb(99, 182, 219);
+	border: 0px solid rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	float: right;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	margin: 0;
+	padding: 6px 10px;
+}
+
+.controlSelect .action input:hover {
+	background: rgb(109, 192, 229);
+	cursor: pointer;
+}
+
+.controlSelect .action input:focus {
+	outline: none;
+}
+
+/* Calendar */
+.mainCalendar {
+	overflow: hidden;
+	padding: 0 10px 10px 10px;
+}
+
+.calendar {
+	border-collapse: collapse;
+	height: 100%;
+	width: 100%;
+}
+
+.calendar th, .calendar td {
+	color: rgb(60, 60, 60);
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.calendar th {
+	font-size: 14px;
+	font-weight: 300;
+	height: 5%;
+	padding: 10px 0 10px 0;
+	text-align: center;
+	width: 14.2857142857143%
+}
+
+.dateDay a {
+	display: block;
+	color: rgb(60, 60, 60);
+	padding: 5px 0 1px 5px;
+}
+
+.dateDay a:hover {
+	text-decoration: underline;
+}
+
+.calendar td {
+	border: 1px dotted rgb(200, 200, 200);
+	font-size: 12px;
+	overflow: hidden;
+	vertical-align: top;
+}
+
+.calendar td:hover {
+	background: rgb(245, 245, 245);
+}
+
+.calendar .notmonth .dateDay a {
+	color: rgb(200, 200, 200);
+}
+
+.calendar .notmonth:hover {
+	background: rgb(255, 255, 255);
+}
+
+.calendar .today {
+	background: rgb(235, 235, 235);
+}
+
+.calendar .today:hover {
+	background: rgb(235, 235, 235);
+}
+
+.calendar .today .dateDay a {
+	color: rgb(255, 26, 0);
+}
+
+.mainCalendar ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.mainCalendar ul li {
+	background: rgb(245, 245, 245);
+	border: 1px solid rgb(235, 235, 235);
+	margin: 1px 0 0 0;
+	padding: 1px 5px;
+}

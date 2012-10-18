@@ -1,0 +1,15 @@
+<%= render 'shared/search' %>
+<div class="pageContent">
+	<div class="userShowPhoto">
+		<%= link_to 'Accrued Time', '#', class: 'viewTime' %>
+	</div>
+	<p class="pageHeader"><%= @user.name %>'s Requests: <%= @search.size %></p>
+	<div class="index">
+		<%= render partial: 'user_request', collection: @requests, as: :request %>
+	</div>
+	<%= will_paginate @requests, separator: '' %>
+</div>
+<div class="overlay">
+	<%= link_to image_tag('/assets/close.png'), '#', class: 'closeOverlay' %>
+	<%= image_tag @user.photo.url, class: 'userPhoto' %>
+</div>

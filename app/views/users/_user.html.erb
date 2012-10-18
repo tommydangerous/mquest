@@ -1,0 +1,30 @@
+<div class="request user" id="user_<%= user.id %>">
+	<div class="eventEdit">
+		<%= link_to 'Edit', edit_user_path(user) %>
+		<%= link_to 'Delete', user, method: :delete, confirm: 'Delete user?' %>
+	</div>
+	<div class="requestUser">
+		<%= link_to user.name, user %>
+	</div>
+	<div class="requestInfo">
+		<div>
+			<p class="requestLabel">Email:</p>
+			<p class="requestData"><%= user.email %></p>
+			<div class="clear"></div>
+		</div>
+		<div>
+			<p class="requestLabel">Last In:</p>
+			<p class="requestData">
+				<%= user.last_in.strftime('%b %d, %y') %> at
+				<%= user.last_in.strftime('%l:%M %p') %>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div>
+			<p class="requestLabel">In Count:</p>
+			<p class="requestData"><%= user.in_count %></p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

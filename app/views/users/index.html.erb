@@ -1,0 +1,8 @@
+<%= render 'shared/search' %>
+<div class="pageContent">
+	<p class="pageHeader"><%= @title %>: <%= @search.size %></p>
+	<div class="index">
+		<%= render @users %>
+	</div>
+	<%= will_paginate @users, separator: '' %>
+</div>

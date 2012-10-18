@@ -1,0 +1,52 @@
+.pagination {
+	font-size: 11px;
+	margin: 10px 0px;
+	padding: 5px 0px;
+	text-align: center;
+}
+
+.pagination em {
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(255, 26, 0);
+	margin: 0 3px;
+	padding: 5px 10px;
+	font-family: Verdana;
+	text-decoration: none;
+}
+
+.pagination a {
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(48, 157, 207);
+	padding: 5px 10px;
+	margin: 0 3px;
+	font-family: Verdana;
+	text-decoration: none;
+}
+
+.pagination a:hover {
+	background: rgb(48, 157, 207);
+	border: 1px solid rgb(18, 127, 177);
+	color: rgb(255, 255, 255);
+}
+
+.pagination a.previous_page, .pagination a.next_page {
+	border: none;
+}
+
+.previous_page, .next_page {
+	font-family: Verdana;
+	margin: 0 3px;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+
+.disabled {
+	border: none;
+	color: rgb(200, 200, 200);
+}
+
+.gap {
+	color: rgb(48, 157, 207);
+	font-family: Verdana;
+	font-size: 12px;
+}

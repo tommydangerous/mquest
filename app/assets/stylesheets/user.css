@@ -1,0 +1,35 @@
+.userShowPhoto {
+	float: right;
+	padding: 20px 20px 0 0;
+}
+
+.userShowPhoto a {
+	padding: 10px;
+}
+
+.viewTime {
+	font-size: 14px;
+}
+
+.overlay {
+	background: rgba(0, 0, 0, 0.7);
+	display: none;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 200;
+}
+
+.userPhoto {
+	left: 0;
+	margin: 0 auto;
+	position: fixed;
+	right: 0;
+	top: 50px;
+}
+
+.closeOverlay {
+	float: right;
+	padding: 40px;
+}

@@ -1,0 +1,26 @@
+<div class="logo">
+	<%= link_to image_tag("/assets/logo_pain.png"), root_path %>
+</div>
+<ul class="headerNav">
+	<% if signed_in? %>
+		<li><%= link_to 'Events', events_user_path(current_user) %></li>
+		<li><%= link_to "#{current_user.name.split(" ")[0]}", current_user, class: "account" %></li>
+	<% else %>
+		<li><%= link_to 'Sign Up', signup_path %></li>
+	<% end %>
+</ul>
+<% if signed_in? %>
+	<div class="accountMenu">
+		<ul>
+			<% if current_user.admin? %>
+				<li><%= link_to 'Requests', requests_path %></li>
+				<li><%= link_to 'All Events', events_path %></li>
+				<li><%= link_to 'New Event', new_event_path %></li>
+				<li><%= link_to 'Users', users_path %></li>
+			<% end %>
+			<li><%= link_to 'Request Time Off', new_request_path %></li>
+			<li><%= link_to 'Edit Profile', edit_user_path(current_user) %></li>
+			<li><%= link_to 'Sign Out', signout_path %></li>
+		</ul>
+	</div>
+<% end %>

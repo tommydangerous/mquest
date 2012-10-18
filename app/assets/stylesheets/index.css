@@ -1,0 +1,66 @@
+/* Request partial */
+.pageContent {
+	margin: 0 auto;
+	padding: 10px;
+	width: 1000px;
+}
+
+.pageHeader {
+	font-size: 28px;
+	padding: 20px 0 20px 0;
+}
+
+.request {
+	border-top: 1px dotted rgb(200, 200, 200);
+}
+
+.requestLink {
+	float: right;
+	padding: 10px 20px 0 0;
+}
+
+.requestLink a {
+	background: rgb(235, 235, 235);
+	color: rgb(60, 60, 60);
+	display: block;
+	font-size: 14px;
+	padding: 10px;
+	text-align: center;
+}
+
+.requestLink a:hover {
+	background: rgb(225, 225, 225);
+}
+
+.requestUser {
+	font-size: 14px;
+	margin: 0 0 5px 0;
+	padding: 10px 20px 0 20px;
+}
+
+.requestInfo {
+	float: left;
+	font-size: 12px;
+	padding: 0 20px 10px 20px;
+}
+
+.requestInfo div {
+	padding: 0 0 0 5px;
+}
+
+.requestLabel {
+	float: left;
+	margin: 0 5px 0 0;
+	width: 70px;
+}
+
+.requestData {
+	float: left;
+}
+
+/* User request */
+.requestLink p {
+	font-size: 14px;
+	margin: 20px 0 0 0;
+	text-align: center;
+}

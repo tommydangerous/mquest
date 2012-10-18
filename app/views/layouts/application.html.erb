@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<%= stylesheet_link_tag    "application" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+		<%= favicon_link_tag 'favicon.ico' %>
+		<meta charset="UTF-8">
+		<%= yield :head %>
+	</head>
+	<body>
+		<div class="header">
+			<%= render 'layouts/header' %>
+		</div>
+		<div class="wrapper">
+			<div class="content">
+				<% flash.each do |key, value| %>
+					<div class="flash <%= key %>">
+						<%= link_to image_tag('/assets/close.png'), '#', class: 'closeFlash', title: "Close" %>
+						<p><%= value %></p>
+					</div>
+				<% end %>
+				<%= yield %>
+			</div>
+		</div>
+		<div class="footer">
+
+		</div>
+	</body>
+</html>

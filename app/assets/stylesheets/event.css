@@ -1,0 +1,18 @@
+/* New */
+.userNewForm .field.eventNewDate input {
+	width: 189px;
+}
+
+/* Event partial */
+.eventEdit {
+	display: none;
+	float: right;
+	font-size: 14px;
+	padding: 10px 20px 0 0;
+	text-align: right;
+}
+
+.eventEdit a {
+	display: block;
+	margin: 0 0 10px 0;
+}

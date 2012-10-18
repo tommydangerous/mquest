@@ -1,0 +1,125 @@
+<%= content_for :head do %>
+<script>
+$(document).ready(function() {
+	if ($('#scheduled').is(':checked')) {
+		$('.notScheduled').hide();
+	}
+});
+</script>
+<% end %>
+<% if !@request.approved? && !@request.denied? && current_user.admin? && !@conflicts.empty? %>
+	<div class="requestConflicts">
+		<p>Schedule Conflicts</p>
+		<ol>
+			<% @conflicts.each do |event| %>
+				<li>
+					<p><%= link_to event.event_date.strftime('%b %d, %y'), root_path(date: "#{event.event_date.strftime('%y-%m-%d')}") %></p>
+					<p><%= link_to event.user.name, event.user %> <%= event.name %></p>
+				</li>
+			<% end %>
+		</ol>
+	</div>
+<% end %>
+<% if @request.approved? || @request.denied? %>
+	<div class="approvedDenied">
+		<% if @request.approved? %>
+			<p class="green">Approved by <%= User.find(@request.approved).name.split(' ')[0] %> on <%= @request.events.first.created_at.strftime('%b %d, %y') %></p>
+		<% elsif @request.denied? %>
+			<p class="red">Request Denied</p>
+		<% end %>
+	</div>
+<% end %>
+<div class="requestNew">
+	<div class="requestNewHead">
+		<%= image_tag '/assets/logo.png' %>
+		<div>
+			<p class="requestNewHeader">Time Off Request Form</p>
+			<p class="requestNewDate"><%= @request.created_at.strftime('%B %d, %Y') %></p>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="requestForm">
+		<div class="requestCheckbox">
+			<div class="scheduled">
+				<p>Scheduled?</p>
+				<%= check_box_tag :scheduled, '1', @request.scheduled?, readonly: 'readonly' %>
+			</div>
+			<div class="notScheduled">
+				<p>Called In?</p>
+				<%= check_box_tag :called_in, '1', @request.called_in?, readonly: 'readonly' %>
+			</div>
+			<div class="notScheduled">
+				<p>Absence Paid?</p>
+				<%= check_box_tag :absence_paid, '1', @request.absence_paid?, readonly: 'readonly' %>
+			</div>
+		</div>
+		<div class="requestFormFields">
+			<div class="field">
+				<p>Name</p>
+				<%= link_to @request.user do %>
+					<%= text_field_tag :name, "#{@request.user.name}", readonly: 'readonly' %>
+				<% end %>
+			</div>
+			<div class="field requestFormDateRequested">
+				<p>Date(s) Requested - <%= link_to 'View Accrued Time', '#', class: 'viewTime' %></p>
+				<p>
+					<%= text_field_tag :request_start, "#{@request.request_start.strftime('%B %d, %Y')}", readonly: 'readohly' %>
+					to
+					<%= text_field_tag :request_start, "#{@request.request_end.strftime('%B %d, %Y')}", readonly: 'readohly' %>
+				</p>
+			</div>
+			<div class="totalTime">
+				<div class="field">
+					<p>Total Days</p>
+					<%= text_field_tag :total_days, "#{@request.total_days}", readonly: 'readonly' %>
+				</div>
+				<div class="field">
+					<p>Total # Hours</p>
+					<%= text_field_tag :total_hours, "#{@request.total_hours}", readonly: 'readonly' %>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="field">
+				<p>Purpose</p>
+				<%= text_field_tag :purpose, "#{@request.purpose}", readonly: 'readonly', class: 'requestFormPurpose' %>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="field">
+			<p>Comments</p>
+			<div class="requestFormComments">
+				<%= to_html(@request.comments) %>
+			</div>
+		</div>
+		<% if current_user.admin? %>
+			<div class="requestForm">
+				<%= form_for @request do |f| %>
+					<div class="field">
+						<p>Remarks</p>
+						<%= f.text_area :remarks %>
+					</div>
+					<div class="requestDecide">
+						<div class="denyRequest">
+							<%= f.submit 'Deny' %>
+						</div>
+						<div class="approveRequest">
+							<%= link_to "Approve", approve_request_path(@request) %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		<% else %>
+			<div class="field">
+				<p>Remarks</p>
+				<div class="requestFormComments">
+					<%= to_html(@request.remarks) %>
+				</div>
+			</div>
+		<% end %>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="overlay">
+	<%= link_to image_tag('/assets/close.png'), '#', class: 'closeOverlay' %>
+	<%= image_tag @request.user.photo.url, class: 'userPhoto' %>
+</div>

@@ -1,0 +1,33 @@
+<div class="request event" id="event_<%= event.id %>">
+	<% if current_user.admin? %>
+		<div class="eventEdit">
+			<%= link_to 'Edit', edit_event_path(event) %>
+			<%= link_to 'Delete', event, method: :delete, confirm: 'Delete event?' %>
+		</div>
+	<% end %>
+	<div class="requestUser">
+		<%= link_to event.user.name, event.user %>
+	</div>
+	<div class="requestInfo">
+		<div>
+			<p class="requestLabel">Event Date:</p>
+			<p class="requestData">
+				<%= link_to event.event_date.strftime('%b %d, %y'), day_path(date: date_param(event.event_date)) %>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div>
+			<p class="requestLabel">Event:</p>
+			<p class="requestData"><%= event.name %></p>
+			<div class="clear"></div>
+		</div>
+		<div>
+			<p class="requestLabel">Requested:</p>
+			<p class="requestData">
+				<%= link_to event.date_requested.strftime('%b %d, %y'), event.request %>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,10 @@
+<div class="pageContent">
+	<p class="pageHeader">
+		<%= link_to @date.strftime('%B %-d, %Y'), root_path(date: date_param(@date)) %>: 
+		<%= pluralize(@events.size, 'Event') %>
+	</p>
+	<div class="index">
+		<%= render @events %>
+	</div>
+	<%= will_paginate @events, separator: '' %>
+</div>
