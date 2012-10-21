@@ -11,17 +11,24 @@ class UsersController < ApplicationController
 	end
 
 	def create
+		secret = Secret.find_by_name('Sign Up')
+		code = secret ? secret.code : 'lotus'
 		params[:user][:email] = params[:user][:email].downcase
 		@user = User.new(params[:user])
-		if @user.save
-			@user.in_count = 1
-			@user.last_in = Time.now
-			@user.save
-			flash[:success] = "User successfully created."
-			sign_in @user
-			redirect_to @user
+		if params[:secret_code] == code
+			if @user.save
+				@user.in_count = 1
+				@user.last_in = Time.now
+				@user.save
+				flash[:success] = "User successfully created."
+				sign_in @user
+				redirect_to @user
+			else
+				@title = 'Sign Up'
+				render 'new'
+			end
 		else
-			@title = 'Sign Up'
+			flash[:error] = 'The secret code you entered is incorrect, please try again.'
 			render 'new'
 		end
 	end

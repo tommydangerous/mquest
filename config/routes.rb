@@ -1,5 +1,7 @@
 Mquest::Application.routes.draw do
 
+  get "secrets/new"
+
 	resources :events
 	resources :requests do
 		member do
@@ -7,6 +9,7 @@ Mquest::Application.routes.draw do
 			get :deny
 		end
 	end
+	resources :secrets
 	resources :sessions
 	resources :users do
 		member do

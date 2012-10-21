@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
  	private
 
  		def set_user_time_zone
-	  		Time.zone = "UTC"
+#	  		Time.zone = "UTC"
+			Time.zone = 'Pacific Time (US & Canada)'
 	  	end
 end

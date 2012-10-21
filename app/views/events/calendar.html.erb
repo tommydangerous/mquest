@@ -25,10 +25,10 @@ $(document).ready(function() {
 				<%= submit_tag 'View Month', name: nil, tabindex: 3 %>
 			</div>
 			<div class="field selectYear">
-				<%= text_field_tag :year, params[:year], autocomplete: 'off', placeholder: "#{Date.today.strftime('%y')}", tabindex: 2 %>
+				<%= text_field_tag :year, params[:year], autocomplete: 'off', placeholder: "#{Date.today.strftime('%y')}", tabindex: 2, title: 'Year' %>
 			</div>
 			<div class="field selectMonth">
-				<%= text_field_tag :month, params[:month], autocomplete: 'off', placeholder: "#{Date.today.month}", tabindex: 1 %>
+				<%= text_field_tag :month, params[:month], autocomplete: 'off', placeholder: "#{Date.today.month}", tabindex: 1, title: 'Month' %>
 			</div>
 		<% end %> 
 	</div>

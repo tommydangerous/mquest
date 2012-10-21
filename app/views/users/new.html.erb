@@ -19,6 +19,10 @@
 				<p>Password Confirmation</p>
 				<%= f.password_field :password_confirmation, autocomplete: "off" %>
 			</div>
+			<div class="field">
+				<p>Secret Code</p>
+				<%= text_field_tag :secret_code, '', autocomplete: 'off' %>
+			</div>
 			<div class="action">
 				<%= f.submit "Sign Up" %>
 				<%= link_to "Cancel", signin_path %>

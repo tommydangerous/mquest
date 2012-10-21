@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121018160737) do
+ActiveRecord::Schema.define(:version => 20121021171123) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
@@ -62,6 +62,16 @@ ActiveRecord::Schema.define(:version => 20121018160737) do
   add_index "requests", ["total_days"], :name => "index_requests_on_total_days"
   add_index "requests", ["total_hours"], :name => "index_requests_on_total_hours"
   add_index "requests", ["user_id"], :name => "index_requests_on_user_id"
+
+  create_table "secrets", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "secrets", ["code"], :name => "index_secrets_on_code"
+  add_index "secrets", ["name"], :name => "index_secrets_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name"
