@@ -1,3 +1,8 @@
+/* Request start/end */
+.requestFormDateRequested input:hover {
+	cursor: pointer;
+}
+
 .approvedDenied {
 	margin: 0 auto;
 	padding: 20px 40px 0 40px;
@@ -84,4 +89,63 @@
 
 .requestConflicts ol li p {
 	margin: 0 0 5px 0;
+}
+
+/* Request start/end calendar */
+#requestCal {
+	background: rgb(255, 255, 255);
+	border-bottom: 1px solid rgb(200, 200, 200);
+	border-left: 1px solid rgb(200, 200, 200);
+	border-right: 1px solid rgb(200, 200, 200);
+	display: none;
+	padding: 5px;
+	position: absolute;
+	width: 198px;
+}
+
+.requestEndCal {
+	margin: 0 0 0 230px;
+}
+
+#requestCal th {
+	font-size: 12px;
+	height: 15px;
+	padding: 5px 0;
+}
+
+#requestCal td {
+	font-size: 11px;
+}
+
+#requestCal .dateDay:hover{
+	background: rgb(37, 141, 200);
+}
+
+#requestCal .dateDay a {
+	padding: 5px;
+}
+
+#requestCal .dateDay a:hover {
+	color: rgb(255, 255, 255);
+	text-decoration: none;
+}
+
+#requestCal .today {
+	background: rgb(255, 255, 255);
+}
+
+#requestCal .today a {
+	color: rgb(60, 60, 60);
+}
+
+#requestCal .conflictDay, #requestCal .conflictDay:hover {
+	background: rgb(235, 235, 235);
+}
+
+#requestCal .conflictDay a, #requestCal .conflictDay a:hover {
+	color: rgb(255, 26, 0);
+}
+
+#requestCal .notmonth {
+	border: none;
 }

@@ -1,6 +1,6 @@
 <%= render 'shared/search' %>
 <div class="pageContent">
-	<p class="pageHeader">Requests: <%= @search.size %></p>
+	<p class="pageHeader"><%= @title %>: <%= @search.size %></p>
 	<div class="index">
 		<%= render @requests %>
 	</div>

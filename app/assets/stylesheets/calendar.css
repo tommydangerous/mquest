@@ -148,6 +148,7 @@
 	border: 1px dotted rgb(200, 200, 200);
 	font-size: 12px;
 	overflow: hidden;
+	padding: 0;
 	vertical-align: top;
 }
 

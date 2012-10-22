@@ -62,11 +62,37 @@ $(document).ready(function() {
 			</div>
 			<div class="field requestFormDateRequested">
 				<p>Date(s) Requested - <%= link_to 'View Accrued Time', '#', class: 'viewTime' %></p>
-				<p>
-					<%= text_field_tag :request_start, "#{@request.request_start.strftime('%B %d, %Y')}", readonly: 'readohly' %>
+				<div>
+					<%= text_field_tag :request_start, "#{@request.request_start.strftime('%B %d, %Y')}", readonly: 'readonly' %>
+					<div class="requestStartCal" id="requestCal">
+						<%= calendar_short @start do |date| %>
+							<% if @day_conflicts.include?(date) %>
+							<div class="dateDay conflictDay">
+							<% else %>
+							<div class="dateDay">
+							<% end %>
+								<% if date.month == @start.month %>
+									<%= link_to date.day, day_path(date: date) %>
+								<% end %>
+							</div>
+						<% end %>
+					</div>
 					to
-					<%= text_field_tag :request_start, "#{@request.request_end.strftime('%B %d, %Y')}", readonly: 'readohly' %>
-				</p>
+					<%= text_field_tag :request_end, "#{@request.request_end.strftime('%B %d, %Y')}", readonly: 'readonly' %>
+					<div class="requestEndCal" id="requestCal">
+						<%= calendar_short @end do |date| %>
+							<% if @day_conflicts.include?(date) %>
+							<div class="dateDay conflictDay">
+							<% else %>
+							<div class="dateDay">
+							<% end %>
+								<% if date.month == @end.month %>
+									<%= link_to date.day, day_path(date: date) %>
+								<% end %>
+							</div>
+						<% end %>
+					</div>
+				</div>
 			</div>
 			<div class="totalTime">
 				<div class="field">
@@ -123,3 +149,4 @@ $(document).ready(function() {
 	<%= link_to image_tag('/assets/close.png'), '#', class: 'closeOverlay' %>
 	<%= image_tag @request.user.photo.url, class: 'userPhoto' %>
 </div>
+<%= @day_conflicts %>

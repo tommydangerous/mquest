@@ -14,6 +14,7 @@ class EventsController < ApplicationController
 		@values = @events_by_date.values
 		@hash = Hash[@keys.zip(@values)]
 		@date = params[:date] ? Date.parse(params[:date]) : Date.today
+		@title = @date.strftime("%B %Y")
 		render layout: 'calendar_layout'
 	end
 

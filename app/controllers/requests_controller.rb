@@ -4,7 +4,7 @@ class RequestsController < ApplicationController
 
 	# Signed in users
 	def new
-		@title = 'Time Off Request'
+		@title = 'Request Time Off'
 		@request = Request.new
 	end
 
@@ -23,6 +23,9 @@ class RequestsController < ApplicationController
 		@title = 'Time Off Request'
 		@request = Request.find(params[:id])
 		@conflicts = @request.conflicts if current_user.admin?
+		@day_conflicts = @request.conflicts.map(&:event_date).map { |date| Date.parse(date_param(date)) }
+		@start = Date.parse(date_param(@request.request_start))
+		@end = Date.parse(date_param(@request.request_end))
 		redirect_to current_user unless @request.user == current_user || current_user.admin?
 	end
 

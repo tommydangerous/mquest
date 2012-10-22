@@ -76,6 +76,12 @@
 	width: 188px;
 }
 
+.requestFormDateRequested {
+	color: rgb(60, 60, 60);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+
 .requestForm .field input:hover {
 	border: 1px solid rgb(150, 150, 150);
 }
