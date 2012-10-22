@@ -1,12 +1,12 @@
 module SessionsHelper
 
 	def sign_in(user)
-		cookies.permanent.signed[:remember_token] = { value: [user.id, user.salt], domain: :all }
+		cookies.permanent.signed[:remember_token_mquest_mquest] = { value: [user.id, user.salt] }
 		self.current_user = user
 	end
 
 	def sign_in_temp(user)
-		cookies.signed[:remember_token] = { value: [user.id, user.salt], domain: :all }
+		cookies.signed[:remember_token_mquest] = { value: [user.id, user.salt] }
 		self.current_user = user
 	end
 
@@ -23,7 +23,7 @@ module SessionsHelper
 	end
 
 	def sign_out
-		cookies.delete(:remember_token, domain: :all)
+		cookies.delete(:remember_token_mquest)
 		self.current_user = nil
 	end
 
@@ -48,7 +48,7 @@ module SessionsHelper
 		end
 
 		def remember_token
-			cookies.signed[:remember_token] || [nil, nil]
+			cookies.signed[:remember_token_mquest] || [nil, nil]
 		end
 
 		def store_location
