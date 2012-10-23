@@ -61,9 +61,14 @@ class UsersController < ApplicationController
 		@title = "#{@user.name}'s Events"
 		@search = @user.events.search(params[:search])
 		@events = @search.order('event_date DESC').paginate(page: params[:page], per_page: 10)
-		request_ids = @search.map { |event| event.request_id }.uniq.join(', ')
-		requests = Request.where("id IN (#{request_ids})")
-		@hours = requests.select { |request| request.total_hours }.map { |request| request.total_hours }.sum
+		request_ids = @search.map { |event| event.request_id }.uniq
+		if request_ids.empty?
+			requests = []
+			@hours = 0
+		else
+			requests = Request.where("id IN (#{request_ids.join(', ')})")
+			@hours = requests.select { |request| request.total_hours }.map { |request| request.total_hours }.sum
+		end
 	end
 
 	def show

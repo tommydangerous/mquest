@@ -15,11 +15,10 @@ class Event < ActiveRecord::Base
 
 	def self.search(search)
  		if search
- 			search = search.to_s
  			if Rails.env.production?
- 				where("name ILIKE ? OR event_date ILIKE ?", "%#{search}%", "%#{search}%")
+ 				where("name ILIKE ?", "%#{search}%")
  			else
- 				where("name LIKE ? OR event_date LIKE ?", "%#{search}%", "%#{search}%")
+ 				where("name LIKE ?", "%#{search}%")
  			end
  		else
  			scoped
