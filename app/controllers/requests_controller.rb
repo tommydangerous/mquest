@@ -11,11 +11,18 @@ class RequestsController < ApplicationController
 	def create
 		@request = current_user.requests.new(params[:request])
 		if params[:request][:request_start] != '' || params[:request][:request_end] != ''
-			if @request.save
-				flash[:success] = 'Request for time off has been successfully submitted.'
-				redirect_to current_user
+			conflicts = request_check(@request)
+			if conflicts.empty?
+				if @request.save
+					flash[:success] = 'Request for time off has been successfully submitted.'
+					redirect_to current_user
+				else
+					@title = 'Time Off Request'
+					render 'new'
+				end
 			else
-				@title = 'Time Off Request'
+				dates = conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
+				flash.now[:error] = "You cannot take the following days off: #{dates}"
 				render 'new'
 			end
 		else

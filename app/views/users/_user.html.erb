@@ -13,6 +13,11 @@
 			<div class="clear"></div>
 		</div>
 		<div>
+			<p class="requestLabel">Department:</p>
+			<p class="requestData"><%= user.department.name if user.department %></p>
+			<div class="clear"></div>
+		</div>
+		<div>
 			<p class="requestLabel">Last In:</p>
 			<p class="requestData">
 				<%= user.last_in.strftime('%b %d, %y') %> at
