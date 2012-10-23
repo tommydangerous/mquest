@@ -74,6 +74,10 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	def first_name
+		self.name.split(' ')[0]
+	end
+
 	def has_password?(submitted_password)
 		encrypted_password == encrypt(submitted_password)
 	end

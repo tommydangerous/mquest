@@ -11,10 +11,12 @@
 				<p>Email</p>
 				<%= f.text_field :email, autocomplete: "off" %>
 			</div>
-			<div class="field">
-				<p>Department</p>
-				<%= f.select :department_id, department_list %>
-			</div>
+			<% if current_user.admin? %>
+				<div class="field">
+					<p>Department</p>
+					<%= f.select :department_id, department_list %>
+				</div>
+			<% end %>
 			<div class="field">
 				<p>Personal Time Accrued Image</p>
 				<%= f.file_field :photo %>

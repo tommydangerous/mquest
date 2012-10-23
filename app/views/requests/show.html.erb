@@ -18,7 +18,14 @@ $(document).ready(function() {
 				<ol>
 					<% for event in events %>
 						<li>
-							<p><%= link_to event.user.name, event.user %> <%= event.user.department.name %></p>
+							<p>
+								<%= link_to event.user.name, event.user %>
+								<% if event.user.department == @request.user.department %>
+									<span class="red"><%= event.user.department.name %></span>
+								<% else %>
+									<%= event.user.department.name %>
+								<% end %>
+							</p>
 						</li>
 					<% end %>
 				</ol>
@@ -63,7 +70,7 @@ $(document).ready(function() {
 			<div class="field">
 				<p>Name</p>
 				<%= link_to @request.user do %>
-					<%= text_field_tag :name, "#{@request.user.name}", readonly: 'readonly' %>
+					<%= text_field_tag :name, "#{@request.user.name}", readonly: 'readonly', title: "Department: #{@request.user.department.name}" %>
 				<% end %>
 			</div>
 			<div class="field requestFormDateRequested">

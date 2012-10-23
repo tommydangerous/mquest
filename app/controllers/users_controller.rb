@@ -63,8 +63,27 @@ class UsersController < ApplicationController
 	def update
 		params[:user][:email] = params[:user][:email].downcase
 		@user = User.find(params[:id])
-		if Department.find_by_id(params[:user][:department_id])
-	  		if @user.update_attributes(params[:user])
+		if current_user.admin?
+			if Department.find_by_id(params[:user][:department_id])
+		  		if @user.update_attributes(params[:user])
+		  			if params[:user][:password].length >= 2 && params[:user][:password_confirmation].length >= 2 && @user == current_user
+		  				flash[:success] = "Password changed. Please sign in with your new password."
+						sign_out
+						redirect_to signin_path
+					else
+						flash[:success] = "User profile has been updated."
+				  		redirect_to @user
+				  	end
+		  		else
+		  			@title = "Edit Profile"
+		  			render 'edit'
+		  		end
+		  	else
+		  		flash.now[:error] = 'Could not find that department.'
+		  		render 'edit'
+		  	end
+		else
+			if @user.update_attributes(params[:user])
 	  			if params[:user][:password].length >= 2 && params[:user][:password_confirmation].length >= 2 && @user == current_user
 	  				flash[:success] = "Password changed. Please sign in with your new password."
 					sign_out
@@ -77,10 +96,7 @@ class UsersController < ApplicationController
 	  			@title = "Edit Profile"
 	  			render 'edit'
 	  		end
-	  	else
-	  		flash.now[:error] = 'Could not find that department.'
-	  		render 'edit'
-	  	end
+		end
 	end
 
 	def events

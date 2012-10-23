@@ -1,7 +1,7 @@
 <%= render 'user_nav' %>
 <%= render 'event_search' %>
 <div class="pageContent">
-	<p class="pageHeader"><%= @title %>: <%= @search.size %> - <%= pluralize(@hours, 'Total Hour') %></p>
+	<p class="pageHeader"><%= @user.first_name %>: <%= pluralize(@search.size, 'Event') %> - <%= pluralize(@hours, 'Total Hour') %></p>
 	<div class="index">
 		<%= render partial: 'shared/user_event', collection: @events, as: :event %>
 	</div>

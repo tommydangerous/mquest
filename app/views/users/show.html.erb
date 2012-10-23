@@ -1,7 +1,9 @@
 <%= render 'user_nav' %>
 <%= render 'shared/search' %>
 <div class="pageContent">
-	<p class="pageHeader"><%= @title %>: <%= @search.size %></p>
+	<div class="pageHeader">
+		<p><%= @user.first_name %> <%= @user.department.name %>: <%= pluralize(@search.size, 'Request') %></p>
+	</div>
 	<div class="index">
 		<%= render partial: 'user_request', collection: @requests, as: :request %>
 	</div>
