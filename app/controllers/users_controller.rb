@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 	before_filter :authenticate, except: [:new, :create]
-	before_filter :correct_user, only: :events
-	before_filter :correct_user_admin_user, only: [:edit, :update]
+	before_filter :correct_user_admin_user, only: [:edit, :update, :events]
 	before_filter :admin_user, only: [:index, :destroy, :user_list]
 
 	# All users
@@ -59,18 +58,22 @@ class UsersController < ApplicationController
 
 	def events
 		@user = User.find(params[:id])
-		@title = 'My Events'
+		@title = "#{@user.name}'s Events"
 		@search = @user.events.search(params[:search])
 		@events = @search.order('event_date DESC').paginate(page: params[:page], per_page: 10)
-		render 'shared/events'
+		request_ids = @search.map { |event| event.request_id }.uniq.join(', ')
+		requests = Request.where("id IN (#{request_ids})")
+		@hours = requests.select { |request| request.total_hours }.map { |request| request.total_hours }.sum
 	end
 
 	def show
 		@user = User.find(params[:id])
-		@title = "#{@user.name}"
+		@title = "#{@user.name}'s Requests"
 		@search = @user.requests.search(params[:search])
 		@requests = @search.order('created_at DESC').paginate(page: params[:page], per_page: 10)
 		redirect_to current_user unless @user == current_user || current_user.admin?
+	rescue ActiveRecord::RecordNotFound
+		redirect_to root_path
 	end
 
 	# Admin users

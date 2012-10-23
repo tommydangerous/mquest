@@ -16,6 +16,10 @@
 				<%= text_field_tag :event_end, '', autocomplete: 'off' %>
 			</div>
 			<div class="field">
+				<p>Total Hours</p>
+				<%= text_field_tag :total_hours, '', autocomplete: 'off' %>
+			</div>
+			<div class="field">
 				<p>User</p>
 				<%= text_field_tag :user_name, '', data: { autocomplete_source: user_list_path } %>
 			</div>

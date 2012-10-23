@@ -195,3 +195,8 @@
 	padding: 10px;
 	margin: 0;
 }
+
+/* Error explanation */
+.requestFormDateRequested .field_with_errors {
+	width: 210px;
+}

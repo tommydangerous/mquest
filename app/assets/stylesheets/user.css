@@ -1,17 +1,30 @@
-.userShowHeader {
-	float: left;
+/* User show and events */
+.userNav {
+	background: rgb(245, 245, 245);
+	border-bottom: 1px solid rgb(200, 200, 200);
 }
 
-.userShowPhoto {
-	float: left;
-	position: relative;
-	left: 20px;
-	top: 20px;
+.userNav ul {
+	list-style-type: none;
+	height: 36px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
 }
 
-.userShowPhoto a {
+.userNav ul li {
+	display: inline-block;
+}
+
+.userNav ul li a {
+	color: rgb(150, 150, 150);
 	display: block;
-	padding: 10px;
+	font-size: 13px;
+	padding: 10px 40px;
+}
+
+.userNav ul li a:hover {
+	color: rgb(60, 60, 60);
 }
 
 .viewTime {

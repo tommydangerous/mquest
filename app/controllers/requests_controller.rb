@@ -10,11 +10,16 @@ class RequestsController < ApplicationController
 
 	def create
 		@request = current_user.requests.new(params[:request])
-		if @request.save
-			flash[:success] = 'Request for time off has been successfully submitted.'
-			redirect_to current_user
+		if params[:request][:request_start] != '' || params[:request][:request_end] != ''
+			if @request.save
+				flash[:success] = 'Request for time off has been successfully submitted.'
+				redirect_to current_user
+			else
+				@title = 'Time Off Request'
+				render 'new'
+			end
 		else
-			@title = 'Time Off Request'
+			flash[:error] = 'Both start and end dates requested cannot be blank.'
 			render 'new'
 		end
 	end
@@ -27,6 +32,8 @@ class RequestsController < ApplicationController
 		@start = Date.parse(date_param(@request.request_start))
 		@end = Date.parse(date_param(@request.request_end))
 		redirect_to current_user unless @request.user == current_user || current_user.admin?
+	rescue ActiveRecord::RecordNotFound
+		redirect_to root_path
 	end
 
 	# Admin users
@@ -42,6 +49,7 @@ class RequestsController < ApplicationController
 		request.denied = false
 		if request.save
 			create_events(request.user, current_user, request)
+			request.update_attribute(:total_days, request.events.size) unless request.total_days
 			flash[:success] = 'Request has been approved.'
 			redirect_to requests_path
 		end

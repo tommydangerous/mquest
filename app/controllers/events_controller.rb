@@ -60,28 +60,36 @@ class EventsController < ApplicationController
 	def create
 		@event = Event.new(params[:event])
 		user = User.find_by_name(params[:user_name])
-		if user
-			request_start = Time.zone.parse(params[:event_start])
-			request_end = Time.zone.parse(params[:event_end])
-			purpose = params[:event][:name]
-			comments = 'Manually created.'
-			request = user.requests.new(request_start: request_start,
-									    request_end: request_end,
-									    purpose: purpose,
-									    comments: comments)
-			if request.save
-				request.approved = true
-				request.save
-				create_events(user, current_user, request)
-				flash[:success] = 'Event(s) successfully created.'
-				redirect_to request
+		total_hours = params[:total_hours]
+		if total_hours != '' && total_hours[/[0-9]+/]
+			if user
+				request_start = Time.zone.parse(params[:event_start])
+				request_end = Time.zone.parse(params[:event_end])
+				purpose = params[:event][:name]
+				comments = 'Manually created.'
+				request = user.requests.new(request_start: request_start,
+										    request_end: request_end,
+										    purpose: purpose,
+										    comments: comments,
+										    total_hours: total_hours)
+				if request.save
+					request.approved = true
+					request.save
+					create_events(user, current_user, request)
+					request.update_attribute(:total_days, request.events.size)
+					flash[:success] = 'Event(s) successfully created.'
+					redirect_to request
+				else
+					flash[:error] = 'Unable to create events and request.'
+					render 'new'
+				end
 			else
-				flash[:error] = 'Unable to create events and request.'
+				@title = 'New Event'
+				flash[:error] = 'Unable to find user by that name.'
 				render 'new'
 			end
 		else
-			@title = 'New Event'
-			flash[:error] = 'Unable to find user by that name.'
+			flash[:error] = 'Total hours cannot be blank.'
 			render 'new'
 		end
 	end

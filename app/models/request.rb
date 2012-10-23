@@ -13,7 +13,10 @@ class Request < ActiveRecord::Base
  	belongs_to :user
 
  	has_many :events, dependent: :destroy
-
+ 	
+ 	validates :request_start, presence: true
+ 	validates :request_end, presence: true
+ 	validates :total_hours, presence: true
  	validates :user_id, presence: true
 
  	def self.search(search)

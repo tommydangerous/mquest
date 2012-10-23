@@ -1,11 +1,11 @@
 <%= render 'user_nav' %>
 <%= render 'shared/search' %>
 <div class="pageContent">
-	<p class="pageHeader"><%= @title %>: <%= @search.size %></p>
+	<p class="pageHeader"><%= @title %>: <%= @search.size %> - <%= pluralize(@hours, 'Total Hour') %></p>
 	<div class="index">
-		<%= render partial: 'user_request', collection: @requests, as: :request %>
+		<%= render partial: 'shared/user_event', collection: @events, as: :event %>
 	</div>
-	<%= will_paginate @requests, separator: '' %>
+	<%= will_paginate @events, separator: '' %>
 </div>
 <div class="overlay">
 	<%= link_to image_tag('/assets/close.png'), '#', class: 'closeOverlay' %>

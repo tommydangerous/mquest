@@ -29,4 +29,7 @@ Mquest::Application.routes.draw do
 	# Users
 	match 'sign-up' => 'users#new', as: 'signup'
 	match 'user-list' => 'users#user_list', as: 'user_list'
+
+	# 404
+	match '*url' => 'pages#not_found', as: 'not_found'
 end
