@@ -57,24 +57,31 @@ class RequestsController < ApplicationController
 
 	def update
 		request = Request.find(params[:id])
-		request.events.destroy_all
 		request.remarks = params[:request][:remarks]
 		request.approved = false
 		request.denied = true
 		if request.save
+			request.events.destroy_all
 			flash[:success] = 'Request has been denied.'
 			redirect_to requests_path
+		else
+			flash[:error] = 'Unable to deny request.'
+			redirect_to request
 		end
 	end
 
 	def deny
 		request = Request.find(params[:id])
-		request.events.destroy_all
+		request.remarks = params[:request][:remarks]
 		request.approved = false
 		request.denied = true
 		if request.save
+			request.events.destroy_all
 			flash[:success] = 'Request has been denied.'
 			redirect_to requests_path
+		else
+			flash[:error] = 'Unable to deny request.'
+			redirect_to request
 		end
 	end
 end
