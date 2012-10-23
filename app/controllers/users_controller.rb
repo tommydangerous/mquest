@@ -82,6 +82,9 @@ class UsersController < ApplicationController
 		  		flash.now[:error] = 'Could not find that department.'
 		  		render 'edit'
 		  	end
+		elsif params[:user][:department_id]
+			flash.now[:error] = 'Only admin users can edit your department.'
+			render 'edit'
 		else
 			if @user.update_attributes(params[:user])
 	  			if params[:user][:password].length >= 2 && params[:user][:password_confirmation].length >= 2 && @user == current_user
