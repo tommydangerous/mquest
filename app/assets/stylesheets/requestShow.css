@@ -139,7 +139,7 @@
 }
 
 #requestCal .conflictDay, #requestCal .conflictDay:hover {
-	background: rgb(235, 235, 235);
+	background: rgb(245, 245, 245);
 }
 
 #requestCal .conflictDay a, #requestCal .conflictDay a:hover {
