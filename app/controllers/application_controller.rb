@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
  	protect_from_forgery
 
  	include CalendarHelper
+ 	include EventsHelper
  	include RequestsHelper
  	include SessionsHelper
  	include UsersHelper

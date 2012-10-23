@@ -1,0 +1,11 @@
+<div class="searchForm eventSearch">
+	<%= form_tag request.fullpath.split('?')[0], method: :get do %>
+		<div class="field">
+			<%= select_tag :search, options_for_select(event_names), include_blank: true %>
+		</div>
+		<div class="action">
+			<%= submit_tag "Search", name: nil %>
+			<%= link_to "Clear", request.fullpath.split('?')[0] %>
+		</div>
+	<% end %>
+</div>

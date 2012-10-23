@@ -16,3 +16,28 @@
 	display: block;
 	margin: 0 0 10px 0;
 }
+
+/* Events search */
+.eventSearch .ui-helper-hidden-accessible {
+	left: 0;
+	top: 0;
+}
+
+.eventSearch select {
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(60, 60, 60);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	padding: 5px;
+	margin: 0;
+	width: 200px;
+}
+
+.eventSearch select:hover {
+	border: 1px solid rgb(150, 150, 150);
+}
+
+.eventSearch select:active, .eventSearch select:focus {
+	border: 1px solid rgb(125, 125, 125);
+	outline: none;
+}

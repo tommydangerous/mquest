@@ -101,11 +101,7 @@ class UsersController < ApplicationController
 	end
 
 	def user_list
-		if Rails.env.production?
-			@users = User.order(:name).where("name ILIKE ?", "%#{params[:term]}%")
-		else
-			@users = User.order(:name).where("name LIKE ?", "%#{params[:term]}%")
-		end
+		@users = User.search(params[:term]).order(:name)
 		render json: @users.map(&:name)
 	end
 end
