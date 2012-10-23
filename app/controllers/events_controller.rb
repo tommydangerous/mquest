@@ -66,12 +66,13 @@ class EventsController < ApplicationController
 				request_start = Time.zone.parse(params[:event_start])
 				request_end = Time.zone.parse(params[:event_end])
 				purpose = params[:event][:name]
-				comments = 'Manually created.'
+				remarks = 'Manually created.'
 				request = user.requests.new(request_start: request_start,
 										    request_end: request_end,
 										    purpose: purpose,
-										    comments: comments,
-										    total_hours: total_hours)
+										    remarks: remarks,
+										    total_hours: total_hours,
+										    scheduled: true)
 				if request.save
 					request.approved = true
 					request.save
