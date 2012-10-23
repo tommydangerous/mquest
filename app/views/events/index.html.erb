@@ -1,4 +1,9 @@
-<%= render 'shared/event_search' %>
+<div class="userNav">
+	<ul>
+		<li><%= link_to 'New Event', new_event_path %></li>
+	</ul>
+</div>
+<%= render 'event_search' %>
 <div class="pageContent">
 	<p class="pageHeader"><%= @title %>: <%= @search.size %></p>
 	<div class="index">

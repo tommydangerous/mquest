@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
 					:email,
 					:password,
 					:password_confirmation,
-					:photo
+					:photo,
+					:department_id
 
 	# Name
 	validate :name_validation	
@@ -51,10 +52,15 @@ class User < ActiveRecord::Base
 									  :content_type => %w( image/jpeg image/png image/gif image/pjpeg image/x-png image/bmp )
 	validates_attachment_size :photo, :message => "is too large. (Max size: 5mb)", :in => 0..1.megabyte
 
+	# Department
+	validates :department_id, presence: true
+
 	before_save :encrypt_password
 
 	has_many :events, dependent: :destroy
 	has_many :requests, dependent: :destroy
+
+	belongs_to :department
 
 	def self.search(search)
 		if search

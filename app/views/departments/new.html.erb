@@ -1,0 +1,21 @@
+<div class="userNew">
+	<p class="userNewHeader"><%= @title %></p>
+	<%= form_for @department do |f| %>
+		<div class="userNewForm">
+			<%= render 'shared/error_messages', object: f.object %>
+			<div class="field">
+				<p>Name</p>
+				<%= f.text_field :name, autocomplete: "off" %>
+			</div>
+			<div class="field">
+				<p>Max Employees Off Per Day</p>
+				<%= f.text_field :max_off, autocomplete: "off" %>
+			</div>
+			<div class="action">
+				<%= f.submit "Save" %>
+				<%= link_to "Cancel", departments_path %>
+			</div>
+		</div>
+	<% end %>
+	<div class="clear"></div>
+</div>

@@ -19,7 +19,7 @@ class RequestsController < ApplicationController
 				render 'new'
 			end
 		else
-			flash[:error] = 'Both start and end dates requested cannot be blank.'
+			flash.now[:error] = 'Both start and end dates requested cannot be blank.'
 			render 'new'
 		end
 	end

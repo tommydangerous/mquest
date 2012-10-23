@@ -1,7 +1,6 @@
 Mquest::Application.routes.draw do
 
-  get "secrets/new"
-
+	resources :departments
 	resources :events
 	resources :requests do
 		member do
@@ -27,6 +26,7 @@ Mquest::Application.routes.draw do
 	match 'sign-out' => 'sessions#destroy', as: 'signout'
 
 	# Users
+	match 'department-secret' => 'users#department_secret', as: 'department_secret'
 	match 'sign-up' => 'users#new', as: 'signup'
 	match 'user-list' => 'users#user_list', as: 'user_list'
 

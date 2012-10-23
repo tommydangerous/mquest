@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121021171123) do
+ActiveRecord::Schema.define(:version => 20121023195808) do
+
+  create_table "departments", :force => true do |t|
+    t.string   "name"
+    t.integer  "max_off"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "departments", ["max_off"], :name => "index_departments_on_max_off"
+  add_index "departments", ["name"], :name => "index_departments_on_name", :unique => true
 
   create_table "events", :force => true do |t|
     t.string   "name"
@@ -89,9 +99,11 @@ ActiveRecord::Schema.define(:version => 20121021171123) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.integer  "department_id"
   end
 
   add_index "users", ["admin"], :name => "index_users_on_admin"
+  add_index "users", ["department_id"], :name => "index_users_on_department_id"
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["image"], :name => "index_users_on_image"
   add_index "users", ["in_count"], :name => "index_users_on_in_count"

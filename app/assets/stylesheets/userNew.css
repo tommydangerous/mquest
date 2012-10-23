@@ -99,3 +99,16 @@
 	padding: 10px;
 	margin: 0;
 }
+
+.userNewForm select:hover {
+	border: 1px solid rgb(150, 150, 150);
+}
+
+.userNewForm select:active, .userNewForm select:focus {
+	border: 1px solid rgb(125, 125, 125);
+	outline: none;
+}
+
+select#user_department_id {
+	width: 422px;
+}

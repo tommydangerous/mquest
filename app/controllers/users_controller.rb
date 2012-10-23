@@ -1,9 +1,26 @@
 class UsersController < ApplicationController
-	before_filter :authenticate, except: [:new, :create]
+	before_filter :authenticate, except: [:department_secret, :new, :create]
 	before_filter :correct_user_admin_user, only: [:edit, :update, :events]
 	before_filter :admin_user, only: [:index, :destroy, :user_list]
 
 	# All users
+	def department_secret
+		respond_to do |format|
+			format.html {
+				redirect_to signin_path
+			}
+			format.js {
+				secret = Secret.find_by_name('Sign Up')
+				code = secret ? secret.code : 'lotus'
+				if params[:secret_code] == code
+					@verify = true
+				else
+					@verify = false
+				end
+			}
+		end
+	end
+
 	def new
 		@title = 'Sign Up'
 		@user = User.new
@@ -15,19 +32,24 @@ class UsersController < ApplicationController
 		params[:user][:email] = params[:user][:email].downcase
 		@user = User.new(params[:user])
 		if params[:secret_code] == code
-			if @user.save
-				@user.in_count = 1
-				@user.last_in = Time.now
-				@user.save
-				flash[:success] = "User successfully created."
-				sign_in @user
-				redirect_to @user
+			if Department.find_by_id(params[:user][:department_id])
+				if @user.save
+					@user.in_count = 1
+					@user.last_in = Time.now
+					@user.save
+					flash[:success] = "User successfully created."
+					sign_in @user
+					redirect_to @user
+				else
+					@title = 'Sign Up'
+					render 'new'
+				end
 			else
-				@title = 'Sign Up'
-				render 'new'
+				flash.now[:error] = 'Could not find that department.'
+	  			render 'new'
 			end
 		else
-			flash[:error] = 'The secret code you entered is incorrect, please try again.'
+			flash.now[:error] = 'The secret code you entered is incorrect, please try again.'
 			render 'new'
 		end
 	end
@@ -41,19 +63,24 @@ class UsersController < ApplicationController
 	def update
 		params[:user][:email] = params[:user][:email].downcase
 		@user = User.find(params[:id])
-  		if @user.update_attributes(params[:user])
-  			if params[:user][:password].length >= 2 && params[:user][:password_confirmation].length >= 2 && @user == current_user
-  				flash[:success] = "Password changed. Please sign in with your new password."
-				sign_out
-				redirect_to signin_path
-			else
-				flash[:success] = "User profile has been updated."
-		  		redirect_to @user
-		  	end
-  		else
-  			@title = "Edit Profile"
-  			render 'edit'
-  		end
+		if Department.find_by_id(params[:user][:department_id])
+	  		if @user.update_attributes(params[:user])
+	  			if params[:user][:password].length >= 2 && params[:user][:password_confirmation].length >= 2 && @user == current_user
+	  				flash[:success] = "Password changed. Please sign in with your new password."
+					sign_out
+					redirect_to signin_path
+				else
+					flash[:success] = "User profile has been updated."
+			  		redirect_to @user
+			  	end
+	  		else
+	  			@title = "Edit Profile"
+	  			render 'edit'
+	  		end
+	  	else
+	  		flash.now[:error] = 'Could not find that department.'
+	  		render 'edit'
+	  	end
 	end
 
 	def events

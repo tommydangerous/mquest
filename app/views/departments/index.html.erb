@@ -1,0 +1,33 @@
+<div class="userNav">
+	<ul>
+		<li><%= link_to 'New Department', new_department_path %></li>
+	</ul>
+</div>
+<div class="pageContent">
+	<div class="index">
+		<p class="pageHeader"><%= @title %>: <%= @departments.size %></p>
+		<% @departments.each do |department| %>
+			<div class="request department" id="department_<%= department.id %>">
+				<div class="eventEdit">
+					<%= link_to 'Edit', edit_department_path(department) %>
+				</div>
+				<div class="requestUser">
+					<%= link_to department.name, edit_department_path(department) %>
+				</div>
+				<div class="requestInfo">
+					<div>
+						<p class="requestLabel">Max Off:</p>
+						<p class="requestData"><%= department.max_off %></p>
+						<div class="clear"></div>
+					</div>
+					<div>
+						<p class="requestLabel"># Users</p>
+						<p class="requestData"><%= department.users.size %></p>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		<% end %>
+	</div>
+</div>

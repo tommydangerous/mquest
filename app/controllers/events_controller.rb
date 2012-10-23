@@ -49,7 +49,6 @@ class EventsController < ApplicationController
 		@title = 'All Events'
 		@search = Event.search(params[:search])
 		@events = @search.order('event_date DESC').paginate(page: params[:page], per_page: 10)
-		render 'shared/events'
 	end
 
 	def new
@@ -81,16 +80,16 @@ class EventsController < ApplicationController
 					flash[:success] = 'Event(s) successfully created.'
 					redirect_to request
 				else
-					flash[:error] = 'Unable to create events and request.'
+					flash.now[:error] = 'Unable to create events and request.'
 					render 'new'
 				end
 			else
 				@title = 'New Event'
-				flash[:error] = 'Unable to find user by that name.'
+				flash.now[:error] = 'Unable to find user by that name.'
 				render 'new'
 			end
 		else
-			flash[:error] = 'Total hours cannot be blank.'
+			flash.now[:error] = 'Total hours cannot be blank.'
 			render 'new'
 		end
 	end
@@ -112,7 +111,7 @@ class EventsController < ApplicationController
 					redirect_to events_path
 				else
 					@title = 'Edit Event'
-					flash[:error] = 'Event was not able to save.'
+					flash.now[:error] = 'Event was not able to save.'
 					render 'edit'
 				end
 			else
@@ -121,7 +120,7 @@ class EventsController < ApplicationController
 			end
 		else
 			@title = 'Edit Event'
-			flash[:error] = 'Unable to find user by that name.'
+			flash.now[:error] = 'Unable to find user by that name.'
 			render 'edit'
 		end
 	end
