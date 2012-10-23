@@ -128,7 +128,7 @@
 .calendar th {
 	font-size: 14px;
 	font-weight: 300;
-	height: 5%;
+	height: 14px;
 	padding: 10px 0 10px 0;
 	text-align: center;
 	width: 14.2857142857143%
@@ -165,15 +165,15 @@
 }
 
 .calendar .today {
-	background: rgb(235, 235, 235);
-}
-
-.calendar .today:hover {
-	background: rgb(235, 235, 235);
+	background: rgb(245, 245, 245);
 }
 
 .calendar .today .dateDay a {
 	color: rgb(255, 26, 0);
+}
+
+.dayEvents {
+	overflow: hidden;
 }
 
 .mainCalendar ul {

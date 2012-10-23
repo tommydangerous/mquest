@@ -1,17 +1,39 @@
 <%= content_for :head do %>
 <script>
 $(document).ready(function() {
+	// set calendar height to window height - 107px
 	var height = $(window).height();
-	var new_height = height - 106;
+	var new_height = height - 107;
 	$('.mainCalendar').css('height', new_height)
-	$(window).resize(function() {
-		var reize_height = $(window).height();
-		var new_resize = reize_height - 106;
-		$('.mainCalendar').css('height', new_resize)
-	})
+	// set height percentage of td to 100 - (calendar height - 36px)
+	var calHeight = $('.calendar').height();
 	var trCount = $('.calendar tr').length - 1;
-	var heightPercentage = 95 / trCount;
+	var percentage = 100 * (calHeight - 36) / calHeight;
+	var heightPercentage = percentage / trCount;
 	$('.calendar td').css('height', heightPercentage + '%');
+	// set height of dayEvents
+	var rowsHeight = new_height - 36;
+	var rowHeight = rowsHeight / trCount;
+	var dayEventHeight = rowHeight - 21;
+	$('.dayEvents').css('height', dayEventHeight);
+	// resize
+	$(window).resize(function() {
+		// set calendar height to window height - 107px
+		var height = $(window).height();
+		var new_height = height - 107;
+		$('.mainCalendar').css('height', new_height)
+		// set height percentage of td to 100 - (calendar height - 36px)
+		var calHeight = $('.calendar').height();
+		var trCount = $('.calendar tr').length - 1;
+		var percentage = 100 * (calHeight - 36) / calHeight;
+		var heightPercentage = percentage / trCount;
+		$('.calendar td').css('height', heightPercentage + '%');
+		// set height of dayEvents
+		var rowsHeight = new_height - 36;
+		var rowHeight = rowsHeight / trCount;
+		var dayEventHeight = rowHeight - 21;
+		$('.dayEvents').css('height', dayEventHeight);
+	})
 })
 </script>
 <% end %>
@@ -53,14 +75,16 @@ $(document).ready(function() {
 				<%= link_to date.day, day_path(date: date) %>
 			<% end %>
 		</div>
-		<% if @hash[date.to_s] %>
-			<ul>
-				<% @hash[date.to_s].each do |event| %>
-					<li id="event_<%= event.id %>">
-						<%= link_to event.user.name, event.user %> - <%= event.name %>
-					</li>
-				<% end %>
-			</ul>
-		<% end %>
+		<div class="dayEvents">
+			<% if @hash[date.to_s] %>
+				<ul>
+					<% @hash[date.to_s].each do |event| %>
+						<li id="event_<%= event.id %>">
+							<%= link_to event.user.name, event.user %> - <%= event.name %>
+						</li>
+					<% end %>
+				</ul>
+			<% end %>
+		</div>
 	<% end %>
 </div>

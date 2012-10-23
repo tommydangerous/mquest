@@ -61,8 +61,8 @@ class EventsController < ApplicationController
 		@event = Event.new(params[:event])
 		user = User.find_by_name(params[:user_name])
 		if user
-			request_start = params[:event_start].to_datetime
-			request_end = params[:event_end].to_datetime
+			request_start = Time.zone.parse(params[:event_start])
+			request_end = Time.zone.parse(params[:event_end])
 			purpose = params[:event][:name]
 			comments = 'Manually created.'
 			request = user.requests.new(request_start: request_start,
@@ -74,7 +74,7 @@ class EventsController < ApplicationController
 				request.save
 				create_events(user, current_user, request)
 				flash[:success] = 'Event(s) successfully created.'
-				redirect_to events_path
+				redirect_to request
 			else
 				flash[:error] = 'Unable to create events and request.'
 				render 'new'
