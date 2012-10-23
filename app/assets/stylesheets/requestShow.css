@@ -65,30 +65,20 @@
 
 /* Conflicts */
 .requestConflicts {
+	font-size: 12px;
 	margin: 0 auto;
 	padding: 20px 40px 0 40px;
 	width: 700px;
 }
 
-.requestConflicts p {
-	font-size: 12px;
-	margin: 0 0 10px 0;
+.conflictDate {
+	margin: 10px 0 0 0;
 }
 
-.requestConflicts ol {
+.conflictDate ol {
 	font-family: Helvetica, Arial, sans-serif;
-	font-size: 12px;
-	margin: 0;
-	padding: 0;
-}
-
-.requestConflicts ol li {
-	border-top: 1px dotted rgb(200, 200, 200);
-	padding: 5px 0 0 0;
-}
-
-.requestConflicts ol li p {
-	margin: 0 0 5px 0;
+	margin: 5px 0 0 0;
+	padding: 0 0 0 20px;
 }
 
 /* Request start/end calendar */

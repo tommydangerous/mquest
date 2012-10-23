@@ -34,7 +34,7 @@ class RequestsController < ApplicationController
 	def show
 		@title = 'Time Off Request'
 		@request = Request.find(params[:id])
-		@conflicts = @request.conflicts if current_user.admin?
+		@conflicts = @request.conflicts.group_by(&:event_date) if current_user.admin?
 		@day_conflicts = @request.conflicts.map(&:event_date).map { |date| Date.parse(date_param(date)) }
 		@start = Date.parse(date_param(@request.request_start))
 		@end = Date.parse(date_param(@request.request_end))
