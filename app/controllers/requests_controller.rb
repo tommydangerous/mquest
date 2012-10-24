@@ -47,7 +47,9 @@ class RequestsController < ApplicationController
 	def index
 		@title = 'Employee Requests'
 		@search = Request.search(params[:search]).where('approved = ? AND denied = ?', false, false).order('created_at ASC')
-		@requests = @search.paginate(page: params[:page], per_page: 10)
+		per_page = params[:view_all] == '1' ? 999 : 10
+		@requests = @search.paginate(page: params[:page], per_page: per_page)
+		@requests_by_date = @requests.group_by(&:created_at)
 	end
 
 	def approve

@@ -2,6 +2,7 @@
 	<ul>
 		<li><%= link_to 'Requests', @user %></li>
 		<li><%= link_to 'Events', events_user_path(@user) %></li>
+		<li><%= link_to 'View All', url_for(params.merge({view_all: 1})) %></li>
 		<li><%= link_to 'Accrued Time', '#', class: 'viewTime' %></li>
 	</ul>
 </div>

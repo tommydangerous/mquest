@@ -10,13 +10,6 @@
 	</div>
 	<div class="requestInfo">
 		<div>
-			<p class="requestLabel">Event Date:</p>
-			<p class="requestData">
-				<%= link_to event.event_date.strftime('%b %d, %y'), day_path(date: date_param(event.event_date)) %>
-			</p>
-			<div class="clear"></div>
-		</div>
-		<div>
 			<p class="requestLabel">Event:</p>
 			<p class="requestData"><%= event.name %></p>
 			<div class="clear"></div>

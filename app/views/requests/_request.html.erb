@@ -1,33 +1,33 @@
 <div class="request">
 	<div class="requestLink">
 		<%= link_to 'View Request', request %>
+		<% if request.approved? %>
+			<p class="green">Approved</p>
+		<% elsif request.denied? %>
+			<p class="red">Denied</p>
+		<% end %>
 	</div>
 	<div class="requestUser">
 		<%= link_to request.user.name, request.user %>
 	</div>
 	<div class="requestInfo">
 		<div>
-			<p class="requestLabel">Submitted:</p>
-			<p class="requestData"><%= request.created_at.strftime('%b %d, %y') %></p>
+			<p class="requestLabel">Purpose:</p>
+			<p class="requestData"><%= request.purpose %></p>
 			<div class="clear"></div>
 		</div>
 		<div>
-			<p class="requestLabel">Date Start:</p>
+			<p class="requestLabel">Start Date:</p>
 			<p class="requestData">
 				<%= link_to request.request_start.strftime('%b %d, %y'), root_path(date: request.request_start.strftime('%y-%m-%d')) %>
 			</p>
 			<div class="clear"></div>
 		</div>
 		<div>
-			<p class="requestLabel">Date End:</p>
+			<p class="requestLabel">End Date:</p>
 			<p class="requestData">
 				<%= link_to request.request_end.strftime('%b %d, %y'), root_path(date: request.request_end.strftime('%y-%m-%d')) %>
 			</p>
-			<div class="clear"></div>
-		</div>
-		<div>
-			<p class="requestLabel">Purpose:</p>
-			<p class="requestData"><%= request.purpose %></p>
 			<div class="clear"></div>
 		</div>
 	</div>

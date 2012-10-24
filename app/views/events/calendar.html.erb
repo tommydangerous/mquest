@@ -68,7 +68,11 @@ $(document).ready(function() {
 </div>
 <div class="mainCalendar">
 	<%= calendar @date do |date| %>
+		<% if date.day == @date.day %>
+		<div class="dateDay calendarDay">
+		<% else %>
 		<div class="dateDay">
+		<% end %>
 			<% if date.month != @date.month %>
 				<%= link_to date.strftime('%b %d'), day_path(date: date) %>
 			<% else %>

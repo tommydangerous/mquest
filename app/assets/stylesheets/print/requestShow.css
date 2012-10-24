@@ -1,0 +1,178 @@
+@media print {
+
+/* Request show */
+.requestNew {
+	margin: 20px auto;
+	padding: 40px;
+	width: 700px;
+}
+
+/* Conflicts */
+.requestConflicts {
+	font-size: 12px;
+	margin: 0 auto;
+	padding: 20px 40px 0 40px;
+	width: 700px;
+}
+
+.conflictDate {
+	margin: 10px 0 0 0;
+}
+
+.conflictDate ol {
+	font-family: Helvetica, Arial, sans-serif;
+	margin: 5px 0 0 0;
+	padding: 0 0 0 20px;
+}
+
+/* Approved/denied */
+.approvedDenied {
+	margin: 0 auto;
+	padding: 20px 40px 0 40px;
+	text-align: center;
+	width: 700px;
+}
+
+.approvedDenied p {
+	font-size: 28px;
+}
+
+/* Request header */
+.requestNewHead {
+	height: 100px;
+	margin: 0 0 40px 0;
+}
+
+.requestNewHead img {
+	float: left;
+	max-height: 100px;
+}
+
+.requestNewHead div {
+	float: right;
+	text-align: right;
+}
+
+.requestNewHead .requestNewHeader {
+	font-size: 28px;
+	margin: 0 0 20px 0;
+}
+
+.requestNewHead .requestNewDate {
+	font-size: 14px;
+}
+
+/* Request schedule */
+.requestCheckbox {
+	float: right;
+	text-align: center;
+	width: 100px;
+}
+
+.requestCheckbox div {
+	margin: 0 0 20px 0;
+}
+
+.requestCheckbox p {
+	font-size: 14px;
+	margin: 0 0 10px 0;
+}
+
+.requestCheckbox input {
+	margin: 0;
+}
+
+/* Request form fields */
+.requestFormFields {
+	float: left;
+}
+
+.requestForm .field {
+	margin: 0 0 20px 0;
+}
+
+.requestForm .field p {
+	font-size: 14px;
+	margin: 0 0 10px 0;
+}
+
+.requestForm .field input {
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(75, 75, 75);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	padding: 10px;
+	margin: 0;
+	width: 400px;
+}
+
+.requestFormDateRequested span {
+	display: none;
+}
+
+.requestForm .requestFormDateRequested input {
+	width: 188px;
+}
+
+.requestFormDateRequested {
+	color: rgb(60, 60, 60);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+
+/* Request calendar */
+#requestCal {
+	display: none;
+}
+
+.requestDecide {
+	display: none;
+}
+
+.requestForm textarea {
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(75, 75, 75);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	height: 70px;
+	padding: 10px;
+	margin: 0;
+	resize: none;
+	width: 678px;
+}
+
+.requestFormComments {
+	border: 1px solid rgb(200, 200, 200);
+	padding: 10px;
+	width: 678px;
+}
+
+.requestForm select {
+	border: 1px solid rgb(200, 200, 200);
+	color: rgb(75, 75, 75);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	padding: 10px;
+	margin: 0;
+}
+
+.requestForm .field .requestFormPurpose {
+	width: 139px;
+}
+
+.totalTime .field {
+	float: left;
+	width: 150px;
+}
+
+.totalTime .field input {
+	text-align: center;
+	width: 50px;
+}
+
+/* Accrued time picture */
+.closeOverlay {
+	display: none;
+}
+
+}

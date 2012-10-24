@@ -172,6 +172,10 @@
 	color: rgb(255, 26, 0);
 }
 
+.calendarDay a {
+	color: rgb(97, 196, 25);
+}
+
 .dayEvents {
 	overflow: hidden;
 }

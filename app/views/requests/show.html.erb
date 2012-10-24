@@ -74,7 +74,7 @@ $(document).ready(function() {
 				<% end %>
 			</div>
 			<div class="field requestFormDateRequested">
-				<p>Date(s) Requested - <%= link_to 'View Accrued Time', '#', class: 'viewTime' %></p>
+				<p>Date(s) Requested<span> - <%= link_to 'View Accrued Time', '#', class: 'viewTime' %></span></p>
 				<div>
 					<%= text_field_tag :request_start, "#{@request.request_start.strftime('%B %d, %Y')}", readonly: 'readonly' %>
 					<div class="requestStartCal" id="requestCal">
