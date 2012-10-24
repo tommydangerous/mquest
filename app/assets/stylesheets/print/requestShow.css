@@ -175,4 +175,8 @@
 	display: none;
 }
 
+.userPhoto {
+	max-width: 80%;
+}
+
 }
