@@ -8,7 +8,6 @@ gem 'friendly_id'
 gem 'dalli'
 gem 'paperclip', "~> 2.4.5"
 gem 'aws-s3'
-gem 'sqlite3'
 gem 'pg'
 gem 'taps'
 
