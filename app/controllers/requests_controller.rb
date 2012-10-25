@@ -9,6 +9,12 @@ class RequestsController < ApplicationController
 	end
 
 	def create
+		sd = params[:request][:request_start]
+		ed = params[:request][:request_end]
+		if sd > ed
+			params[:request][:request_start] = ed
+			params[:request][:request_end] = sd
+		end
 		@request = current_user.requests.new(params[:request])
 		if params[:request][:request_start] != '' || params[:request][:request_end] != ''
 			conflicts = request_check(@request)
@@ -49,7 +55,7 @@ class RequestsController < ApplicationController
 		@search = Request.search(params[:search]).where('approved = ? AND denied = ?', false, false).order('created_at ASC')
 		per_page = params[:view_all] == '1' ? 999 : 10
 		@requests = @search.paginate(page: params[:page], per_page: per_page)
-		@requests_by_date = @requests.group_by(&:created_at)
+		@requests_by_date = @requests.group_by(&:month_day_year)
 	end
 
 	def approve

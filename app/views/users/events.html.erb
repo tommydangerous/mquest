@@ -6,7 +6,7 @@
 		<% @events_by_date.each do |date, events| %>
 			<div class="indexDate">
 				<p class="indexDateHeader">
-					<%= link_to date.strftime('%B %d, %y'), root_path(date: "#{date.strftime('%y-%m-%d')}") %>
+					<%= link_to "#{date[0]} #{date[2]}, #{date[3]}", root_path(date: "#{date[3]}-#{date[1]}-#{date[2]}") %>
 				</p>
 				<%= render partial: 'shared/user_event', collection: events, as: :event %>
 			</div>

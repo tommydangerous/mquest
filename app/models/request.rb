@@ -21,18 +21,29 @@ class Request < ActiveRecord::Base
 
  	def self.search(search)
  		if search
- 			search = search.to_s
- 			if Rails.env.production?
- 				where("purpose ILIKE ? OR comments ILIKE ?", "%#{search}%", "%#{search}%")
- 			else
- 				where("purpose LIKE ? OR comments LIKE ?", "%#{search}%", "%#{search}%")
- 			end
+ 			where("purpose ILIKE ? OR comments ILIKE ?", "%#{search}%", "%#{search}%")
  		else
  			scoped
  		end
  	end
 
  	def conflicts
- 		Event.where('event_date >= ? AND event_date <= ?', self.request_start, self.request_end)
+ 		sd = self.request_start
+ 		ed = self.request_end
+ 		if sd > ed
+			temp_ed = sd
+			temp_sd = ed
+			sd = temp_sd
+			ed = temp_ed
+		end
+ 		Event.where('event_date >= ? AND event_date <= ?', sd, ed)
+ 	end
+
+ 	def month_day_year
+ 		month_name = self.created_at.strftime('%B')
+ 		month = self.created_at.strftime('%m')
+ 		day = self.created_at.strftime('%d')
+ 		year = self.created_at.strftime('%y')
+ 		[month_name, month, day, year]
  	end
 end

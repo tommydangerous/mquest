@@ -15,13 +15,17 @@ class Event < ActiveRecord::Base
 
 	def self.search(search)
  		if search
- 			if Rails.env.production?
- 				where("name ILIKE ?", "%#{search}%")
- 			else
- 				where("name LIKE ?", "%#{search}%")
- 			end
+ 			where("name ILIKE ?", "%#{search}%")
  		else
  			scoped
  		end
+ 	end
+
+ 	def month_day_year
+ 		month_name = self.event_date.strftime('%B')
+ 		month = self.event_date.strftime('%m')
+ 		day = self.event_date.strftime('%d')
+ 		year = self.event_date.strftime('%y')
+ 		[month_name, month, day, year]
  	end
 end

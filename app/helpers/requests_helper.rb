@@ -70,8 +70,6 @@ module RequestsHelper
 
 	def request_check(request)
 		department = current_user.department
-		sd = request.request_start
-		ed = request.request_end
 		conflicts = request.conflicts
 		conflict_days = []
 		if conflicts

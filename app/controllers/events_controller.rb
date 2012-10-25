@@ -50,7 +50,7 @@ class EventsController < ApplicationController
 		@search = Event.search(params[:search])
 		per_page = params[:view_all] == '1' ? 999 : 10
 		@events = @search.order('event_date DESC').paginate(page: params[:page], per_page: per_page)
-		@events_by_date = @events.group_by(&:event_date)
+		@events_by_date = @events.group_by(&:month_day_year)
 	end
 
 	def new

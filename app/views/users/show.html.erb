@@ -6,7 +6,7 @@
 		<% @requests_by_date.each do |date, requests| %>
 			<div class="indexDate">
 				<p class="indexDateHeader">
-					<%= link_to date.strftime('%B %d, %y'), root_path(date: "#{date.strftime('%y-%m-%d')}") %>
+					<%= link_to "#{date[0]} #{date[2]}, #{date[3]}", root_path(date: "#{date[3]}-#{date[1]}-#{date[2]}") %>
 				</p>
 				<%= render partial: 'requests/request', collection: requests, as: :request %>
 			</div>

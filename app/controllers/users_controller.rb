@@ -108,7 +108,7 @@ class UsersController < ApplicationController
 		@search = @user.events.search(params[:search])
 		per_page = params[:view_all] == '1' ? 999 : 10
 		@events = @search.order('event_date DESC').paginate(page: params[:page], per_page: per_page)
-		@events_by_date = @events.group_by(&:event_date)
+		@events_by_date = @events.group_by(&:month_day_year)
 		request_ids = @search.map { |event| event.request_id }.uniq
 		if request_ids.empty?
 			requests = []
@@ -125,7 +125,7 @@ class UsersController < ApplicationController
 		@search = @user.requests.search(params[:search])
 		per_page = params[:view_all] == '1' ? 999 : 10
 		@requests = @search.order('created_at DESC').paginate(page: params[:page], per_page: per_page)
-		@requests_by_date = @requests.group_by(&:created_at)
+		@requests_by_date = @requests.group_by(&:month_day_year)
 		redirect_to current_user unless @user == current_user || current_user.admin?
 	rescue ActiveRecord::RecordNotFound
 		redirect_to root_path

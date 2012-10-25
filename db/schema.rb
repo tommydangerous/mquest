@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(:version => 20121023195808) do
     t.datetime "date_requested"
     t.integer  "user_id"
     t.integer  "approved_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "request_id"
   end
 
@@ -92,8 +92,8 @@ ActiveRecord::Schema.define(:version => 20121023195808) do
     t.string   "slug"
     t.datetime "last_in"
     t.integer  "in_count"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "image"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
