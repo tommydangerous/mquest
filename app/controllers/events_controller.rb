@@ -66,6 +66,12 @@ class EventsController < ApplicationController
 			if user
 				request_start = Time.zone.parse(params[:event_start])
 				request_end = Time.zone.parse(params[:event_end])
+				if request_start > request_end
+					temp_sd = request_start
+					temp_ed = request_end
+					request_start = temp_ed
+					request_end = temp_sd
+				end
 				purpose = params[:event][:name]
 				request = user.requests.new(request_start: request_start,
 										    request_end: request_end,
