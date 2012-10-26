@@ -174,9 +174,11 @@ $(document).ready(function() {
 						<%= f.text_area :remarks %>
 					</div>
 					<div class="requestDecide">
-						<div class="denyRequest">
-							<%= link_to 'Delete', @request, method: :delete, confirm: 'Delete request?' %>
-						</div>
+						<% if current_user.master? %>
+							<div class="denyRequest">
+								<%= link_to 'Delete', @request, method: :delete, confirm: 'Delete request?' %>
+							</div>
+						<% end %>
 						<div class="denyRequest">
 							<%= f.submit 'Deny' %>
 						</div>
