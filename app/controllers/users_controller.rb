@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 	before_filter :authenticate, except: [:department_secret, :new, :create]
 	before_filter :correct_user_admin_user, only: [:edit, :update, :events]
-	before_filter :admin_user, only: [:index, :destroy, :user_list]
+	before_filter :admin_user, only: [:index, :user_list]
+	before_filter :master_user, only: [:destroy]
 
 	# All users
 	def department_secret
@@ -138,6 +139,12 @@ class UsersController < ApplicationController
 		@users = @search.order('name ASC').paginate(page: params[:page], per_page: 20)
 	end
 
+	def user_list
+		@users = User.search(params[:term]).order(:name)
+		render json: @users.map(&:name)
+	end
+
+	# Master user
 	def destroy
 		user = User.find(params[:id])
 		if user.admin?
@@ -148,10 +155,5 @@ class UsersController < ApplicationController
 			flash[:notice] = 'User has been deleted.'
 			redirect_to users_path
 		end
-	end
-
-	def user_list
-		@users = User.search(params[:term]).order(:name)
-		render json: @users.map(&:name)
 	end
 end

@@ -1,6 +1,7 @@
 class RequestsController < ApplicationController
 	before_filter :authenticate
 	before_filter :admin_user, except: [:new, :create, :show]
+	before_filter :master_user, only: [:destroy]
 
 	# Signed in users
 	def new
@@ -104,5 +105,13 @@ class RequestsController < ApplicationController
 				redirect_to request
 			end
 		end
+	end
+
+	# Master user
+	def destroy
+		request = Request.find(params[:id])
+		request.destroy
+		flash[:notice] = 'Request has been deleted.'
+		redirect_to requests_path
 	end
 end

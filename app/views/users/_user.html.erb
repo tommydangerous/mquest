@@ -1,7 +1,9 @@
 <div class="request user" id="user_<%= user.id %>">
 	<div class="eventEdit">
 		<%= link_to 'Edit', edit_user_path(user) %>
-		<%= link_to 'Delete', user, method: :delete, confirm: 'Delete user?' %>
+		<% if current_user.master? %>
+			<%= link_to 'Delete', user, method: :delete, confirm: 'Delete user?' %>
+		<% end %>
 	</div>
 	<div class="requestUser">
 		<%= link_to user.name, user %>

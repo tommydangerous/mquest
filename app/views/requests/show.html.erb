@@ -175,6 +175,9 @@ $(document).ready(function() {
 					</div>
 					<div class="requestDecide">
 						<div class="denyRequest">
+							<%= link_to 'Delete', @request, method: :delete, confirm: 'Delete request?' %>
+						</div>
+						<div class="denyRequest">
 							<%= f.submit 'Deny' %>
 						</div>
 						<div class="approveRequest">

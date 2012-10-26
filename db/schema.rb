@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121026163458) do
+ActiveRecord::Schema.define(:version => 20121026195022) do
 
   create_table "decisions", :force => true do |t|
     t.string   "name"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20121026163458) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.integer  "department_id"
+    t.boolean  "master",             :default => false
   end
 
   add_index "users", ["admin"], :name => "index_users_on_admin"
@@ -128,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20121026163458) do
   add_index "users", ["image"], :name => "index_users_on_image"
   add_index "users", ["in_count"], :name => "index_users_on_in_count"
   add_index "users", ["last_in"], :name => "index_users_on_last_in"
+  add_index "users", ["master"], :name => "index_users_on_master"
   add_index "users", ["name"], :name => "index_users_on_name", :unique => true
   add_index "users", ["slug"], :name => "index_users_on_slug"
 

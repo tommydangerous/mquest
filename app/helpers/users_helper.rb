@@ -27,4 +27,8 @@ module UsersHelper
 		def admin_user
 			redirect_to current_user unless current_user.admin?
 		end
+
+		def master_user
+			redirect_to current_user unless current_user.master?
+		end
 end
