@@ -193,6 +193,10 @@
 	width: 50px;
 }
 
+.requestForm .action {
+	display: none;
+}
+
 /* Accrued time picture */
 .closeOverlay {
 	display: none;
