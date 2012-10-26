@@ -67,16 +67,18 @@ class EventsController < ApplicationController
 				request_start = Time.zone.parse(params[:event_start])
 				request_end = Time.zone.parse(params[:event_end])
 				purpose = params[:event][:name]
-				remarks = 'Manually created.'
 				request = user.requests.new(request_start: request_start,
 										    request_end: request_end,
 										    purpose: purpose,
-										    remarks: remarks,
 										    total_hours: total_hours,
 										    scheduled: true)
 				if request.save
 					request.approved = true
+					request.approved_by = current_user.id
+					request.manual = true
+					request.manual_by = current_user.id
 					request.save
+					create_decision(request, current_user)
 					create_events(user, current_user, request)
 					request.update_attribute(:total_days, request.events.size)
 					flash[:success] = 'Event(s) successfully created.'

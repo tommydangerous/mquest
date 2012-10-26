@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121023195808) do
+ActiveRecord::Schema.define(:version => 20121026163458) do
+
+  create_table "decisions", :force => true do |t|
+    t.string   "name"
+    t.integer  "request_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "decisions", ["name"], :name => "index_decisions_on_name"
+  add_index "decisions", ["request_id"], :name => "index_decisions_on_request_id"
+  add_index "decisions", ["user_id"], :name => "index_decisions_on_user_id"
 
   create_table "departments", :force => true do |t|
     t.string   "name"
@@ -57,13 +69,21 @@ ActiveRecord::Schema.define(:version => 20121023195808) do
     t.boolean  "approved",      :default => false
     t.boolean  "denied",        :default => false
     t.text     "remarks"
+    t.boolean  "manual",        :default => false
+    t.integer  "approved_by"
+    t.integer  "denied_by"
+    t.integer  "manual_by"
   end
 
   add_index "requests", ["absence_paid"], :name => "index_requests_on_absence_paid"
   add_index "requests", ["approved"], :name => "index_requests_on_approved"
+  add_index "requests", ["approved_by"], :name => "index_requests_on_approved_by"
   add_index "requests", ["called_in"], :name => "index_requests_on_called_in"
   add_index "requests", ["comments"], :name => "index_requests_on_comments"
   add_index "requests", ["denied"], :name => "index_requests_on_denied"
+  add_index "requests", ["denied_by"], :name => "index_requests_on_denied_by"
+  add_index "requests", ["manual"], :name => "index_requests_on_manual"
+  add_index "requests", ["manual_by"], :name => "index_requests_on_manual_by"
   add_index "requests", ["purpose"], :name => "index_requests_on_purpose"
   add_index "requests", ["remarks"], :name => "index_requests_on_remarks"
   add_index "requests", ["request_end"], :name => "index_requests_on_request_end"

@@ -68,6 +68,18 @@ module RequestsHelper
 		end
 	end
 
+	def create_decision(request, user)
+		if request.approved?
+			action = 'Approved'
+		elsif request.denied?
+			action = 'Denied'
+		end
+		decision = Decision.create!(name: action.capitalize)
+		decision.request_id = request.id
+		decision.user_id = user.id
+		decision.save
+	end
+
 	def request_check(request)
 		department = current_user.department
 		conflicts = request.conflicts
@@ -77,6 +89,23 @@ module RequestsHelper
 				date = conflict[0]
 				events = conflict[1]
 				department_ids = events.map { |event| event.user.department_id if event.user != current_user }
+				if department_ids.count(department.id) >= department.max_off
+					conflict_days.append(date)
+				end
+			end
+		end
+		conflict_days
+	end
+
+	def department_conflicts(request, user)
+		department = user.department
+		conflicts = request.conflicts
+		conflict_days = []
+		if conflicts
+			conflicts.group_by(&:event_date).each do |conflict|
+				date = conflict[0]
+				events = conflict[1]
+				department_ids = events.map { |event| event.user.department_id if event.user != user }
 				if department_ids.count(department.id) >= department.max_off
 					conflict_days.append(date)
 				end

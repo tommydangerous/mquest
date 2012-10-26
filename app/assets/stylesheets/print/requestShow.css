@@ -8,11 +8,18 @@
 }
 
 /* Conflicts */
-.requestConflicts {
+.conflictsDecisions {
+	font-family: Helvetica, Arial, sans-serif;
 	font-size: 12px;
 	margin: 0 auto;
 	padding: 20px 40px 0 40px;
 	width: 700px;
+
+}
+
+.requestConflicts {
+	float: left;
+	width: 350px;
 }
 
 .conflictDate {
@@ -20,9 +27,25 @@
 }
 
 .conflictDate ol {
-	font-family: Helvetica, Arial, sans-serif;
 	margin: 5px 0 0 0;
 	padding: 0 0 0 20px;
+}
+
+/* Decisions */
+.requestDecisions {
+	float: right;
+	text-align: right;
+	width: 350px;
+}
+
+.decisionDate {
+	margin: 10px 0 0 0;
+}
+
+.decisionDate ol {
+	list-style-type: none;
+	margin: 5px 0 0 0;
+	padding: 0;
 }
 
 /* Approved/denied */
@@ -177,6 +200,13 @@
 
 .userPhoto {
 	max-width: 80%;
+}
+
+/* Manual */
+.requestManual {
+	float: left;
+	font-size: 14px;
+	margin: 30px 0 0 0;
 }
 
 }

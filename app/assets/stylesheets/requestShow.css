@@ -64,11 +64,18 @@
 }
 
 /* Conflicts */
-.requestConflicts {
+.conflictsDecisions {
+	font-family: Helvetica, Arial, sans-serif;
 	font-size: 12px;
 	margin: 0 auto;
 	padding: 20px 40px 0 40px;
 	width: 700px;
+
+}
+
+.requestConflicts {
+	float: left;
+	width: 350px;
 }
 
 .conflictDate {
@@ -76,9 +83,25 @@
 }
 
 .conflictDate ol {
-	font-family: Helvetica, Arial, sans-serif;
 	margin: 5px 0 0 0;
 	padding: 0 0 0 20px;
+}
+
+/* Decisions */
+.requestDecisions {
+	float: right;
+	text-align: right;
+	width: 350px;
+}
+
+.decisionDate {
+	margin: 10px 0 0 0;
+}
+
+.decisionDate ol {
+	list-style-type: none;
+	margin: 5px 0 0 0;
+	padding: 0;
 }
 
 /* Request start/end calendar */
@@ -128,14 +151,29 @@
 	color: rgb(60, 60, 60);
 }
 
-#requestCal .conflictDay, #requestCal .conflictDay:hover {
-	background: rgb(245, 245, 245);
+#requestCal .requestDay, #requestCal .requestDay:hover {
+	background: rgb(235, 235, 235);
 }
 
-#requestCal .conflictDay a, #requestCal .conflictDay a:hover {
+#requestCal .requestDay a:hover {
+	color: rgb(60, 60, 60);
+}
+
+#requestCal .requestDay .deptConflict:hover, #requestCal .deptConflict, #requestCal .deptConflict:hover {
 	color: rgb(255, 26, 0);
+}
+
+#requestCal .requestDay .conflictDay:hover, #requestCal .conflictDay, #requestCal .conflictDay:hover {
+	color: rgb(37, 141, 200);
 }
 
 #requestCal .notmonth {
 	border: none;
+}
+
+/* Manual */
+.requestManual {
+	float: left;
+	font-size: 14px;
+	margin: 30px 0 0 0;
 }

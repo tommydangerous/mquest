@@ -5,7 +5,6 @@ Mquest::Application.routes.draw do
 	resources :requests do
 		member do
 			get :approve
-			get :deny
 		end
 	end
 	resources :secrets

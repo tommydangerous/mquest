@@ -18,7 +18,7 @@ class RequestsController < ApplicationController
 		@request = current_user.requests.new(params[:request])
 		if params[:request][:request_start] != '' || params[:request][:request_end] != ''
 			conflicts = request_check(@request)
-			if conflicts.empty?
+			if conflicts.empty? || params[:request][:purpose][/sick|unpaid/i]
 				if @request.save
 					flash[:success] = 'Request for time off has been successfully submitted.'
 					redirect_to current_user
@@ -40,10 +40,15 @@ class RequestsController < ApplicationController
 	def show
 		@title = 'Time Off Request'
 		@request = Request.find(params[:id])
-		@conflicts = @request.conflicts.group_by(&:event_date) if current_user.admin?
-		@day_conflicts = @request.conflicts.map(&:event_date).map { |date| Date.parse(date_param(date)) }
 		@start = Date.parse(date_param(@request.request_start))
 		@end = Date.parse(date_param(@request.request_end))
+		@days = @request.days.map { |date| Date.parse(date_param(date)) }
+		@day_conflicts = @request.conflicts.select { |event| event if event.user_id != @request.user.id }.map(&:event_date).map { |date| Date.parse(date_param(date)) }
+		@dept_conflicts = department_conflicts(@request, @request.user).map { |date| Date.parse(date_param(date)) }
+		if current_user.admin?
+			@decisions = @request.decisions.group_by(&:month_day_year).sort_by { |key, value| key }.reverse
+			@conflicts = @request.conflicts.select { |event| event if event.user_id != @request.user.id }.group_by(&:event_date)
+		end
 		redirect_to current_user unless @request.user == current_user || current_user.admin?
 	rescue ActiveRecord::RecordNotFound
 		redirect_to root_path
@@ -60,43 +65,44 @@ class RequestsController < ApplicationController
 
 	def approve
 		request = Request.find(params[:id])
-		request.approved = true
-		request.denied = false
-		if request.save
-			create_events(request.user, current_user, request)
-			request.update_attribute(:total_days, request.events.size) unless request.total_days
-			flash[:success] = 'Request has been approved.'
-			redirect_to requests_path
+		if request.approved?
+			flash[:notice] = 'This request has already been approved.'
+			redirect_to request
+		else
+			request.approved = true
+			request.approved_by = current_user.id
+			request.denied = false
+			request.denied_by = nil
+			if request.save
+				create_decision(request, current_user)
+				create_events(request.user, current_user, request)
+				request.update_attribute(:total_days, request.events.size) unless request.total_days
+				flash[:success] = 'Request has been approved.'
+				redirect_to requests_path
+			end
 		end
 	end
 
 	def update
 		request = Request.find(params[:id])
-		request.remarks = params[:request][:remarks]
-		request.approved = false
-		request.denied = true
-		if request.save
-			request.events.destroy_all
-			flash[:success] = 'Request has been denied.'
-			redirect_to requests_path
-		else
-			flash[:error] = 'Unable to deny request.'
+		if request.denied?
+			flash[:notice] = 'This request has already been denied.'
 			redirect_to request
-		end
-	end
-
-	def deny
-		request = Request.find(params[:id])
-		request.remarks = params[:request][:remarks]
-		request.approved = false
-		request.denied = true
-		if request.save
-			request.events.destroy_all
-			flash[:success] = 'Request has been denied.'
-			redirect_to requests_path
 		else
-			flash[:error] = 'Unable to deny request.'
-			redirect_to request
+			request.remarks = params[:request][:remarks]
+			request.approved = false
+			request.approved_by = nil
+			request.denied = true
+			request.denied_by = current_user.id
+			if request.save
+				create_decision(request, current_user)
+				request.events.destroy_all
+				flash[:success] = 'Request has been denied.'
+				redirect_to requests_path
+			else
+				flash[:error] = 'Unable to deny request.'
+				redirect_to request
+			end
 		end
 	end
 end

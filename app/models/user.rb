@@ -59,6 +59,7 @@ class User < ActiveRecord::Base
 
 	has_many :events, dependent: :destroy
 	has_many :requests, dependent: :destroy
+	has_many :decisions, dependent: :destroy
 
 	belongs_to :department
 

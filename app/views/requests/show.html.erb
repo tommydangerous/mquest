@@ -7,38 +7,62 @@ $(document).ready(function() {
 });
 </script>
 <% end %>
-<% if !@request.approved? && !@request.denied? && current_user.admin? && !@conflicts.empty? %>
-	<div class="requestConflicts">
-		<p>Schedule Conflicts</p>
-		<% @conflicts.each do |date, events| %>
-			<div class="conflictDate">
-				<div class="conflictDateDay">
-					<p><%= link_to date.strftime('%b %d, %y'), root_path(date: "#{date.strftime('%y-%m-%d')}") %></p>
-				</div>
-				<ol>
-					<% for event in events %>
-						<li>
-							<p>
-								<%= link_to event.user.name, event.user %>
-								<% if event.user.department == @request.user.department %>
-									<span class="red"><%= event.user.department.name %></span>
-								<% else %>
-									<%= event.user.department.name %>
-								<% end %>
-							</p>
-						</li>
-					<% end %>
-				</ol>
+<% if current_user.admin? && !@conflicts.empty? || current_user.admin? && @decisions %>
+	<div class="conflictsDecisions">
+		<% if !@conflicts.empty? %>
+			<div class="requestConflicts">
+				<p>Schedule Conflicts</p>
+				<% @conflicts.each do |date, events| %>
+					<div class="conflictDate">
+						<div class="conflictDateDay">
+							<p><%= link_to date.strftime('%b %d, %y'), root_path(date: "#{date.strftime('%y-%m-%d')}") %></p>
+						</div>
+						<ol>
+							<% for event in events %>
+								<li>
+									<p>
+										<%= link_to event.user.name, event.user %>
+										<% if event.user.department == @request.user.department %>
+											<span class="red"><%= event.user.department.name %></span>
+										<% else %>
+											<%= event.user.department.name %>
+										<% end %>
+									</p>
+								</li>
+							<% end %>
+						</ol>
+					</div>
+				<% end %>
 			</div>
 		<% end %>
+		<% if !@decisions.empty? %>
+			<div class="requestDecisions">
+				<p>Approval Decisions</p>
+				<% @decisions.each do |date, decisions| %>
+					<div class="decisionDate">
+						<div class="decisionDateDay">
+							<p><%= "#{date[0]} #{date[2]}, #{date[3]}" %></p>
+						</div>
+						<ol>
+							<% for decision in decisions.sort_by { |d| d.created_at }.reverse %>
+								<li>
+									<p><%= decision.name %> by <%= decision.user.name.split(' ')[0] %> at <%= decision.created_at.strftime("%l:%M %P") %></p>
+								</li>
+							<% end %>
+						</ol>
+					</div>
+				<% end %>
+			</div>
+		<% end %>
+		<div class="clear"></div>
 	</div>
 <% end %>
 <% if @request.approved? || @request.denied? %>
 	<div class="approvedDenied">
 		<% if @request.approved? %>
-			<p class="green">Approved by <%= User.find(@request.approved).name.split(' ')[0] %> on <%= @request.events.first.created_at.strftime('%b %d, %y') %></p>
+			<p class="green">Approved by <%= @request.user_approved.name.split(' ')[0] %> on <%= @request.events.first.created_at.strftime('%b %d, %y') %></p>
 		<% elsif @request.denied? %>
-			<p class="red">Request Denied</p>
+			<p class="red">Denied by <%= @request.user_denied.name.split(' ')[0] %></p>
 		<% end %>
 	</div>
 <% end %>
@@ -79,13 +103,19 @@ $(document).ready(function() {
 					<%= text_field_tag :request_start, "#{@request.request_start.strftime('%B %d, %Y')}", readonly: 'readonly' %>
 					<div class="requestStartCal" id="requestCal">
 						<%= calendar_short @start do |date| %>
-							<% if @day_conflicts.include?(date) %>
-							<div class="dateDay conflictDay">
+							<% if @days.include?(date) %>
+							<div class="dateDay requestDay">
 							<% else %>
 							<div class="dateDay">
 							<% end %>
 								<% if date.month == @start.month %>
-									<%= link_to date.day, day_path(date: date) %>
+									<% if @dept_conflicts.include?(date) %>
+										<%= link_to date.day, day_path(date: date), class: 'deptConflict', title: 'Department Conflict' %>
+									<% elsif @day_conflicts.include?(date) %>
+										<%= link_to date.day, day_path(date: date), class: 'conflictDay', title: 'Conflict' %>
+									<% else %>
+										<%= link_to date.day, day_path(date: date) %>
+									<% end %>
 								<% end %>
 							</div>
 						<% end %>
@@ -94,13 +124,19 @@ $(document).ready(function() {
 					<%= text_field_tag :request_end, "#{@request.request_end.strftime('%B %d, %Y')}", readonly: 'readonly' %>
 					<div class="requestEndCal" id="requestCal">
 						<%= calendar_short @end do |date| %>
-							<% if @day_conflicts.include?(date) %>
-							<div class="dateDay conflictDay">
+							<% if @days.include?(date) %>
+							<div class="dateDay requestDay">
 							<% else %>
 							<div class="dateDay">
 							<% end %>
-								<% if date.month == @end.month %>
-									<%= link_to date.day, day_path(date: date) %>
+								<% if date.month == @start.month %>
+									<% if @dept_conflicts.include?(date) %>
+										<%= link_to date.day, day_path(date: date), class: 'deptConflict', title: 'Department Conflict' %>
+									<% elsif @day_conflicts.include?(date) %>
+										<%= link_to date.day, day_path(date: date), class: 'conflictDay', title: 'Conflict' %>
+									<% else %>
+										<%= link_to date.day, day_path(date: date) %>
+									<% end %>
 								<% end %>
 							</div>
 						<% end %>
@@ -153,6 +189,11 @@ $(document).ready(function() {
 				<div class="requestFormComments">
 					<%= to_html(@request.remarks) %>
 				</div>
+			</div>
+		<% end %>
+		<% if @request.manual %>
+			<div class="requestManual">
+				<p>Manually created by <%= @request.user_manual.name.split(' ')[0] %> on <%= @request.created_at.strftime('%b %d, %y') %></p>
 			</div>
 		<% end %>
 		<div class="clear"></div>
