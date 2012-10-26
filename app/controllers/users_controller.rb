@@ -136,7 +136,8 @@ class UsersController < ApplicationController
 	def index
 		@title = 'All Users'
 		@search = User.search(params[:search])
-		@users = @search.order('name ASC').paginate(page: params[:page], per_page: 20)
+		per_page = params[:view_all] == '1' ? 999 : 20
+		@users = @search.order('name ASC').paginate(page: params[:page], per_page: per_page)
 	end
 
 	def user_list

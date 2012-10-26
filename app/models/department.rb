@@ -6,4 +6,12 @@ class Department < ActiveRecord::Base
 	validates :name, presence: true
 	validates_uniqueness_of :name, case_sensitive: false, message: 'already exists'
 	validates :max_off, presence: true
+
+	def self.search(search)
+		if search
+			where("name ILIKE ?", "%#{search}%")
+		else
+			scoped
+		end
+	end
 end

@@ -4,7 +4,9 @@ class DepartmentsController < ApplicationController
 
 	def index
 		@title = 'All Departments'
-		@departments = Department.order(:name)
+		@search = Department.search(params[:search]).order(:name)
+		per_page = params[:view_all] == '1' ? 999 : 10
+		@departments = @search.paginate(page: params[:page], per_page: per_page)
 	end
 
 	def new
