@@ -30,6 +30,11 @@ class UsersController < ApplicationController
 	def create
 		secret = Secret.find_by_name('Sign Up')
 		code = secret ? secret.code : 'lotus'
+		if params[:user][:name].split(' ').count > 1
+			first = params[:user][:name].split(' ')[0].capitalize
+			last = params[:user][:name].split(' ')[1].capitalize
+			params[:user][:name] = [first, last].join(' ')
+		end
 		params[:user][:email] = params[:user][:email].downcase
 		@user = User.new(params[:user])
 		if params[:secret_code] == code
@@ -62,6 +67,11 @@ class UsersController < ApplicationController
 	end
 
 	def update
+		if params[:user][:name].split(' ').count > 1
+			first = params[:user][:name].split(' ')[0].capitalize
+			last = params[:user][:name].split(' ')[1].capitalize
+			params[:user][:name] = [first, last].join(' ')
+		end
 		params[:user][:email] = params[:user][:email].downcase
 		@user = User.find(params[:id])
 		if current_user.admin?
