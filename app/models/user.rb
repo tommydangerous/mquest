@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 	friendly_id :name, use: :slugged
 
 	has_attached_file :photo,
-					  default_url: '/assets/default_image.jpg',
+					  default_url: '/assets/default_image.png',
 					  storage: :s3,
 					  s3_credentials: "#{Rails.root}/config/s3.yml",
 					  path: "/:style/:id/:filename"
