@@ -31,10 +31,14 @@
 	width: 14.2857142857143%
 }
 
+.dateDay {
+	text-align: right
+}
+
 .dateDay a {
 	display: block;
 	color: rgb(60, 60, 60);
-	padding: 5px 0 1px 5px;
+	padding: 5px 5px 1px 0;
 }
 
 .dateDay a:hover {
@@ -53,7 +57,7 @@
 	background: rgb(245, 245, 245);
 }
 
-.calendar .notmonth .dateDay a {
+.calendar .notmonth .dateDay a, .calendar .today.notmonth .dateDay a {
 	color: rgb(200, 200, 200);
 }
 
@@ -63,6 +67,10 @@
 
 .calendar .today {
 	background: rgb(245, 245, 245);
+}
+
+.calendar .today.notmonth {
+	background: rgb(255, 255, 255);
 }
 
 .calendar .today .dateDay a {
