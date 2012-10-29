@@ -12,7 +12,7 @@
 			<div class="clear"></div>
 		</div>
 		<div>
-			<p class="requestLabel"># Users</p>
+			<p class="requestLabel"><%= link_to 'Users', users_department_path(department) %></p>
 			<p class="requestData"><%= department.users.size %></p>
 			<div class="clear"></div>
 		</div>

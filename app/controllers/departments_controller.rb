@@ -53,4 +53,13 @@ class DepartmentsController < ApplicationController
 			render 'new'
 		end
 	end
+
+	def users
+		@department = Department.find(params[:id])
+		@title = "#{@department.name} Users"
+		@search = @department.users.search(params[:search])
+		per_page = params[:view_all] == '1' ? 999 : 10
+		@users = @search.order('name ASC').paginate(page: params[:page], per_page: per_page)
+		render 'users/index'
+	end
 end

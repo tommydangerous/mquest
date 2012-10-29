@@ -1,6 +1,10 @@
 Mquest::Application.routes.draw do
 
-	resources :departments
+	resources :departments do
+		member do
+			get :users
+		end
+	end
 	resources :events
 	resources :requests do
 		member do
