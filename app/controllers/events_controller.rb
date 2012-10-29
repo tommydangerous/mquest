@@ -4,6 +4,12 @@ class EventsController < ApplicationController
 
 	# Signed in users
 	def calendar
+		begin
+			Date.parse(params[:date])
+			@date = params[:date] ? Date.parse(params[:date]) : Date.today
+		rescue
+			@date = Date.today
+		end
 		if current_user.admin?
 			@events = Event.all
 		else
@@ -13,13 +19,17 @@ class EventsController < ApplicationController
 		@keys = @events_by_date.keys.map { |d| d.strftime("%Y-%m-%d") }
 		@values = @events_by_date.values
 		@hash = Hash[@keys.zip(@values)]
-		@date = params[:date] ? Date.parse(params[:date]) : Date.today
 		@title = @date.strftime("%B %Y")
 		render layout: 'calendar_layout'
 	end
 
 	def day
-		@date = params[:date] ? Date.parse(params[:date]) : Date.today
+		begin
+			Date.parse(params[:date])
+			@date = params[:date] ? Date.parse(params[:date]) : Date.today
+		rescue
+			@date = Date.today
+		end
 		@title = "#{@date.strftime('%b %-d, %y')}"
 		if current_user.admin?
 			@events = Event.where('event_date >= ? AND event_date < ?', @date, @date + 1).order('created_at').paginate(page: params[:page], per_page: 10)
