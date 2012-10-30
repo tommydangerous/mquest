@@ -30,12 +30,8 @@ class UsersController < ApplicationController
 	def create
 		secret = Secret.find_by_name('Sign Up')
 		code = secret ? secret.code : 'lotus'
-		if params[:user][:name].split(' ').count > 1
-			first = params[:user][:name].split(' ')[0].capitalize
-			last = params[:user][:name].split(' ')[1].capitalize
-			params[:user][:name] = [first, last].join(' ')
-		end
 		params[:user][:email] = params[:user][:email].downcase
+		params[:user][:name] = params[:user][:name].split(' ').map { |word| word.capitalize }.join(' ')
 		@user = User.new(params[:user])
 		if params[:secret_code] == code
 			if Department.find_by_id(params[:user][:department_id])
@@ -71,12 +67,8 @@ class UsersController < ApplicationController
 	end
 
 	def update
-		if params[:user][:name].split(' ').count > 1
-			first = params[:user][:name].split(' ')[0].capitalize
-			last = params[:user][:name].split(' ')[1].capitalize
-			params[:user][:name] = [first, last].join(' ')
-		end
 		params[:user][:email] = params[:user][:email].downcase
+		params[:user][:name] = params[:user][:name].split(' ').map { |word| word.capitalize }.join(' ')
 		@user = User.find(params[:id])
 		if @user.master? && !current_user.master?
 			flash[:notice] = 'You cannot edit the master user.'

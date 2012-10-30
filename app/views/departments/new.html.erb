@@ -14,6 +14,7 @@
 			<div class="action">
 				<%= f.submit "Save" %>
 				<%= link_to "Cancel", departments_path %>
+				<%= link_to 'Delete', @department, method: :delete, confirm: 'Delete department?' %>
 			</div>
 		</div>
 	<% end %>

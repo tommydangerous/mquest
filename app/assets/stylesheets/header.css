@@ -83,3 +83,7 @@
 .accountMenu ul li a:hover {
 	background: rgb(225, 225, 225);
 }
+
+.accountMenuDivider {
+	border-bottom: 1px dotted rgb(200, 200, 200);
+}

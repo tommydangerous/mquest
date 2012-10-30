@@ -15,8 +15,8 @@ class DepartmentsController < ApplicationController
 	end
 
 	def create
-		params[:department][:name] = params[:department][:name].split(' ').map { |word| word.capitalize }.join(' ')
 		@department = Department.new(params[:department])
+		params[:department][:name] = params[:department][:name].split(' ').map { |word| word.capitalize }.join(' ')
 		if params[:department][:max_off][/[0-9]+/]
 			if @department.save
 				flash[:success] = 'Department successfully created.'
@@ -52,6 +52,17 @@ class DepartmentsController < ApplicationController
 			flash.now[:error] = 'Max employees off per day must be a number.'
 			render 'new'
 		end
+	end
+
+	def destroy
+		department = Department.find(params[:id])
+		if department.users.empty?
+			flash[:success] = 'Department deleted.'
+			department.destroy
+		else
+			flash[:notice] = 'You cannot delete a department that has users.'
+		end
+		redirect_to departments_path
 	end
 
 	def users

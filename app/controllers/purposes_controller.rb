@@ -16,6 +16,7 @@ class PurposesController < ApplicationController
 
 	def create
 		@purpose = Purpose.new(params[:purpose])
+		params[:purpose][:name] = params[:purpose][:name].split(' ').map { |word| word.capitalize }.join(' ')
 		if @purpose.save
 			flash[:success] = 'Purpose successfully created.'
 			redirect_to purposes_path
@@ -33,6 +34,7 @@ class PurposesController < ApplicationController
 
 	def update
 		@purpose = Purpose.find(params[:id])
+		params[:purpose][:name] = params[:purpose][:name].split(' ').map { |word| word.capitalize }.join(' ')
 		if @purpose.update_attributes(params[:purpose])
 			flash[:success] = 'Purpose successfully updated.'
 			redirect_to purposes_path

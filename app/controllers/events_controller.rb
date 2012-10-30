@@ -72,41 +72,47 @@ class EventsController < ApplicationController
 		@event = Event.new(params[:event])
 		user = User.find_by_name(params[:user_name])
 		total_hours = params[:total_hours]
-		if total_hours != '' && total_hours[/[0-9]+/]
+		request_start = Time.zone.parse(params[:event_start])
+		request_end = Time.zone.parse(params[:event_end])
+		if !total_hours.blank? && total_hours[/[0-9]+/] && !request_start.blank? && !request_end.blank?
 			if user
-				request_start = Time.zone.parse(params[:event_start])
-				request_end = Time.zone.parse(params[:event_end])
 				if request_start > request_end
 					temp_sd = request_start
 					temp_ed = request_end
 					request_start = temp_ed
 					request_end = temp_sd
 				end
-				purpose = Purpose.search(params[:event_name])
-				if purpose.empty?
-					purpose = Purpose.create!(name: params[:event_name])
-				else
-					purpose = purpose[0]
-				end
-				request = user.requests.new(request_start: request_start,
-										    request_end: request_end,
-										    purpose_id: purpose.id,
-										    total_hours: total_hours,
-										    scheduled: true)
-				if request.save
-					request.approved = true
-					request.approved_by = current_user.id
-					request.manual = true
-					request.manual_by = current_user.id
-					request.save
-					create_decision(request, current_user)
-					create_events(user, current_user, request)
-					request.update_attribute(:total_days, request.events.size)
-					flash[:success] = 'Event(s) successfully created.'
-					redirect_to request
-				else
-					flash.now[:error] = 'Unable to create events and request.'
+				if params[:event_name].blank?
+					flash.now[:error] = 'Event name cannot be blank.'
 					render 'new'
+				else
+					purpose = Purpose.search(params[:event_name])
+					if purpose.empty?
+						event_name = params[:event_name].split(' ').map { |word| word.capitalize }.join(' ')
+						purpose = Purpose.create!(name: event_name)
+					else
+						purpose = purpose[0]
+					end
+					request = user.requests.new(request_start: request_start,
+											    request_end: request_end,
+											    purpose_id: purpose.id,
+											    total_hours: total_hours,
+											    scheduled: true)
+					if request.save
+						request.approved = true
+						request.approved_by = current_user.id
+						request.manual = true
+						request.manual_by = current_user.id
+						request.save
+						create_decision(request, current_user)
+						create_events(user, current_user, request)
+						request.update_attribute(:total_days, request.events.size)
+						flash[:success] = 'Event(s) successfully created.'
+						redirect_to request
+					else
+						flash.now[:error] = 'Unable to create events and request.'
+						render 'new'
+					end
 				end
 			else
 				@title = 'New Event'
@@ -114,7 +120,7 @@ class EventsController < ApplicationController
 				render 'new'
 			end
 		else
-			flash.now[:error] = 'Total hours cannot be blank.'
+			flash.now[:error] = 'Start date, end date, and total hours cannot be blank.'
 			render 'new'
 		end
 	end
@@ -126,6 +132,7 @@ class EventsController < ApplicationController
 
 	def update
 		@event = Event.find(params[:id])
+		params[:event][:name] = @event.request.purpose.name
 		user = User.find_by_name(params[:user_name])
 		if user
 			params[:event][:event_date] = params[:event][:event_date].to_datetime
