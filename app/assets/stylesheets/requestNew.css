@@ -127,6 +127,15 @@
 	margin: 0;
 }
 
+.requestForm select:hover {
+	border: 1px solid rgb(150, 150, 150);
+}
+
+.requestForm select:active, .requestForm select:focus {
+	border: 1px solid rgb(100, 100, 100);
+	outline: none;
+}
+
 .requestForm .field .requestFormPurpose {
 	width: 139px;
 }
@@ -185,15 +194,6 @@
 
 .requestForm .action a:hover {
 	background: rgb(195, 195, 195);
-}
-
-.requestForm select {
-	border: 1px solid rgb(200, 200, 200);
-	color: rgb(75, 75, 75);
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	padding: 10px;
-	margin: 0;
 }
 
 /* Error explanation */
