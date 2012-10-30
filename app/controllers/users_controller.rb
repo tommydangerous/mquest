@@ -64,6 +64,10 @@ class UsersController < ApplicationController
 	def edit
 		@title = "Edit Profile"
 		@user = User.find(params[:id])
+		if @user.master? && !current_user.master?
+			flash[:notice] = 'You cannot edit the master user.'
+			redirect_to edit_user_path(current_user)
+		end
 	end
 
 	def update

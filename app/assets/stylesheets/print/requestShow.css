@@ -198,6 +198,11 @@
 }
 
 /* Accrued time picture */
+.overlay {
+	margin: 0 auto;
+	padding: 40px 0;
+}
+
 .closeOverlay {
 	display: none;
 }
