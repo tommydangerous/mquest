@@ -156,7 +156,7 @@ $(document).ready(function() {
 			</div>
 			<div class="field">
 				<p>Purpose</p>
-				<%= text_field_tag :purpose, "#{@request.purpose}", readonly: 'readonly', class: 'requestFormPurpose' %>
+				<%= text_field_tag :purpose, "#{@request.purpose.name}", readonly: 'readonly', class: 'requestFormPurpose' %>
 			</div>
 		</div>
 		<div class="clear"></div>

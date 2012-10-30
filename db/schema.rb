@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121026195022) do
+ActiveRecord::Schema.define(:version => 20121030144229) do
 
   create_table "decisions", :force => true do |t|
     t.string   "name"
@@ -53,13 +53,20 @@ ActiveRecord::Schema.define(:version => 20121026195022) do
   add_index "events", ["request_id"], :name => "index_events_on_request_id"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
+  create_table "purposes", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "purposes", ["name"], :name => "index_purposes_on_name", :unique => true
+
   create_table "requests", :force => true do |t|
     t.integer  "user_id"
     t.datetime "request_start"
     t.datetime "request_end"
     t.integer  "total_days"
     t.integer  "total_hours"
-    t.string   "purpose"
     t.text     "comments"
     t.boolean  "scheduled"
     t.boolean  "called_in"
@@ -73,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20121026195022) do
     t.integer  "approved_by"
     t.integer  "denied_by"
     t.integer  "manual_by"
+    t.integer  "purpose_id"
   end
 
   add_index "requests", ["absence_paid"], :name => "index_requests_on_absence_paid"
@@ -84,7 +92,7 @@ ActiveRecord::Schema.define(:version => 20121026195022) do
   add_index "requests", ["denied_by"], :name => "index_requests_on_denied_by"
   add_index "requests", ["manual"], :name => "index_requests_on_manual"
   add_index "requests", ["manual_by"], :name => "index_requests_on_manual_by"
-  add_index "requests", ["purpose"], :name => "index_requests_on_purpose"
+  add_index "requests", ["purpose_id"], :name => "index_requests_on_purpose_id"
   add_index "requests", ["remarks"], :name => "index_requests_on_remarks"
   add_index "requests", ["request_end"], :name => "index_requests_on_request_end"
   add_index "requests", ["request_start"], :name => "index_requests_on_request_start"

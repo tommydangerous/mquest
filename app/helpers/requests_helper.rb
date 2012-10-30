@@ -30,7 +30,7 @@ module RequestsHelper
 			(sd.day..days_month).to_a.each do |day|
 				event_date = Time.zone.parse("#{sd.year}-#{sd.month}-#{day}")
 				if event_date.strftime('%A') != 'Sunday' && event_date.strftime('%A') != 'Saturday'
-					user.events.create!(name: request.purpose,
+					user.events.create!(name: request.purpose.name,
 										event_date: event_date,
 										date_requested: request.created_at,
 										approved_by: approver.id,
@@ -40,7 +40,7 @@ module RequestsHelper
 			(1..ed.day).to_a.each do |day|
 				event_date = Time.zone.parse("#{ed.year}-#{ed.month}-#{day}")
 				if event_date.strftime('%A') != 'Sunday' && event_date.strftime('%A') != 'Saturday'
-					user.events.create!(name: request.purpose,
+					user.events.create!(name: request.purpose.name,
 										event_date: event_date,
 										date_requested: request.created_at,
 										approved_by: approver.id,
@@ -49,7 +49,7 @@ module RequestsHelper
 			end
 		elsif ed.day - sd.day == 0
 			event_date = Time.zone.parse("#{sd.year}-#{sd.month}-#{sd.day}")
-			user.events.create!(name: request.purpose,
+			user.events.create!(name: request.purpose.name,
 								event_date: event_date,
 								date_requested: request.created_at,
 								approved_by: approver.id,
@@ -58,7 +58,7 @@ module RequestsHelper
 			(sd.day..ed.day).to_a.each do |day|
 				event_date = Time.zone.parse("#{sd.year}-#{sd.month}-#{day}")
 				if event_date.strftime('%A') != 'Sunday' && event_date.strftime('%A') != 'Saturday'
-					user.events.create!(name: request.purpose,
+					user.events.create!(name: request.purpose.name,
 										event_date: event_date,
 										date_requested: request.created_at,
 										approved_by: approver.id,

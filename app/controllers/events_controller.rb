@@ -82,10 +82,15 @@ class EventsController < ApplicationController
 					request_start = temp_ed
 					request_end = temp_sd
 				end
-				purpose = params[:event][:name]
+				purpose = Purpose.search(params[:event_name])
+				if purpose.empty?
+					purpose = Purpose.create!(name: params[:event_name])
+				else
+					purpose = purpose[0]
+				end
 				request = user.requests.new(request_start: request_start,
 										    request_end: request_end,
-										    purpose: purpose,
+										    purpose_id: purpose.id,
 										    total_hours: total_hours,
 										    scheduled: true)
 				if request.save

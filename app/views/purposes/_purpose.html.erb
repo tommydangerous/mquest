@@ -1,0 +1,16 @@
+<div class="request department" id="department_<%= purpose.id %>">
+	<div class="eventEdit">
+		<%= link_to 'Edit', edit_purpose_path(purpose) %>
+	</div>
+	<div class="requestUser">
+		<p><%= purpose.name %></p>
+	</div>
+	<div class="requestInfo">
+		<div>
+			<p class="requestLabel"><%= link_to 'Requests', requests_purpose_path(purpose) %></p>
+			<p class="requestData"><%= purpose.requests.size %></p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

@@ -57,11 +57,11 @@ class User < ActiveRecord::Base
 
 	before_save :encrypt_password
 
+	belongs_to :department
+	
 	has_many :events, dependent: :destroy
 	has_many :requests, dependent: :destroy
 	has_many :decisions, dependent: :destroy
-
-	belongs_to :department
 
 	def self.search(search)
 		if search

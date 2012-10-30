@@ -8,8 +8,10 @@ class Request < ActiveRecord::Base
  					:scheduled,
  					:called_in,
  					:absence_paid,
- 					:remarks
+ 					:remarks,
+ 					:purpose_id
 
+ 	belongs_to :purpose
  	belongs_to :user
 
  	has_many :events, dependent: :destroy
@@ -21,8 +23,12 @@ class Request < ActiveRecord::Base
  	validates :user_id, presence: true
 
  	def self.search(search)
+ 		purposes = Purpose.where("name ILIKE ?", "%#{search}%").map(&:id).join(', ')
+ 		if purposes.empty?
+ 			purposes = "NULL"
+ 		end
  		if search
- 			where("purpose ILIKE ? OR comments ILIKE ?", "%#{search}%", "%#{search}%")
+ 			where("purpose_id IN (#{purposes}) OR comments ILIKE ?", "%#{search}%")
  		else
  			scoped
  		end

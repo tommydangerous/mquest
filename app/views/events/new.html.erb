@@ -5,7 +5,7 @@
 			<%= render 'shared/error_messages', object: f.object %>
 			<div class="field">
 				<p>Event Name</p>
-				<%= f.text_field :name, autocomplete: 'off' %>
+				<%= text_field_tag :event_name, '', data: { autocomplete_source: purpose_list_path } %>
 			</div>
 			<div class="field eventNewDate">
 				<p>Start Date</p>

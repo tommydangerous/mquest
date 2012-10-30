@@ -6,6 +6,11 @@ Mquest::Application.routes.draw do
 		end
 	end
 	resources :events
+	resources :purposes do
+		member do
+			get :requests
+		end
+	end
 	resources :requests do
 		member do
 			get :approve
@@ -23,6 +28,9 @@ Mquest::Application.routes.draw do
 	root to: 'events#calendar'
 	match 'day' => 'events#day', as: 'day'
 	match 'month-select' => 'events#month_select', as: 'month_select'
+
+	# Purpose
+	match 'purpose-list' => 'purposes#purpose_list', as: 'purpose_list'
 
 	# Sessions
 	match 'sign-in' => 'sessions#new', as: 'signin'

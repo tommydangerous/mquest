@@ -48,7 +48,7 @@
 				</div>
 				<div class="field">
 					<p>Purpose</p>
-					<%= f.select :purpose, request_purpose %>
+					<%= f.select :purpose_id, options_for_select(@purposes) %>
 				</div>
 			</div>
 			<div class="clear"></div>

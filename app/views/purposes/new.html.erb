@@ -1,0 +1,20 @@
+<div class="userNew">
+	<p class="userNewHeader"><%= @title %></p>
+	<%= form_for @purpose do |f| %>
+		<div class="userNewForm">
+			<%= render 'shared/error_messages', object: f.object %>
+			<div class="field">
+				<p>Name</p>
+				<%= f.text_field :name, autocomplete: "off" %>
+			</div>
+			<div class="action">
+				<%= f.submit "Save" %>
+				<%= link_to "Cancel", purposes_path %>
+				<% if current_user.admin? %>
+					<%= link_to "Delete", @purpose, method: :delete, confirm: 'Delete purpose?' %>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+	<div class="clear"></div>
+</div>

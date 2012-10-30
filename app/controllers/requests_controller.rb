@@ -7,6 +7,7 @@ class RequestsController < ApplicationController
 	def new
 		@title = 'Request Time Off'
 		@request = Request.new
+		@purposes = Purpose.order(:name).collect { |p| [p.name, p.id] }
 	end
 
 	def create
@@ -17,9 +18,10 @@ class RequestsController < ApplicationController
 			params[:request][:request_end] = sd
 		end
 		@request = current_user.requests.new(params[:request])
+		@purposes = Purpose.order(:name).collect { |p| [p.name, p.id] }
 		if params[:request][:request_start] != '' || params[:request][:request_end] != ''
 			conflicts = request_check(@request)
-			if conflicts.empty? || params[:request][:purpose][/sick|unpaid/i]
+			if conflicts.empty? || Purpose.find(params[:request][:purpose_id]).name[/sick|unpaid/i]
 				if @request.save
 					flash[:success] = 'Request for time off has been successfully submitted.'
 					redirect_to current_user
