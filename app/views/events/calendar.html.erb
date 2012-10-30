@@ -87,7 +87,7 @@ $(document).ready(function() {
 				<ul>
 					<% @hash[date.to_s].each do |event| %>
 						<li id="event_<%= event.id %>">
-							<%= link_to event.user.name, event.user %>: <%= link_to event.name, event.request %>
+							<%= link_to event.user.name, event.user %>: <%= link_to event.purpose.name, event.request %>
 						</li>
 					<% end %>
 				</ul>

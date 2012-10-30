@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030144229) do
+ActiveRecord::Schema.define(:version => 20121030194813) do
 
   create_table "decisions", :force => true do |t|
     t.string   "name"
@@ -44,12 +44,13 @@ ActiveRecord::Schema.define(:version => 20121030144229) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "request_id"
+    t.integer  "purpose_id"
   end
 
   add_index "events", ["approved_by"], :name => "index_events_on_approved_by"
   add_index "events", ["date_requested"], :name => "index_events_on_date_requested"
   add_index "events", ["event_date"], :name => "index_events_on_event_date"
-  add_index "events", ["name"], :name => "index_events_on_name"
+  add_index "events", ["purpose_id"], :name => "index_events_on_purpose_id"
   add_index "events", ["request_id"], :name => "index_events_on_request_id"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 

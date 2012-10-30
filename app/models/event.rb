@@ -1,21 +1,28 @@
 class Event < ActiveRecord::Base
-	attr_accessible :name,
-					:event_date,
+	attr_accessible :event_date,
 					:date_requested,
 					:approved_by,
-					:request_id
+					:request_id,
+					:purpose_id
 	
 	belongs_to :user
 	belongs_to :request
+	belongs_to :purpose
 
-	validates :name, presence: true
 	validates :event_date, presence: true
 	validates :user_id, presence: true, on: :create
 	validates :request_id, presence: true
+	validates :purpose_id, presence: true
 
 	def self.search(search)
+		purposes = Purpose.where("name ILIKE ?", "%#{search}%")
+		if purposes.empty?
+			purpose_ids = "NULL"
+		else
+			purpose_ids = purposes.map { |purpose| purpose.id }.join(', ')
+		end
  		if search
- 			where("name ILIKE ?", "%#{search}%")
+ 			where("purpose_id IN (#{purpose_ids})")
  		else
  			scoped
  		end

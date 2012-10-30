@@ -132,7 +132,6 @@ class EventsController < ApplicationController
 
 	def update
 		@event = Event.find(params[:id])
-		params[:event][:name] = @event.request.purpose.name
 		user = User.find_by_name(params[:user_name])
 		if user
 			params[:event][:event_date] = params[:event][:event_date].to_datetime
