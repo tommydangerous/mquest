@@ -10,9 +10,7 @@
 			<div class="action">
 				<%= f.submit "Save" %>
 				<%= link_to "Cancel", purposes_path %>
-				<% if current_user.admin? %>
-					<%= link_to "Delete", @purpose, method: :delete, confirm: 'Delete purpose?' %>
-				<% end %>
+				<%= link_to "Delete", @purpose, method: :delete, confirm: 'Delete purpose?' %>
 			</div>
 		</div>
 	<% end %>

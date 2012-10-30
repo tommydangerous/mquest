@@ -1,7 +1,6 @@
 class PurposesController < ApplicationController
 	before_filter :authenticate
 	before_filter :admin_user
-	before_filter :master_user, only: :destroy
 
 	def index
 		@title = 'All Purposes'
@@ -53,20 +52,19 @@ class PurposesController < ApplicationController
 		render 'requests/index'
 	end
 
-	def purpose_list
-		@purposes = Purpose.search(params[:term]).order(:name)
-		render json: @purposes.map(&:name)
-	end
-
-	# Master user
 	def destroy
 		purpose = Purpose.find(params[:id])
 		if purpose.requests.empty?
 			flash[:success] = 'Purpose deleted.'
 			purpose.destroy
 		else
-			flash[:notice] = 'This purpose has many requests. Cannot delete.'
+			flash[:notice] = 'You cannot delete a purpose that has requests.'
 		end
 		redirect_to purposes_path
+	end
+
+	def purpose_list
+		@purposes = Purpose.search(params[:term]).order(:name)
+		render json: @purposes.map(&:name)
 	end
 end
