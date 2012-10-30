@@ -20,6 +20,7 @@ class Request < ActiveRecord::Base
  	validates :request_start, presence: true
  	validates :request_end, presence: true
  	validates :total_hours, presence: true
+ 	validates :purpose_id, presence: true
  	validates :user_id, presence: true
 
  	def self.search(search)

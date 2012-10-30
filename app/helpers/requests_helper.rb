@@ -1,19 +1,5 @@
 module RequestsHelper
 
-	def request_purpose
-		[
-			'Bereavement',
-			'Jury Duty',
-			'Leave of Absence',
-			'Personal',
-			'Sick',
-			'Unpaid Time Off',
-			'Vacation',
-			'Volunteer',
-			'Vote'
-		]
-	end
-
 	def create_events(user, approver, request)
 		sd = request.request_start
 		ed = request.request_end
