@@ -1,6 +1,12 @@
 @media print {
 
-/* Select */	
+/* Select */
+.calendarMonthPrint {
+	font-size: 12px;
+	padding: 20px 0 10px 0;
+	text-align: center;
+}
+
 .calendarControl {
 	display: none;
 }

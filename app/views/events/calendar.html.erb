@@ -37,6 +37,9 @@ $(document).ready(function() {
 })
 </script>
 <% end %>
+<div class="calendarMonthPrint">
+	<p><%= @date.strftime("%B %Y") %></p>
+</div>
 <div class="calendarControl">
 	<div class="controlToday">
 		<%= link_to 'Today', date: Date.today %>

@@ -1,3 +1,7 @@
+.calendarMonthPrint {
+	display: none;
+}
+
 .calendarControl {
 	background: rgb(245, 245, 245);
 	border-bottom: 1px solid rgb(200, 200, 200);
