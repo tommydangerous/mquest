@@ -10,13 +10,13 @@
 	</div>
 	<div class="requestInfo">
 		<div>
-			<p class="requestLabel">Email:</p>
-			<p class="requestData"><%= user.email %></p>
+			<p class="requestLabel">Dept:</p>
+			<p class="requestData"><%= link_to user.department.name, users_department_path(user.department) %></p>
 			<div class="clear"></div>
 		</div>
 		<div>
-			<p class="requestLabel">Department:</p>
-			<p class="requestData"><%= user.department.name if user.department %></p>
+			<p class="requestLabel">Email:</p>
+			<p class="requestData"><%= mail_to user.email, user.email %></p>
 			<div class="clear"></div>
 		</div>
 		<div>
