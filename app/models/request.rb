@@ -52,6 +52,7 @@ class Request < ActiveRecord::Base
  		ed = self.request_end
  		mn = sd.month
 		yr = sd.year
+		days_month = Time.days_in_month(mn, year = yr)
  		if sd > ed
 			temp_ed = sd
 			temp_sd = ed
