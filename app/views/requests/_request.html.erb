@@ -12,6 +12,13 @@
 	</div>
 	<div class="requestInfo">
 		<div>
+			<p class="requestLabel">Dept:</p>
+			<p class="requestData">
+				<%= link_to request.user.department.name, users_department_path(request.user.department) %>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div>
 			<p class="requestLabel">Purpose:</p>
 			<p class="requestData"><%= request.purpose.name %></p>
 			<div class="clear"></div>

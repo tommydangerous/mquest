@@ -7,8 +7,10 @@ $(document).ready(function() {
 		var id = $(this).attr('id').split('_')[1];
 		$('#department_' + id + ' .eventEdit').hide();
 	});
-	$('.departmentReq').live('click', function() {
-		var url = $('.departmentReqSearch select').val();
-		window.location.href = url;
+	$('.departmentReqSearch select').live('change', function() {
+		var url = $(this).find('option:selected').val();
+		if (url.length > 0) {
+			window.location.href = url;
+		}
 	})
 });
