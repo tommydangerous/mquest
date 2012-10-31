@@ -30,6 +30,9 @@ Mquest::Application.routes.draw do
 	match 'day' => 'events#day', as: 'day'
 	match 'month-select' => 'events#month_select', as: 'month_select'
 
+	# Pages
+	match 'test' => 'pages#test', as: 'test'
+
 	# Purpose
 	match 'purpose-list' => 'purposes#purpose_list', as: 'purpose_list'
 
