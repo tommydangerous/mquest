@@ -129,7 +129,7 @@ $(document).ready(function() {
 							<% else %>
 							<div class="dateDay">
 							<% end %>
-								<% if date.month == @start.month %>
+								<% if date.month == @end.month %>
 									<% if @dept_conflicts.include?(date) %>
 										<%= link_to date.day, day_path(date: date), class: 'deptConflict', title: 'Department Conflict' %>
 									<% elsif @day_conflicts.include?(date) %>
