@@ -1,0 +1,9 @@
+<div class="searchForm eventSearch departmentReqSearch">
+	<div class="field">
+		<%= select :department_req, :department_req, department_req, include_blank: true %>
+	</div>
+	<div class="action">
+		<%= submit_tag "Search", name: nil, class: 'departmentReq' %>
+		<%= link_to 'View All', requests_path %>
+	</div>
+</div>

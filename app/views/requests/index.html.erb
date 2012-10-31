@@ -4,7 +4,7 @@
 		<li><%= link_to 'View All', url_for(params.merge({view_all: 1})) %></li>
 	</ul>
 </div>
-<%= render 'shared/search' %>
+<%= render 'requests/department_requests' %>
 <div class="pageContent">
 	<p class="pageHeader"><%= @title %>: <%= @search.size %></p>
 	<div class="index">

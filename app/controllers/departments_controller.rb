@@ -65,6 +65,16 @@ class DepartmentsController < ApplicationController
 		redirect_to departments_path
 	end
 
+	def requests
+		@department = Department.find(params[:id])
+		@title = "#{@department.name} Requests"
+		@search = @department.requests
+		per_page = params[:view_all] == '1' ? 999 : 10
+		@requests = @search.paginate(page: params[:page], per_page: per_page)
+		@requests_by_date = @requests.group_by(&:month_day_year)
+		render 'requests/index'
+	end
+
 	def users
 		@department = Department.find(params[:id])
 		@title = "#{@department.name} Users"

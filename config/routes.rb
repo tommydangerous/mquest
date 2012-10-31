@@ -2,6 +2,7 @@ Mquest::Application.routes.draw do
 
 	resources :departments do
 		member do
+			get :requests
 			get :users
 		end
 	end

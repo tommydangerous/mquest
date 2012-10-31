@@ -14,4 +14,10 @@ class Department < ActiveRecord::Base
 			scoped
 		end
 	end
+
+	def requests
+		user_ids = self.users.map(&:id).join(', ')
+		user_ids = "NULL" if user_ids.empty?
+		requests = Request.where("user_id IN (#{user_ids}) AND approved = ? AND denied = ?", false, false).order('created_at ASC')
+	end
 end

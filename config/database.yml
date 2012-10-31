@@ -4,7 +4,7 @@ development:
   database: mquest_development
   pool: 5
   username: postgres
-  password: ereinion05
+  password: postgres
 
 test:
   adapter: postgresql
@@ -12,4 +12,4 @@ test:
   database: mquest_test
   pool: 5
   username: postgres
-  password: ereinion05
+  password: postgres
