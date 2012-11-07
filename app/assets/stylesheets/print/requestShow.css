@@ -193,6 +193,15 @@
 	width: 50px;
 }
 
+.hoursError {
+	color: rgb(255, 26, 0);
+	display: none;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 0;
+	margin: -25px 0 0 90px;
+	position: absolute;
+}
+
 .requestForm .action {
 	display: none;
 }

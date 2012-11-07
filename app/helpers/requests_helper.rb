@@ -99,4 +99,21 @@ module RequestsHelper
 		end
 		conflict_days
 	end
+
+	def request_note
+		"Per Company Policy, your supervisor may deny your request at "\
+		"his/her discretion if granting the request will negatively "\
+		"impact the business needs of your department. When possible, "\
+		"follow your department\'s specific lead time requirements for "\
+		"all requests."
+	end
+
+	def request_disclaimer
+		"Your supervisor may request proof of available hours "\
+		"(obtained from your ADP Pay Statement). All requests are "\
+		"verified by P/R before they are processed in the correct "\
+		"payroll period to ensure hours are available. Any time off "\
+		"that cannot be covered by accrued hours will be considered "\
+		"UNPAID."
+	end
 end

@@ -150,6 +150,15 @@
 	width: 50px;
 }
 
+.hoursError {
+	color: rgb(255, 26, 0);
+	display: none;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	margin: -25px 0 0 90px;
+	position: absolute;
+}
+
 .requestForm .action {
 	float: right;
 	padding: 20px 0 0 0;

@@ -13,7 +13,7 @@
 			<div class="requestCheckbox">
 				<div class="scheduled">
 					<p>Scheduled?</p>
-					<%= f.check_box :scheduled %>
+					<%= f.check_box :scheduled, checked: 'checked' %>
 				</div>
 				<div class="notScheduled">
 					<p>Called In?</p>
@@ -41,35 +41,46 @@
 						<%= f.text_field :total_days, autocomplete: 'off', placeholder: '5' %>
 					</div>
 					<div class="field">
-						<p>Total # Hours</p>
+						<p>Total Hours*</p>
 						<%= f.text_field :total_hours, autocomplete: 'off', placeholder: '40' %>
+						<div class="hoursError hoursErrorNone">
+							Please enter a number.
+						</div>
+						<div class="hoursError hoursError4">
+							Minimum of 4 hours required.
+						</div>
+						<div class="hoursError hoursError8">
+							Minimum of 8 hours required.
+						</div>
 					</div>
 					<div class="clear"></div>
 				</div>
-				<div class="field">
-					<p>Purpose</p>
-					<%= f.select :purpose_id, options_for_select(@purposes) %>
-				</div>
 			</div>
 			<div class="clear"></div>
+			<div class="field">
+				<p>
+					*If the purpose of your request is sick, you must use a minimum of 4 hours.<br />
+					*If the purpose of your request is personal or vacation, you must use a minimum of 8 hours.
+				</p>
+			</div>
+			<div class="field">
+				<p>Purpose</p>
+				<%= f.select :purpose_id, options_for_select(@purposes) %>
+			</div>
 			<div class="field">
 				<p>Comments</p>
 				<%= f.text_area :comments %>
 			</div>
 			<div class="field">
 				<p><b>Note</b></p>
-				<p>
-					Per Company Policy, your supervisor may deny your request at his/her discretion if granting the request will negatively impact the business needs of your department. When possible, follow your department’s specific lead time requirements for all requests.
-				</p>
+				<p><%= request_note %></p>
 			</div>
 			<div class="field">
 				<p><b>Disclaimer</b></p>
-				<p>
-					Your supervisor may request proof of available hours (obtained from your ADP Pay Statement). All requests are verified by P/R before they are processed in the correct payroll period to ensure hours are available. Any time off that cannot be covered by accrued hours will be considered UNPAID.
-				</p>
+				<p><%= request_disclaimer %></p>
 			</div>
 			<div class="action">
-				<%= f.submit 'Submit' %>
+				<%= f.submit 'Submit', class: "requestFormSubmit" %>
 				<%= link_to 'Cancel', current_user %>
 			</div>
 		<% end %>
