@@ -37,12 +37,12 @@ $(document).ready(function() {
 			$('#request_total_hours').focus();
 			return false;
 		}
-		else if (purpose == 5 && hours < 4) {
+		else if (purpose == 5 && hours < 4 || purpose == 7 && hours < 4) {
 			$('.hoursError4').show();
 			$('#request_total_hours').focus();
 			return false;
 		}
-		else if (purpose == 4 && hours < 8 || purpose == 7 && hours < 8) {
+		else if (purpose == 4 && hours < 8) {
 			$('.hoursError8').show();
 			$('#request_total_hours').focus();
 			return false;
@@ -55,10 +55,10 @@ $(document).ready(function() {
 		if (!isNaN(hours)) {
 			$('.hoursErrorNone').hide();
 		}
-		if (purpose == 5 && hours >= 4) {
+		if (purpose == 5 && hours >= 4 || purpose == 7 && hours >= 4) {
 			$('.hoursError4').hide();
 		}
-		if (purpose == 4 && hours >= 8 || purpose == 7 && hours >= 8) {
+		if (purpose == 4 && hours >= 8) {
 			$('.hoursError8').hide();
 		}
 	})
