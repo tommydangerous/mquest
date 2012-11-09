@@ -157,8 +157,7 @@ class UsersController < ApplicationController
 		per_page = params[:view_all] == '1' ? 999 : 10
 		@requests = @search.order('created_at DESC').paginate(page: params[:page], per_page: per_page)
 		@requests_by_date = @requests.group_by(&:month_day_year)
-	rescue ActiveRecord::RecordNotFound
-		redirect_to root_path
+		@approved = @search.where('approved = ?', true)
 	end
 
 	# Admin users

@@ -1,7 +1,9 @@
 <%= render 'user_nav' %>
 <%= render 'event_search' %>
 <div class="pageContent">
-	<p class="pageHeader"><%= @user.first_name %>: <%= pluralize(@search.size, "#{params[:search]} Event") %> - <%= pluralize(@hours, 'Hour') %></p>
+	<p class="pageHeader">
+		<%= pluralize(@search.size, "#{params[:search]} Event") %>: <%= pluralize(@hours, 'Hour') %>
+	</p>
 	<div class="index">
 		<% @events_by_date.each do |date, events| %>
 			<div class="indexDate">

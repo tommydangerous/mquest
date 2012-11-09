@@ -1,7 +1,9 @@
 <%= render 'user_nav' %>
 <%= render 'shared/search' %>
 <div class="pageContent">
-	<p class="pageHeader"><%= @user.first_name %>: <%= pluralize(@search.size, 'Request') %></p>
+	<p class="pageHeader">
+		<%= pluralize(@search.size, 'Request') %>: <%= @approved.size %> Approved
+	</p>
 	<div class="index">
 		<% @requests_by_date.each do |date, requests| %>
 			<div class="indexDate">
