@@ -1,6 +1,7 @@
 class RequestsController < ApplicationController
 	before_filter :authenticate
-	before_filter :admin_user, except: [:new, :create, :show]
+	before_filter :admin_user, except: [:new, :create, :show, 
+										:days_calculation]
 	before_filter :master_user, only: [:destroy]
 
 	# Signed in users
