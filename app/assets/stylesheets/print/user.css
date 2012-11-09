@@ -1,0 +1,15 @@
+/* User show */
+.userShowName {
+	color: rgb(75, 75, 75);
+	font-size: 42px;
+	padding: 20px 0 10px 0;
+}
+
+.userShowData {
+	font-size: 15px;
+	padding: 0 0 0 10px;
+}
+
+.userShowData div {
+	margin: 0 0 5px 0;
+}

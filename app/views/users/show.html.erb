@@ -1,18 +1,37 @@
+<%= content_for :head do %>
+<script>
+$(document).ready(function() {
+	$('.viewAll').hide();
+});
+</script>
+<% end %>
 <%= render 'user_nav' %>
-<%= render 'shared/search' %>
 <div class="pageContent">
-	<p class="pageHeader"><%= @user.first_name %> <%= @user.department.name %>: <%= pluralize(@search.size, 'Request') %></p>
-	<div class="index">
-		<% @requests_by_date.each do |date, requests| %>
-			<div class="indexDate">
-				<p class="indexDateHeader">
-					<%= link_to "#{date[0]} #{date[2]}, #{date[3]}", root_path(date: "#{date[3]}-#{date[1]}-#{date[2]}") %>
-				</p>
-				<%= render partial: 'requests/request', collection: requests, as: :request %>
-			</div>
-		<% end %>
+	<p class="userShowName"><%= @user.name %></p>
+	<div class="userShowData">
+		<div class="userShowDepartment">
+			<p><%= @user.department.name %></p>
+		</div>
+		<div class="userShowRequests">
+			<p><%= pluralize(@requests.size, 'Request') %>: <%= @approved.size %> Approved</p>
+		</div>
+		<div class="userShowEvents">
+			<p><%= pluralize(@events.size, 'Event') %>: <%= pluralize(@hours, 'Hour') %></p>
+		</div>
+		<div class="userShowNextEvent">
+			<p>
+				Next Event: 
+				<% if @next_event %>
+					<%= @next_event.purpose.name %> - 
+					<%= link_to(day_path(date: @next_event.event_date.strftime("%Y-%m-%d"))) do %>
+						<%= @next_event.event_date.strftime("%B %d, %Y") %>
+					<% end %>
+				<% else %>
+					None
+				<% end %>
+			</p>
+		</div>
 	</div>
-	<%= will_paginate @requests, separator: '' %>
 </div>
 <div class="overlay userOverlay">
 	<%= link_to image_tag('/assets/close.png'), '#', class: 'closeOverlay' %>

@@ -22,6 +22,7 @@ Mquest::Application.routes.draw do
 	resources :users do
 		member do
 			get :events
+			get :requests
 		end
 	end
 

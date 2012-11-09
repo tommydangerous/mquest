@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 	before_filter :authenticate, except: [:department_secret, :new, :create]
-	before_filter :correct_user_admin_user, only: [:edit, :update, :events]
+	before_filter :correct_user_admin_user, only: [:edit, :update, :show, 
+												   :events, :requests]
 	before_filter :admin_user, only: [:index, :user_list]
 	before_filter :master_user, only: [:destroy]
 
@@ -114,6 +115,24 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def show
+		@user = User.find(params[:id])
+		@title = "#{@user.name}"
+		@requests = @user.requests
+		@approved = @user.requests.where('approved = ?', true)
+		@events = @user.events
+		request_ids = @user.events.map { |event| event.request_id }.uniq
+		if request_ids.empty?
+			requests = []
+			@hours = 0
+		else
+			requests = Request.where("id IN (#{request_ids.join(', ')})")
+			@hours = requests.select { |request| request.total_hours }.map { |request| request.total_hours }.sum
+		end
+		now = [Time.now.year, Time.now.month, Time.now.day].join('-').to_datetime
+		@next_event = @user.events.where('event_date >= ?', now).order('event_date ASC').first
+	end
+
 	def events
 		@user = User.find(params[:id])
 		@title = "#{@user.name}'s Events"
@@ -131,14 +150,13 @@ class UsersController < ApplicationController
 		end
 	end
 
-	def show
+	def requests
 		@user = User.find(params[:id])
 		@title = "#{@user.name}'s Requests"
 		@search = @user.requests.search(params[:search])
 		per_page = params[:view_all] == '1' ? 999 : 10
 		@requests = @search.order('created_at DESC').paginate(page: params[:page], per_page: per_page)
 		@requests_by_date = @requests.group_by(&:month_day_year)
-		redirect_to current_user unless @user == current_user || current_user.admin?
 	rescue ActiveRecord::RecordNotFound
 		redirect_to root_path
 	end

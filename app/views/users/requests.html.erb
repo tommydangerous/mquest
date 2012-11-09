@@ -1,0 +1,20 @@
+<%= render 'user_nav' %>
+<%= render 'shared/search' %>
+<div class="pageContent">
+	<p class="pageHeader"><%= @user.first_name %>: <%= pluralize(@search.size, 'Request') %></p>
+	<div class="index">
+		<% @requests_by_date.each do |date, requests| %>
+			<div class="indexDate">
+				<p class="indexDateHeader">
+					<%= link_to "#{date[0]} #{date[2]}, #{date[3]}", root_path(date: "#{date[3]}-#{date[1]}-#{date[2]}") %>
+				</p>
+				<%= render partial: 'requests/request', collection: requests, as: :request %>
+			</div>
+		<% end %>
+	</div>
+	<%= will_paginate @requests, separator: '' %>
+</div>
+<div class="overlay userOverlay">
+	<%= link_to image_tag('/assets/close.png'), '#', class: 'closeOverlay' %>
+	<%= image_tag @user.photo.url, class: 'userPhoto' %>
+</div>

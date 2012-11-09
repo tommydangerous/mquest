@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 					:department_id
 
 	# Name
-	validate :name_validation	
+	validate :name_validation
 	def name_validation
 		if name.blank?
 			errors.add(:name, "cannot be blank")
