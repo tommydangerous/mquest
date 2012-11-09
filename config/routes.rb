@@ -36,6 +36,9 @@ Mquest::Application.routes.draw do
 	# Purpose
 	match 'purpose-list' => 'purposes#purpose_list', as: 'purpose_list'
 
+	# Request
+	match 'total-days-calculation' => 'requests#days_calculation', as: 'days_calculation'
+
 	# Sessions
 	match 'sign-in' => 'sessions#new', as: 'signin'
 	match 'sign-out' => 'sessions#destroy', as: 'signout'

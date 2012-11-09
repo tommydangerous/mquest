@@ -1,39 +1,17 @@
 module RequestsHelper
 
 	def create_events(user, approver, request)
-		sd = request.request_start
-		ed = request.request_end
-		mn = request.request_start.month
-		yr = request.request_start.year
-		days_month = Time.days_in_month(mn, year = yr)
+		sd = request.request_start.to_datetime
+		ed = request.request_end.to_datetime
 		if sd > ed
 			temp_ed = sd
 			temp_sd = ed
 			sd = temp_sd
 			ed = temp_ed
 		end
-		if ed.day - sd.day < 0
-			(sd.day..days_month).to_a.each do |day|
-				event_date = Time.zone.parse("#{sd.year}-#{sd.month}-#{day}")
-				if event_date.strftime('%A') != 'Sunday' && event_date.strftime('%A') != 'Saturday'
-					user.events.create!(purpose_id: request.purpose.id,
-										event_date: event_date,
-										date_requested: request.created_at,
-										approved_by: approver.id,
-										request_id: request.id)
-				end
-			end
-			(1..ed.day).to_a.each do |day|
-				event_date = Time.zone.parse("#{ed.year}-#{ed.month}-#{day}")
-				if event_date.strftime('%A') != 'Sunday' && event_date.strftime('%A') != 'Saturday'
-					user.events.create!(purpose_id: request.purpose.id,
-										event_date: event_date,
-										date_requested: request.created_at,
-										approved_by: approver.id,
-										request_id: request.id)
-				end
-			end
-		elsif ed.day - sd.day == 0
+		mn = request.request_start.month
+		yr = request.request_start.year
+		if (ed - sd).to_i == 0
 			event_date = Time.zone.parse("#{sd.year}-#{sd.month}-#{sd.day}")
 			user.events.create!(purpose_id: request.purpose.id,
 								event_date: event_date,
@@ -41,17 +19,44 @@ module RequestsHelper
 								approved_by: approver.id,
 								request_id: request.id)
 		else
-			(sd.day..ed.day).to_a.each do |day|
-				event_date = Time.zone.parse("#{sd.year}-#{sd.month}-#{day}")
-				if event_date.strftime('%A') != 'Sunday' && event_date.strftime('%A') != 'Saturday'
+			date_array = []
+			sd.upto(ed) { |date| date_array.push(date) }
+			date_array.each do |day|
+				if day.strftime('%A') != 'Sunday' && day.strftime('%A') != 'Saturday'
 					user.events.create!(purpose_id: request.purpose.id,
-										event_date: event_date,
+										event_date: day,
 										date_requested: request.created_at,
 										approved_by: approver.id,
 										request_id: request.id)
 				end
 			end
 		end
+	end
+
+	def count_days(start_date, end_date)
+		days = 0
+		sd = start_date.to_datetime
+		ed = end_date.to_datetime
+		if sd > ed
+			temp_ed = sd
+			temp_sd = ed
+			sd = temp_sd
+			ed = temp_ed
+		end
+		mn = sd.month
+		yr = sd.year
+		if (ed - sd).to_i == 0
+			days += 1
+		else
+			date_array = []
+			sd.upto(ed) { |date| date_array.push(date) }
+			date_array.each do |day|
+				if day.strftime('%A') != 'Sunday' && day.strftime('%A') != 'Saturday'
+					days += 1
+				end
+			end
+		end
+		days
 	end
 
 	def create_decision(request, user)

@@ -3,6 +3,10 @@
 	width: 189px;
 }
 
+.userNewForm .field.eventNewDate input:hover {
+	cursor: pointer;
+}
+
 /* Event partial */
 .eventEdit {
 	display: none;

@@ -9,6 +9,5 @@ class PagesController < ApplicationController
 
 	def test
 		@title = 'Test'
-		error
 	end
 end

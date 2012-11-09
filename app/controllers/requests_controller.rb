@@ -57,6 +57,19 @@ class RequestsController < ApplicationController
 		redirect_to root_path
 	end
 
+	def days_calculation
+		respond_to do |format|
+			format.html {
+				redirect_to new_request_path
+			}
+			format.js {
+				start_date = params[:start_date]
+				end_date = params[:end_date]
+				@days = count_days(start_date, end_date)
+			}
+		end
+	end
+
 	# Admin users
 	def index
 		@title = 'Employee Requests'
