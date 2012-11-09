@@ -6,3 +6,7 @@
 		<li><%= link_to 'View All', url_for(params.merge({view_all: 1})), class: 'viewAll' %></li>
 	</ul>
 </div>
+<div class="overlay userOverlay">
+	<%= link_to image_tag('/assets/close.png'), '#', class: 'closeOverlay' %>
+	<%= image_tag @user.photo.url, class: 'userPhoto' %>
+</div>
