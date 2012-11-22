@@ -42,7 +42,7 @@ $(document).ready(function() {
 </div>
 <div class="calendarControl">
 	<div class="controlToday">
-		<%= link_to 'Today', date: Date.today %>
+		<%= link_to 'Today', date: Time.zone.now.to_date %>
 	</div>
 	<div class="controlSelect">
 		<%= form_tag month_select_path, method: :get do %>
@@ -50,10 +50,10 @@ $(document).ready(function() {
 				<%= submit_tag 'View Month', name: nil, tabindex: 3 %>
 			</div>
 			<div class="field selectYear">
-				<%= text_field_tag :year, params[:year], autocomplete: 'off', placeholder: "#{Date.today.strftime('%y')}", tabindex: 2, title: 'Year' %>
+				<%= text_field_tag :year, params[:year], autocomplete: 'off', placeholder: "#{Time.zone.now.to_date.strftime('%y')}", tabindex: 2, title: 'Year' %>
 			</div>
 			<div class="field selectMonth">
-				<%= text_field_tag :month, params[:month], autocomplete: 'off', placeholder: "#{Date.today.month}", tabindex: 1, title: 'Month' %>
+				<%= text_field_tag :month, params[:month], autocomplete: 'off', placeholder: "#{Time.zone.now.to_date.month}", tabindex: 1, title: 'Month' %>
 			</div>
 		<% end %> 
 	</div>

@@ -6,9 +6,9 @@ class EventsController < ApplicationController
 	def calendar
 		begin
 			Date.parse(params[:date])
-			@date = params[:date] ? Date.parse(params[:date]) : Date.today
+			@date = params[:date] ? Date.parse(params[:date]) : Time.zone.now.to_date
 		rescue
-			@date = Date.today
+			@date = Time.zone.now.to_date
 		end
 		if current_user.admin?
 			@events = Event.all
@@ -26,9 +26,9 @@ class EventsController < ApplicationController
 	def day
 		begin
 			Date.parse(params[:date])
-			@date = params[:date] ? Date.parse(params[:date]) : Date.today
+			@date = params[:date] ? Date.parse(params[:date]) : Time.zone.now.to_date
 		rescue
-			@date = Date.today
+			@date = Time.zone.now.to_date
 		end
 		@title = "#{@date.strftime('%b %-d, %y')}"
 		if current_user.admin?
@@ -42,16 +42,16 @@ class EventsController < ApplicationController
 		m = params[:month]
 		y = params[:year]
 		if m == '' || m.length > 2 || !m.to_i.between?(1, 12)
-			month = Date.today.month
+			month = Time.zone.now.to_date.month
 		else
 			month = m
 		end
 		if y == '' || y.length > 4
-			year = Date.today.year
+			year = Time.zone.now.to_date.year
 		else
 			year = y
 		end
-		redirect_to root_path(date: "#{year}-#{month}-#{Date.today.day}")
+		redirect_to root_path(date: "#{year}-#{month}-#{Time.zone.now.to_date.day}")
 	end
 
 	# Admin users

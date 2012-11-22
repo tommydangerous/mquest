@@ -1,6 +1,6 @@
 module CalendarHelper
-	
-	def calendar(date = Date.today, &block)
+
+	def calendar(date = Time.zone.now.to_date, &block)
 		Calendar.new(self, date, block).table
 	end
 
@@ -36,7 +36,7 @@ module CalendarHelper
 
 		def day_classes(day)
 			classes = []
-			classes << "today" if day == Date.today
+			classes << "today" if day == Time.zone.now.to_date
 			classes << "notmonth" if day.month != date.month
 			classes.empty? ? nil : classes.join(" ")
 		end
@@ -48,7 +48,7 @@ module CalendarHelper
 		end
 	end
 
-	def calendar_short(date = Date.today, &block)
+	def calendar_short(date = Time.zone.now.to_date, &block)
 		Calendarshort.new(self, date, block).table
 	end
 
@@ -84,7 +84,7 @@ module CalendarHelper
 
 		def day_classes(day)
 			classes = []
-			classes << "today" if day == Date.today
+			classes << "today" if day == Time.zone.now.to_date
 			classes << "notmonth" if day.month != date.month
 			classes.empty? ? nil : classes.join(" ")
 		end
