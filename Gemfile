@@ -18,8 +18,7 @@ group :production do
 end
 
 group :development do
-	gem 'sqlite3'
-	gem 'taps'
+#	gem 'sqlite3'
 end
 
 group :assets do
