@@ -12,6 +12,8 @@ class RequestsController < ApplicationController
 	end
 
 	def create
+		params[:request][:request_start] = params[:request][:request_start].to_datetime + 12.hour
+		params[:request][:request_end] = params[:request][:request_end].to_datetime + 12.hour
 		sd = params[:request][:request_start]
 		ed = params[:request][:request_end]
 		if sd > ed

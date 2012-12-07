@@ -72,8 +72,8 @@ class EventsController < ApplicationController
 		@event = Event.new(params[:event])
 		user = User.find_by_name(params[:user_name])
 		total_hours = params[:total_hours]
-		request_start = Time.zone.parse(params[:event_start])
-		request_end = Time.zone.parse(params[:event_end])
+		request_start = params[:event_start].to_datetime + 12.hour
+		request_end = params[:event_end].to_datetime + 12.hour
 		if !total_hours.blank? && total_hours[/[0-9]+/] && !request_start.blank? && !request_end.blank?
 			if user
 				if request_start > request_end
