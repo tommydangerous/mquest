@@ -1,8 +1,8 @@
 module RequestsHelper
 
 	def create_events(user, approver, request)
-		sd = request.request_start.to_datetime
-		ed = request.request_end.to_datetime
+		sd = request.request_start.to_date
+		ed = request.request_end.to_date
 		if sd > ed
 			temp_ed = sd
 			temp_sd = ed
@@ -35,8 +35,8 @@ module RequestsHelper
 
 	def count_days(start_date, end_date)
 		days = 0
-		sd = start_date.to_datetime
-		ed = end_date.to_datetime
+		sd = start_date.to_date
+		ed = end_date.to_date
 		if sd > ed
 			temp_ed = sd
 			temp_sd = ed
