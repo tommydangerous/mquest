@@ -27,7 +27,7 @@ class RequestsController < ApplicationController
 			if conflicts.empty? || Purpose.find(params[:request][:purpose_id]).name[/sick|unpaid/i]
 				if @request.save
 					flash[:success] = 'Request for time off has been successfully submitted.'
-					redirect_to current_user
+					redirect_to requests_user_path(current_user)
 				else
 					@title = 'Time Off Request'
 					render 'new'

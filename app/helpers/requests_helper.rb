@@ -85,7 +85,7 @@ module RequestsHelper
 				end
 			end
 		end
-		conflict_days
+		conflict_days.sort
 	end
 
 	def department_conflicts(request, user)
@@ -102,7 +102,7 @@ module RequestsHelper
 				end
 			end
 		end
-		conflict_days
+		conflict_days.sort
 	end
 
 	def request_note

@@ -44,7 +44,9 @@ class Request < ActiveRecord::Base
 			sd = temp_sd
 			ed = temp_ed
 		end
- 		Event.where('event_date >= ? AND event_date <= ?', sd, ed)
+		sd = sd.to_date.to_datetime
+		ed = ed.to_date.to_datetime + 23.hours + 59.minutes + 59.seconds
+ 		Event.where('event_date >= ? AND event_date <= ?', sd, ed).order('event_date DESC')
  	end
 
  	def days
