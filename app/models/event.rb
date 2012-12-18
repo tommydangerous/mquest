@@ -14,6 +14,8 @@ class Event < ActiveRecord::Base
 	validates :request_id, presence: true
 	validates :purpose_id, presence: true
 
+	scope :today, lambda { |date| where(event_date: (date)..(date + 1)) }
+
 	def self.search(search)
 		purposes = Purpose.where("name ILIKE ?", "%#{search}%")
 		if purposes.empty?

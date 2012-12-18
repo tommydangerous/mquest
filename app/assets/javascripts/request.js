@@ -33,8 +33,13 @@ $(document).ready(function() {
 		var purpose = parseInt($('#request_purpose_id').val());
 		var startDate = $('#request_request_start').val();
 		var endDate = $('#request_request_end').val();
+		var scheduled = $('#request_scheduled');
 		$('.hoursError').hide();
-		if (startDate.length == 0) {
+		if ($(this).hasClass('disabledConflict') && scheduled.is(':checked')) {
+			$('html, body').animate({ scrollTop: 0 }, 0);
+			return false;
+		}
+		else if (startDate.length == 0) {
 			$('#request_request_start').focus();
 			return false;
 		}
@@ -83,6 +88,12 @@ $(document).ready(function() {
 				data: { start_date: startDate, end_date: endDate },
 				dataType: 'script'
 			})
+			$.ajax({
+				type: 'GET',
+				url: '/request-check-date',
+				data: { start_date: startDate, end_date: endDate },
+				dataType: 'script'
+			})
 		}
 	})
 	$('#request_request_end').change(function() {
@@ -92,6 +103,12 @@ $(document).ready(function() {
 			$.ajax({
 				type: 'GET',
 				url: '/total-days-calculation',
+				data: { start_date: startDate, end_date: endDate },
+				dataType: 'script'
+			})
+			$.ajax({
+				type: 'GET',
+				url: '/request-check-date',
 				data: { start_date: startDate, end_date: endDate },
 				dataType: 'script'
 			})

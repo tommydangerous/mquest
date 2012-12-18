@@ -13,7 +13,11 @@
 			<div class="requestCheckbox">
 				<div class="scheduled">
 					<p>Scheduled?</p>
-					<%= f.check_box :scheduled, checked: 'checked' %>
+					<% if params[:request].nil? || params[:request][:scheduled] == 1 %>
+						<%= f.check_box :scheduled, checked: 'checked' %>
+					<% else %>
+						<%= f.check_box :scheduled %>
+					<% end %>
 				</div>
 				<div class="notScheduled">
 					<p>Called In?</p>

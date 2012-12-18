@@ -75,6 +75,12 @@ class User < ActiveRecord::Base
 		self.name.split(' ')[0]
 	end
 
+	def department_events
+		# Events for all users in the same department
+		Event.joins(:user).where(
+			users: { department_id: self.department_id })
+	end
+
 	def has_password?(submitted_password)
 		encrypted_password == encrypt(submitted_password)
 	end

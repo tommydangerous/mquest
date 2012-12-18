@@ -39,6 +39,7 @@ Mquest::Application.routes.draw do
 
 	# Request
 	match 'total-days-calculation' => 'requests#days_calculation', as: 'days_calculation'
+	match 'request-check-date' => 'requests#request_check_date', as: 'request_check_date'
 
 	# Sessions
 	match 'sign-in' => 'sessions#new', as: 'signin'

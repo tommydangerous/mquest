@@ -1,7 +1,7 @@
 class RequestsController < ApplicationController
 	before_filter :authenticate
 	before_filter :admin_user, except: [:new, :create, :show, 
-										:days_calculation]
+										:days_calculation, :request_check_date]
 	before_filter :master_user, only: [:destroy]
 
 	# Signed in users
@@ -12,8 +12,6 @@ class RequestsController < ApplicationController
 	end
 
 	def create
-		params[:request][:request_start] = params[:request][:request_start].to_datetime + 12.hour
-		params[:request][:request_end] = params[:request][:request_end].to_datetime + 12.hour
 		sd = params[:request][:request_start]
 		ed = params[:request][:request_end]
 		if sd > ed
@@ -24,7 +22,10 @@ class RequestsController < ApplicationController
 		@purposes = Purpose.order(:name).collect { |p| [p.name, p.id] }
 		if params[:request][:request_start] != '' || params[:request][:request_end] != ''
 			conflicts = request_check(@request)
-			if conflicts.empty? || Purpose.find(params[:request][:purpose_id]).name[/sick|unpaid/i]
+			if conflicts.empty? || Purpose.find(params[:request][:purpose_id]).name[/sick|unpaid/i] || params[:request][:scheduled] == '0'
+        params[:request][:request_start] = params[:request][:request_start].to_datetime + 12.hour
+        params[:request][:request_end] = params[:request][:request_end].to_datetime + 12.hour
+        @request = current_user.requests.new(params[:request])
 				if @request.save
 					flash[:success] = 'Request for time off has been successfully submitted.'
 					redirect_to requests_user_path(current_user)
@@ -33,9 +34,9 @@ class RequestsController < ApplicationController
 					render 'new'
 				end
 			else
-				dates = conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
-				flash.now[:error] = "You cannot take the following days off: #{dates}"
-				render 'new'
+        dates = conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
+        flash.now[:error] = "You cannot take the following days off: #{dates}"
+        render 'new'
 			end
 		else
 			flash.now[:error] = 'Both start and end dates requested cannot be blank.'
@@ -72,6 +73,21 @@ class RequestsController < ApplicationController
 			}
 		end
 	end
+
+  def request_check_date
+    respond_to do |format|
+      format.html {
+        redirect_to new_request_path
+      }
+      format.js {
+        start_date = params[:start_date]
+        end_date = params[:end_date]
+        @conflicts = request_check_date_range(start_date, end_date)
+        dates = @conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
+        @message = "You cannot take the following days off: #{dates}"
+      }
+    end
+  end
 
 	# Admin users
 	def index

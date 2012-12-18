@@ -71,11 +71,10 @@ module RequestsHelper
 		decision.save
 	end
 
-	def request_check(request)
+	def return_conflict_days(conflicts)
 		department = current_user.department
-		conflicts = request.conflicts
 		conflict_days = []
-		if conflicts
+ 		if conflicts
 			conflicts.group_by(&:event_date).each do |conflict|
 				date = conflict[0]
 				events = conflict[1]
@@ -86,6 +85,26 @@ module RequestsHelper
 			end
 		end
 		conflict_days.sort
+	end
+
+	def request_check(request)
+		conflicts = request.conflicts
+		return_conflict_days(conflicts)
+	end
+
+	def request_check_date_range(start_date, end_date)
+		sd = start_date
+		ed = end_date
+		if sd > ed
+			temp_ed = sd
+			temp_sd = ed
+			sd = temp_sd
+			ed = temp_ed
+		end
+		sd = sd.to_date.to_datetime
+		ed = ed.to_date.to_datetime + 23.hours + 59.minutes + 59.seconds
+ 		conflicts = Event.where(event_date: sd..ed).order('event_date DESC')
+		return_conflict_days(conflicts)
 	end
 
 	def department_conflicts(request, user)

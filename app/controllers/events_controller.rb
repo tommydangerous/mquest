@@ -6,14 +6,15 @@ class EventsController < ApplicationController
 	def calendar
 		begin
 			Date.parse(params[:date])
-			@date = params[:date] ? Date.parse(params[:date]) : Time.zone.now.to_date
+			@date = params[:date] ? Date.parse(
+				params[:date]) : Time.zone.now.to_date
 		rescue
 			@date = Time.zone.now.to_date
 		end
 		if current_user.admin?
 			@events = Event.all
 		else
-			@events = current_user.events
+			@events = current_user.department_events
 		end
 		@events_by_date = @events.group_by(&:event_date)
 		@keys = @events_by_date.keys.map { |d| d.strftime("%Y-%m-%d") }
@@ -26,15 +27,18 @@ class EventsController < ApplicationController
 	def day
 		begin
 			Date.parse(params[:date])
-			@date = params[:date] ? Date.parse(params[:date]) : Time.zone.now.to_date
+			@date = params[:date] ? Date.parse(
+				params[:date]) : Time.zone.now.to_date
 		rescue
 			@date = Time.zone.now.to_date
 		end
 		@title = "#{@date.strftime('%b %-d, %y')}"
 		if current_user.admin?
-			@events = Event.where('event_date >= ? AND event_date < ?', @date, @date + 1).order('created_at').paginate(page: params[:page], per_page: 10)
+			@events = Event.today(@date).order(
+				'created_at').paginate(page: params[:page], per_page: 10)
 		else
-			@events = current_user.events.where('event_date >= ? AND event_date < ?', @date, @date + 1).order('created_at').paginate(page: params[:page], per_page: 10)
+			@events = current_user.department_events.today(@date).order(
+				'created_at').paginate(page: params[:page], per_page: 10)
 		end
 	end
 

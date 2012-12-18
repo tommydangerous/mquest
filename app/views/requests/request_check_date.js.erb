@@ -1,0 +1,8 @@
+<% if @conflicts.size > 0 %>
+    $('.flash').remove();
+    $('.content').prepend("<%= j render partial: 'message', locals: { message: @message } %>");
+    $('.requestForm .action input').addClass('disabledConflict');
+<% else %>
+    $('.flash').remove();
+    $('.requestForm .action input').removeClass('disabledConflict');
+<% end %>
