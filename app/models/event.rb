@@ -30,6 +30,10 @@ class Event < ActiveRecord::Base
  		end
  	end
 
+ 	def date
+ 		self.event_date.strftime('%Y-%m-%d')
+ 	end
+
  	def month_day_year
  		month_name = self.event_date.strftime('%B')
  		month = self.event_date.strftime('%m')

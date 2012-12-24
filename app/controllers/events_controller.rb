@@ -16,10 +16,7 @@ class EventsController < ApplicationController
 		else
 			@events = current_user.department_events
 		end
-		@events_by_date = @events.group_by(&:event_date)
-		@keys = @events_by_date.keys.map { |d| d.strftime("%Y-%m-%d") }
-		@values = @events_by_date.values
-		@hash = Hash[@keys.zip(@values)]
+		@hash = @events.group_by(&:date)
 		@title = @date.strftime("%B %Y")
 		render layout: 'calendar_layout'
 	end
