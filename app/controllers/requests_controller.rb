@@ -23,9 +23,9 @@ class RequestsController < ApplicationController
 		if params[:request][:request_start] != '' || params[:request][:request_end] != ''
 			conflicts = request_check(@request)
 			if conflicts.empty? || Purpose.find(params[:request][:purpose_id]).name[/sick|unpaid/i] || params[:request][:scheduled] == '0'
-        params[:request][:request_start] = params[:request][:request_start].to_datetime + 12.hour
-        params[:request][:request_end] = params[:request][:request_end].to_datetime + 12.hour
-        @request = current_user.requests.new(params[:request])
+		        params[:request][:request_start] = params[:request][:request_start].to_datetime + 12.hour
+		        params[:request][:request_end] = params[:request][:request_end].to_datetime + 12.hour
+		        @request = current_user.requests.new(params[:request])
 				if @request.save
 					flash[:success] = 'Request for time off has been successfully submitted.'
 					redirect_to requests_user_path(current_user)
@@ -34,9 +34,9 @@ class RequestsController < ApplicationController
 					render 'new'
 				end
 			else
-        dates = conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
-        flash.now[:error] = "You cannot take the following days off: #{dates}"
-        render 'new'
+		        dates = conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
+		        flash.now[:error] = "You cannot take the following days off: #{dates}"
+		        render 'new'
 			end
 		else
 			flash.now[:error] = 'Both start and end dates requested cannot be blank.'
