@@ -46,7 +46,7 @@ class RequestsController < ApplicationController
 			# if the request start date is within 14 days 
 			# of today and the request is scheduled
 			else
-				flash[:error] = (
+				flash.now[:error] = (
 					'You must give a 14 day notice when requesting time off')
 				render 'new'
 			end
