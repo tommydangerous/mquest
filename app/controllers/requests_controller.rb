@@ -21,22 +21,34 @@ class RequestsController < ApplicationController
 		@request = current_user.requests.new(params[:request])
 		@purposes = Purpose.order(:name).collect { |p| [p.name, p.id] }
 		if params[:request][:request_start] != '' || params[:request][:request_end] != ''
-			conflicts = request_check(@request)
-			if conflicts.empty? || Purpose.find(params[:request][:purpose_id]).name[/sick|unpaid/i] || params[:request][:scheduled] == '0'
-		        params[:request][:request_start] = params[:request][:request_start].to_datetime + 12.hour
-		        params[:request][:request_end] = params[:request][:request_end].to_datetime + 12.hour
-		        @request = current_user.requests.new(params[:request])
-				if @request.save
-					flash[:success] = 'Request for time off has been successfully submitted.'
-					redirect_to requests_user_path(current_user)
+			# if the request start date minus 14 days is greater 
+			# than today or request is unscheduled
+			if Date.parse(params[:request][:request_start]) - 14.days >= (
+				Time.zone.now.to_date) || params[:request][:scheduled] == '0'
+				conflicts = request_check(@request)
+				# if no conflicts, or purpose is sick/unpaid, or request is unscheduled
+				if conflicts.empty? || Purpose.find(params[:request][:purpose_id]).name[/sick|unpaid/i] || params[:request][:scheduled] == '0'
+			        params[:request][:request_start] = params[:request][:request_start].to_datetime + 12.hour
+			        params[:request][:request_end] = params[:request][:request_end].to_datetime + 12.hour
+			        @request = current_user.requests.new(params[:request])
+					if @request.save
+						flash[:success] = 'Request for time off has been successfully submitted.'
+						redirect_to requests_user_path(current_user)
+					else
+						@title = 'Time Off Request'
+						render 'new'
+					end
 				else
-					@title = 'Time Off Request'
-					render 'new'
+			        dates = conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
+			        flash.now[:error] = "You cannot take the following days off: #{dates}"
+			        render 'new'
 				end
+			# if the request start date is within 14 days 
+			# of today and the request is scheduled
 			else
-		        dates = conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
-		        flash.now[:error] = "You cannot take the following days off: #{dates}"
-		        render 'new'
+				flash[:error] = (
+					'You must give a 14 day notice when requesting time off')
+				render 'new'
 			end
 		else
 			flash.now[:error] = 'Both start and end dates requested cannot be blank.'

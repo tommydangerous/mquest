@@ -34,26 +34,25 @@ $(document).ready(function() {
 		var startDate = $('#request_request_start').val();
 		var endDate = $('#request_request_end').val();
 		$('.hoursError').hide();
+		// if there is no start date
 		if (startDate.length == 0) {
 			$('#request_request_start').focus();
 			return false;
 		}
+		// if there is no end date
 		else if (endDate.length == 0) {
 			$('#request_request_end').focus();
 			return false;
 		}
+		// if total hours is blank
 		else if (isNaN(hours)) {
 			$('.hoursErrorNone').show();
 			$('#request_total_hours').focus();
 			return false;
 		}
+		// if purpose is sick or vaction, minimum hours used is 4
 		else if (purpose == 5 && hours < 4 || purpose == 7 && hours < 4) {
 			$('.hoursError4').show();
-			$('#request_total_hours').focus();
-			return false;
-		}
-		else if (purpose == 4 && hours < 8) {
-			$('.hoursError8').show();
 			$('#request_total_hours').focus();
 			return false;
 		}
@@ -77,7 +76,7 @@ $(document).ready(function() {
 		var startDate = $(this).val();
 		var endDate = $('#request_request_end').val();
 		if (startDate.length != 0 && endDate.length != 0) {
-			// Total hours calculation
+			// Total days calculation
 			$.ajax({
 				type: 'GET',
 				url: '/total-days-calculation',
@@ -97,7 +96,7 @@ $(document).ready(function() {
 		var startDate = $('#request_request_start').val();
 		var endDate = $(this).val();
 		if (startDate.length != 0 && endDate.length != 0) {
-			// Total hours calculation
+			// Total days calculation
 			$.ajax({
 				type: 'GET',
 				url: '/total-days-calculation',
@@ -115,7 +114,10 @@ $(document).ready(function() {
 	})
 	// Request check date
 	$('.disabledConflict').live('click', function() {
-		$('html, body').animate({ scrollTop: 0 }, 0);
-		return false;
+		// if request is scheduled and there are conflicts
+		if ($('#request_scheduled').is(':checked')) {
+			$('html, body').animate({ scrollTop: 0 }, 0);
+			return false;
+		}
 	})
 })
