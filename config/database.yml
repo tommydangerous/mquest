@@ -13,3 +13,11 @@ test:
   pool: 5
   username: postgres
   password: postgres
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: mquest_development
+  pool: 5
+  username: postgres
+  password: postgres
