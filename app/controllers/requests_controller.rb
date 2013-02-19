@@ -9,6 +9,7 @@ class RequestsController < ApplicationController
 		@title = 'Request Time Off'
 		@request = Request.new
 		@purposes = Purpose.order(:name).collect { |p| [p.name, p.id] }
+		@@purpose_id = 0
 	end
 
 	def create
@@ -20,14 +21,16 @@ class RequestsController < ApplicationController
 		end
 		@request = current_user.requests.new(params[:request])
 		@purposes = Purpose.order(:name).collect { |p| [p.name, p.id] }
+		date = Date.parse(params[:request][:request_start])
+		now = Time.zone.now.to_date
+		@purpose_id = params[:request][:purpose_id]
+		scheduled = params[:request][:scheduled]
 		if params[:request][:request_start] != '' || params[:request][:request_end] != ''
-			# if the request start date minus 14 days is greater 
-			# than today or request is unscheduled
-			if Date.parse(params[:request][:request_start]) - 14.days >= (
-				Time.zone.now.to_date) || params[:request][:scheduled] == '0'
+			# check to see if they submitted request within certain date
+			if @purpose_id == '15' && date - 2.days >= now || date - 14.days >= now || scheduled == '0'
 				conflicts = request_check(@request)
 				# if no conflicts, or purpose is sick/unpaid, or request is unscheduled
-				if conflicts.empty? || Purpose.find(params[:request][:purpose_id]).name[/sick|unpaid/i] || params[:request][:scheduled] == '0'
+				if conflicts.empty? || Purpose.find(@purpose_id).name[/sick|unpaid/i] || params[:request][:scheduled] == '0'
 			        params[:request][:request_start] = params[:request][:request_start].to_datetime + 12.hour
 			        params[:request][:request_end] = params[:request][:request_end].to_datetime + 12.hour
 			        @request = current_user.requests.new(params[:request])
@@ -43,11 +46,15 @@ class RequestsController < ApplicationController
 			        flash.now[:error] = "You cannot take the following days off: #{dates}"
 			        render 'new'
 				end
-			# if the request start date is within 14 days 
-			# of today and the request is scheduled
 			else
-				flash.now[:error] = (
-					'You must give a 14 day notice when requesting time off')
+				if @purpose_id == '15' && date - 2.days < now
+					error_msg = ('You must give a 48 hour notice when
+						requesting to leave on time')
+				else
+					error_msg = ('You must give a 14 day notice when
+						requesting time off')
+				end
+				flash.now[:error] = error_msg
 				render 'new'
 			end
 		else

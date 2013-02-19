@@ -65,7 +65,7 @@
 			</div>
 			<div class="field">
 				<p>Purpose</p>
-				<%= f.select :purpose_id, options_for_select(@purposes) %>
+				<%= f.select :purpose_id, options_for_select(@purposes, @purpose_id) %>
 			</div>
 			<div class="field">
 				<p>Comments</p>
