@@ -188,6 +188,14 @@
 	color: rgb(97, 196, 25);
 }
 
+.notmonth .maxOff {
+	background: none;
+}
+
+.maxOff {
+	background: rgb(235, 235, 235);
+}
+
 .dayEvents {
 	overflow: hidden;
 }

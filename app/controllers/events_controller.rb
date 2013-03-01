@@ -14,8 +14,7 @@ class EventsController < ApplicationController
 		if current_user.admin?
 			@events = Event.all
 		else
-#			@events = current_user.department_events
-			@events = current_user.events
+			@events = current_user.department_events
 		end
 		@hash = @events.group_by(&:date)
 		@title = @date.strftime("%B %Y")
@@ -61,7 +60,8 @@ class EventsController < ApplicationController
 		@title = 'All Events'
 		@search = Event.search(params[:search])
 		per_page = params[:view_all] == '1' ? 999 : 10
-		@events = @search.order('event_date DESC').paginate(page: params[:page], per_page: per_page)
+		@events = @search.order('event_date DESC').paginate(page: params[:page], 
+      per_page: per_page)
 		@events_by_date = @events.group_by(&:month_day_year)
 	end
 

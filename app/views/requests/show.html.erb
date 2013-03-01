@@ -15,7 +15,7 @@ $(document).ready(function() {
 				<% @conflicts.each do |date, events| %>
 					<div class="conflictDate">
 						<div class="conflictDateDay">
-							<p><%= link_to date.strftime('%b %d, %y'), root_path(date: "#{date.strftime('%y-%m-%d')}") %></p>
+							<p><%= link_to date.to_datetime.strftime('%b %d, %y'), root_path(date: "#{date.to_datetime.strftime('%y-%m-%d')}") %></p>
 						</div>
 						<ol>
 							<% for event in events %>

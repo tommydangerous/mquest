@@ -75,12 +75,12 @@ module RequestsHelper
 		department = current_user.department
 		conflict_days = []
  		if conflicts
-			conflicts.group_by(&:event_date).each do |conflict|
+			conflicts.group_by(&:date).each do |conflict|
 				date = conflict[0]
 				events = conflict[1]
 				department_ids = events.map { |event| event.user.department_id if event.user != current_user }
 				if department_ids.count(department.id) >= department.max_off
-					conflict_days.append(date)
+					conflict_days.append(date.to_datetime)
 				end
 			end
 		end

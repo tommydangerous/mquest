@@ -19,4 +19,10 @@ module EventsHelper
  		end
  		purposes
  	end
+
+  def max_off(user, events)
+    if events && events.size >= user.department.max_off
+      ' maxOff'
+    end
+  end
 end

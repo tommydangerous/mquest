@@ -73,7 +73,7 @@ class RequestsController < ApplicationController
 		@dept_conflicts = department_conflicts(@request, @request.user).map { |date| Date.parse(date_param(date)) }
 		if current_user.admin?
 			@decisions = @request.decisions.group_by(&:month_day_year).sort_by { |key, value| key }.reverse
-			@conflicts = @request.conflicts.select { |event| event if event.user_id != @request.user.id }.group_by(&:event_date)
+			@conflicts = @request.conflicts.select { |event| event if event.user_id != @request.user.id }.group_by(&:date)
 		end
 		redirect_to current_user unless @request.user == current_user || current_user.admin?
 	rescue ActiveRecord::RecordNotFound
