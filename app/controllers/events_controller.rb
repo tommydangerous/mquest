@@ -14,7 +14,8 @@ class EventsController < ApplicationController
 		if current_user.admin?
 			@events = Event.all
 		else
-			@events = current_user.department_events
+#			@events = current_user.department_events
+			@events = current_user.events
 		end
 		@hash = @events.group_by(&:date)
 		@title = @date.strftime("%B %Y")
