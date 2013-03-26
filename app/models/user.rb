@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
 			errors.add(:name, "is too short (minimum is 1 character")
 		elsif name.length > 20
 			errors.add(:name, "is too long (maximum is 20 characters)")
-		elsif name.match(/^[A-Za-z]{1,}[A-Za-z0-9]+[-_ ]?[A-Za-z0-9]{1,}$/).nil?
+		elsif name.match(/^[A-Za-z]+( ){1,}[A-Za-z]+[-_]{1,}[A-Za-z]+$/).nil?
 			errors.add(:name, "is invalid (can contain A-Z, 0-9, -, _, or 1 space)")
 		end
 	end
