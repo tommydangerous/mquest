@@ -212,3 +212,51 @@
 	margin: 1px 0 0 0;
 	padding: 1px 5px;
 }
+
+.employeesOff {
+	background: rgb(255, 255, 255);
+	border: 1px solid rgb(60, 60, 60);
+	display: none;
+	position: absolute;
+	top: 0;
+	.close {
+		height: 20px;
+		text-align: right;
+		a {
+			display: block;
+			float: right;
+			height: 16px;
+			padding: 2px;
+			width: 16px;
+			img {
+				max-height: 16px;
+			}
+		}
+	}
+	h1 {
+		font-size: 14px;
+		font-weight: 300;
+		line-height: 21px;
+		margin: 0 0 5px 0;
+		padding: 0 20px;
+		a {
+			color: rgb(60, 60, 60);
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	span {
+		ul {
+			margin: 0;
+			padding: 0 20px 15px 20px;
+			li {
+				list-style-type: none;
+				padding: 5px 0;
+				a {
+					font-size: 14px;
+				}
+			}
+		}
+	}
+}

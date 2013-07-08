@@ -12,12 +12,13 @@ class EventsController < ApplicationController
 			@date = Time.zone.now.to_date
 		end
 		if current_user.admin?
-			@events = Event.all
+			events = Event.all
 		else
-			@events = current_user.department_events
+			events = current_user.department_events
 		end
-		@hash = @events.group_by(&:date)
-		@title = @date.strftime("%B %Y")
+		@events = events.sort_by { |event| event.user.name }
+		@hash   = @events.group_by(&:date)
+		@title  = @date.strftime("%B %Y")
 		render layout: 'calendar_layout'
 	end
 
@@ -31,12 +32,15 @@ class EventsController < ApplicationController
 		end
 		@title = "#{@date.strftime('%b %-d, %y')}"
 		if current_user.admin?
-			@events = Event.today(@date).order(
-				'created_at').paginate(page: params[:page], per_page: 10)
+			events = Event.today(@date)
 		else
-			@events = current_user.department_events.today(@date).order(
-				'created_at').paginate(page: params[:page], per_page: 10)
+			events = current_user.department_events
 		end
+		page     = (params[:page] ? params[:page] : 1).to_i
+		per_page = 10
+		@events = events.sort_by { |event| event.user.name }[
+			((page - 1) * per_page)...(page * per_page)]
+		@events_paginate = events.paginate(page: params[:page], per_page: per_page)
 	end
 
 	def month_select
