@@ -34,7 +34,7 @@ class EventsController < ApplicationController
 		if current_user.admin?
 			events = Event.today(@date)
 		else
-			events = current_user.department_events
+			events = current_user.department_events.today(@date)
 		end
 		page     = (params[:page] ? params[:page] : 1).to_i
 		per_page = 10
