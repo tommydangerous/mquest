@@ -46,6 +46,7 @@ GEM
     daemons (1.1.9)
     dalli (2.6.0)
     erubis (2.7.0)
+    eventmachine (1.0.0)
     eventmachine (1.0.0-x86-mingw32)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -72,6 +73,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
+    pg (0.14.1)
     pg (0.14.1-x86-mingw32)
     polyglot (0.3.3)
     rack (1.4.3)
@@ -138,6 +140,7 @@ GEM
     xml-simple (1.1.2)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES

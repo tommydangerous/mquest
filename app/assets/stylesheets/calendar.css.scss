@@ -237,8 +237,9 @@
 		font-size: 14px;
 		font-weight: 300;
 		line-height: 21px;
-		margin: 0 0 5px 0;
-		padding: 0 20px;
+		margin: 0;
+		padding: 10px 20px;
+		text-align: center;
 		a {
 			color: rgb(60, 60, 60);
 			&:hover {
@@ -248,8 +249,9 @@
 	}
 	span {
 		ul {
+			border-top: 1px solid rgb(60, 60, 60);
 			margin: 0;
-			padding: 0 20px 15px 20px;
+			padding: 10px 20px;
 			li {
 				list-style-type: none;
 				padding: 5px 0;

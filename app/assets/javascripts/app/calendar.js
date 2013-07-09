@@ -37,38 +37,55 @@ $(document).ready(function() {
 			document.location.href = '/?date=' + v + '-' + mv + '-' + day;
 		}
 	})
-	// Mouse moving around
+	// Calendar employee pop up
 	$(document).on('click', '.calendar .dateDay a', function() {
 		var day = $(this).attr('title');
 		var date = new Date(day + ' 12:00:00');
 		var dateString = date.toDateString();
-		var offset = $(this).offset();
 		var ul = $(this).closest('.dateDay').siblings('.dayEvents').children('ul');
 		$('.employeesOff span').html(ul.clone());
 		$('.employeesOff h1 a').text(dateString);
 		$('.employeesOff h1 a').attr('href', $(this).attr('href'));
 		$('.employeesOff').show();
 		// This anchor's measurements and position
-		var left = offset.left;
-		var top  = offset.top;
-		var height = $(this).height();
-		var width  = $(this).width();
+		var td     = $(this).closest('td');
+		var offset = td.offset();
+		var left   = offset.left;
+		var top    = offset.top;
+		var height = td.height();
+		var width  = td.width();
 		// Position element
 		var elemHeight = $('.employeesOff').height();
 		var elemWidth  = $('.employeesOff').width();
+		var verticalOffset = (elemHeight - height) / 2.0;
+		// If the pop up will appear off screen to the bottom
 		if (top + elemHeight > $(window).height()) {
 			$('.employeesOff').css('top', top - (elemHeight - height));
 		}
-		else {
-			$('.employeesOff').css('top', top - 1);
-		}
-		if (left - elemWidth < 0) {
-			$('.employeesOff').css('left', left + width);
+		// If the pop up will appear off the screen to the top
+		else if (top - verticalOffset < 0) {
+			$('.employeesOff').css('top', top);
 		}
 		else {
-			$('.employeesOff').css('left', left - elemWidth);
+			$('.employeesOff').css('top', top - verticalOffset);
+		}
+		var horizontalOffset = (elemWidth - width) / 2.0;
+		// If the pop up will appear off screen to the right
+		if (left + width + horizontalOffset > $(window).width()) {
+			$('.employeesOff').css('left', left - (elemWidth - width));
+		}
+		// If the pop up will appear off screen to the left
+		else if (left - horizontalOffset < 0) {
+			$('.employeesOff').css('left', left);
+		}
+		else {
+			$('.employeesOff').css('left', left - horizontalOffset);
 		}
 		return false;
+	});
+	// clicking on the page should hide the popup
+	$(document).on('click', function() {
+		$('.employeesOff').hide();
 	});
 	// clicking close on employees off popup should hide
 	$(document).on('click', '.employeesOff .close a', function() {
