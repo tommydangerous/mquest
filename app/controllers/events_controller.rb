@@ -11,10 +11,13 @@ class EventsController < ApplicationController
 		rescue
 			@date = Time.zone.now.to_date
 		end
+		min_date = @date - 31
+		max_date = @date + 31
 		if current_user.admin?
-			events = Event.all
+			events = Event.where(event_date: min_date..max_date)
 		else
-			events = current_user.department_events
+			events = current_user.department_events.where(
+				event_date: min_date..max_date)
 		end
 		@events = events.sort_by { |event| event.user.name }
 		@hash   = @events.group_by(&:date)
