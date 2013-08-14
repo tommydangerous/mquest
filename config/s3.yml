@@ -1,12 +1,12 @@
-development:
-  bucket: mquestuser
-  access_key_id: AKIAIXM2DMH4M2PAT5TA
-  secret_access_key: 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
-test:
-  bucket: mquestuser
-  access_key_id: AKIAIXM2DMH4M2PAT5TA
-  secret_access_key: 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
+# development:
+#   bucket: mquestuser
+#   access_key_id: 
+#   secret_access_key: 
+# test:
+#   bucket: mquestuser
+#   access_key_id: 
+#   secret_access_key: 
 production:
   bucket: mquestuser
-  access_key_id: AKIAIXM2DMH4M2PAT5TA
-  secret_access_key: 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
+  access_key_id: <%= ENV["AMAZON_AWS_ACCESS_KEY_ID"] %>
+  secret_access_key: <%= ENV["AMAZON_AWS_SECRET_ACCESS_KEY"] %>
