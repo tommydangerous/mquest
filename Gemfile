@@ -1,15 +1,19 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
+
+# gem 'activeadmin'
+gem 'aws-s3'
+gem 'dalli'
+gem 'friendly_id'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'will_paginate', '3.0'
-gem 'friendly_id'
-gem 'dalli'
+gem 'kaminari'
+gem 'meta_search'
 gem 'paperclip', "~> 2.4.5"
-gem 'aws-s3'
 gem 'pg'
 gem 'taps'
+gem 'will_paginate', '3.0'
 
 group :production do
 #	gem 'pg'

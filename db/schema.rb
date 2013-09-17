@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030194813) do
+ActiveRecord::Schema.define(:version => 20130904180253) do
+
+  create_table "active_admin_comments", :force => true do |t|
+    t.string   "resource_id",   :null => false
+    t.string   "resource_type", :null => false
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.text     "body"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "namespace"
+  end
+
+  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
+  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
+  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "decisions", :force => true do |t|
     t.string   "name"
@@ -54,6 +69,14 @@ ActiveRecord::Schema.define(:version => 20121030194813) do
   add_index "events", ["request_id"], :name => "index_events_on_request_id"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
+  create_table "half_days", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "half_days", ["name"], :name => "index_half_days_on_name", :unique => true
+
   create_table "purposes", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -82,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20121030194813) do
     t.integer  "denied_by"
     t.integer  "manual_by"
     t.integer  "purpose_id"
+    t.boolean  "half_day",      :default => false
   end
 
   add_index "requests", ["absence_paid"], :name => "index_requests_on_absence_paid"
@@ -91,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20121030194813) do
   add_index "requests", ["comments"], :name => "index_requests_on_comments"
   add_index "requests", ["denied"], :name => "index_requests_on_denied"
   add_index "requests", ["denied_by"], :name => "index_requests_on_denied_by"
+  add_index "requests", ["half_day"], :name => "index_requests_on_half_day"
   add_index "requests", ["manual"], :name => "index_requests_on_manual"
   add_index "requests", ["manual_by"], :name => "index_requests_on_manual_by"
   add_index "requests", ["purpose_id"], :name => "index_requests_on_purpose_id"

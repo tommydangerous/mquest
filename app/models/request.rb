@@ -1,15 +1,16 @@
 class Request < ActiveRecord::Base
- 	attr_accessible :request_start,
- 					:request_end,
- 					:total_days,
- 					:total_hours,
- 					:purpose,
- 					:comments,
- 					:scheduled,
- 					:called_in,
- 					:absence_paid,
- 					:remarks,
- 					:purpose_id
+ 	attr_accessible :half_day,
+ 									:request_start,
+				 					:request_end,
+				 					:total_days,
+				 					:total_hours,
+				 					:purpose,
+				 					:comments,
+				 					:scheduled,
+				 					:called_in,
+				 					:absence_paid,
+				 					:remarks,
+				 					:purpose_id
 
  	belongs_to :purpose
  	belongs_to :user

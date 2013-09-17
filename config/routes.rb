@@ -1,4 +1,8 @@
 Mquest::Application.routes.draw do
+	
+	root to: 'events#calendar'
+
+  # ActiveAdmin.routes(self)
 
 	resources :departments do
 		member do
@@ -27,7 +31,6 @@ Mquest::Application.routes.draw do
 	end
 
 	# Events
-	root to: 'events#calendar'
 	match 'day' => 'events#day', as: 'day'
 	match 'month-select' => 'events#month_select', as: 'month_select'
 

@@ -1,0 +1,179 @@
+/* Request start/end */
+.requestFormDateRequested input:hover {
+  cursor: pointer;
+}
+
+.approvedDenied {
+  margin: 0 auto;
+  padding: 20px 40px 0 40px;
+  text-align: center;
+  width: 700px;
+}
+
+.approvedDenied p {
+  font-size: 28px;
+}
+
+.requestDecide {
+  float: right;
+  padding: 20px 0 0 0;
+}
+
+.requestDecide div {
+  float: right;
+}
+
+.requestDecide a {
+  display: block;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.approveRequest a {
+  background: rgb(99, 182, 219);
+  color: rgb(255, 255, 255);
+}
+
+.approveRequest a:hover {
+  background: rgb(109, 192, 229);
+}
+
+.denyRequest input {
+  background: rgb(190, 190, 190);
+  border: none;
+  color: rgb(60, 60, 60);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  margin: 0 0 0 10px;
+  padding: 10px 20px;
+}
+
+.denyRequest input:hover {
+  background: rgb(195, 195, 195);
+}
+
+.denyRequest a {
+  background: rgb(190, 190, 190);
+  color: rgb(60, 60, 60);
+  margin: 0 0 0 10px;
+}
+
+.denyRequest a:hover {
+  background: rgb(195, 195, 195);
+}
+
+/* Conflicts */
+.conflictsDecisions {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  margin: 0 auto;
+  padding: 20px 40px 0 40px;
+  width: 700px;
+
+}
+
+.requestConflicts {
+  float: left;
+  width: 350px;
+}
+
+.conflictDate {
+  margin: 10px 0 0 0;
+}
+
+.conflictDate ol {
+  margin: 5px 0 0 0;
+  padding: 0 0 0 20px;
+}
+
+/* Decisions */
+.requestDecisions {
+  float: right;
+  text-align: right;
+  width: 350px;
+}
+
+.decisionDate {
+  margin: 10px 0 0 0;
+}
+
+.decisionDate ol {
+  list-style-type: none;
+  margin: 5px 0 0 0;
+  padding: 0;
+}
+
+/* Request start/end calendar */
+#requestCal {
+  background: rgb(255, 255, 255);
+  border-bottom: 1px solid rgb(200, 200, 200);
+  border-left: 1px solid rgb(200, 200, 200);
+  border-right: 1px solid rgb(200, 200, 200);
+  display: none;
+  padding: 5px;
+  position: absolute;
+  width: 198px;
+}
+
+.requestEndCal {
+  margin: 0 0 0 230px;
+}
+
+#requestCal th {
+  font-size: 12px;
+  height: 15px;
+  padding: 5px 0;
+}
+
+#requestCal td {
+  font-size: 11px;
+}
+
+#requestCal .dateDay:hover{
+  background: rgb(37, 141, 200);
+}
+
+#requestCal .dateDay a {
+  padding: 5px;
+}
+
+#requestCal .dateDay a:hover {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+#requestCal .today {
+  background: rgb(255, 255, 255);
+}
+
+#requestCal .today a {
+  color: rgb(60, 60, 60);
+}
+
+#requestCal .requestDay, #requestCal .requestDay:hover {
+  background: rgb(235, 235, 235);
+}
+
+#requestCal .requestDay a:hover {
+  color: rgb(60, 60, 60);
+}
+
+#requestCal .requestDay .deptConflict:hover, #requestCal .deptConflict, #requestCal .deptConflict:hover {
+  color: rgb(255, 26, 0);
+}
+
+#requestCal .requestDay .conflictDay:hover, #requestCal .conflictDay, #requestCal .conflictDay:hover {
+  color: rgb(37, 141, 200);
+}
+
+#requestCal .notmonth {
+  border: none;
+}
+
+/* Manual */
+.requestManual {
+  float: left;
+  font-size: 14px;
+  margin: 30px 0 0 0;
+}

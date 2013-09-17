@@ -71,10 +71,19 @@ $(document).ready(function() {
 			$('.hoursError8').hide();
 		}
 	})
-	// Ajax
-	$('#request_request_start').change(function() {
-		var startDate = $(this).val();
-		var endDate = $('#request_request_end').val();
+	// Whenever user clicks half day, change its checked attribute
+	$(document).on('click', '#request_half_day', function() {
+		if ($(this).attr('check_value') == '1') {
+			$(this).attr('check_value', '0')
+			$(this).prop('checked', false);
+		}
+		else {
+			$(this).attr('check_value', '1');
+			$(this).prop('checked', true);
+		}
+		var half_day  = $('#request_half_day').attr('check_value');
+		var endDate   = $('#request_request_end').val();
+		var startDate = $('#request_request_start').val();
 		if (startDate.length != 0 && endDate.length != 0) {
 			// Total days calculation
 			$.ajax({
@@ -87,14 +96,45 @@ $(document).ready(function() {
 			$.ajax({
 				type: 'GET',
 				url: '/request-check-date',
+				data: { 
+					start_date: startDate,
+					end_date: endDate,
+					half_day: half_day
+				},
+				dataType: 'script'
+			})
+		}
+	});
+	// Ajax
+	$('#request_request_start').change(function() {
+		var half_day  = $('#request_half_day').attr('check_value');
+		var endDate   = $('#request_request_end').val();
+		var startDate = $(this).val();
+		if (startDate.length != 0 && endDate.length != 0) {
+			// Total days calculation
+			$.ajax({
+				type: 'GET',
+				url: '/total-days-calculation',
 				data: { start_date: startDate, end_date: endDate },
+				dataType: 'script'
+			})
+			// Request check date
+			$.ajax({
+				type: 'GET',
+				url: '/request-check-date',
+				data: { 
+					start_date: startDate,
+					end_date: endDate,
+					half_day: half_day
+				},
 				dataType: 'script'
 			})
 		}
 	})
 	$('#request_request_end').change(function() {
+		var half_day  = $('#request_half_day').attr('check_value');
+		var endDate   = $(this).val();
 		var startDate = $('#request_request_start').val();
-		var endDate = $(this).val();
 		if (startDate.length != 0 && endDate.length != 0) {
 			// Total days calculation
 			$.ajax({
@@ -107,7 +147,11 @@ $(document).ready(function() {
 			$.ajax({
 				type: 'GET',
 				url: '/request-check-date',
-				data: { start_date: startDate, end_date: endDate },
+				data: { 
+					start_date: startDate,
+					end_date: endDate,
+					half_day: half_day
+				},
 				dataType: 'script'
 			})
 		}

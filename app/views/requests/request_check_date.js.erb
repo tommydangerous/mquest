@@ -1,8 +1,8 @@
-<% if @conflicts.size > 0 %>
-    $('.flash').remove();
-    $('.content').prepend("<%= j render partial: 'message', locals: { message: @message } %>");
-    $('.requestForm .action input').addClass('disabledConflict');
+<% if @conflicts.size == 0 || @half_day == 1 %>
+  $('.flash').remove();
+  $('.requestForm .action input').removeClass('disabledConflict');
 <% else %>
-    $('.flash').remove();
-    $('.requestForm .action input').removeClass('disabledConflict');
+  $('.flash').remove();
+  $('.content').prepend("<%= j render partial: 'message', locals: { message: @message } %>");
+  $('.requestForm .action input').addClass('disabledConflict');
 <% end %>

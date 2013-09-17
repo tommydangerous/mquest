@@ -1,12 +1,12 @@
-# development:
-#   bucket: mquestuser
-#   access_key_id: 
-#   secret_access_key: 
-# test:
-#   bucket: mquestuser
-#   access_key_id: 
-#   secret_access_key: 
+development:
+  bucket:            mquestuser_development
+  access_key_id:     <%= ENV["AMAZON_AWS_ACCESS_KEY_ID"] %>
+  secret_access_key: <%= ENV["AMAZON_AWS_SECRET_ACCESS_KEY"] %>
+test:
+  bucket:            mquestuser_test
+  access_key_id:     <%= ENV["AMAZON_AWS_ACCESS_KEY_ID"] %>
+  secret_access_key: <%= ENV["AMAZON_AWS_SECRET_ACCESS_KEY"] %>
 production:
-  bucket: mquestuser
-  access_key_id: <%= ENV["AMAZON_AWS_ACCESS_KEY_ID"] %>
+  bucket:            mquestuser
+  access_key_id:     <%= ENV["AMAZON_AWS_ACCESS_KEY_ID"] %>
   secret_access_key: <%= ENV["AMAZON_AWS_SECRET_ACCESS_KEY"] %>

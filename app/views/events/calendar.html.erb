@@ -71,7 +71,7 @@ $(document).ready(function() {
 </div>
 <div class="mainCalendar">
 	<%= calendar @date do |date| %>
-		<div class="dateDay<%= ' calendarDay' if date.day == @date.day %><%= max_off(current_user, @hash[date.to_s]) %>">
+		<div class="dateDay<%= ' calendarDay' if date.day == @date.day %><%= max_off(current_user, @hash[date.to_s]) %><%= ' admin' if current_user.admin? %>">
 			<% if date.month != @date.month %>
 				<%= link_to date.strftime('%b %d'), day_path(date: date), title: date %>
 			<% else %>
@@ -84,7 +84,7 @@ $(document).ready(function() {
 					<% @hash[date.to_s].each do |event| %>
 						<% if current_user == event.user || current_user.admin? %>
 							<li id="event_<%= event.id %>">
-								<%= link_to event.user.name, event.user %>: <%= link_to event.purpose.name, event.request %>
+								<%= link_to event.user.try(:name), event.user %>: <%= link_to event.purpose.try(:name), event.request %>
 							</li>
 						<% end %>
 					<% end %>

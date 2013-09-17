@@ -11,21 +11,31 @@
 		<%= form_for @request do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
 			<div class="requestCheckbox">
-				<div class="scheduled">
-					<p>Scheduled?</p>
-					<% if params[:request].nil? || params[:request][:scheduled] == 1 %>
-						<%= f.check_box :scheduled, checked: 'checked' %>
-					<% else %>
-						<%= f.check_box :scheduled %>
-					<% end %>
-				</div>
-				<div class="notScheduled">
-					<p>Called In?</p>
-					<%= f.check_box :called_in %>
-				</div>
-				<div class="notScheduled">
-					<p>Absence Paid?</p>
-					<%= f.check_box :absence_paid %>
+				<div class='checkboxDropdown'>
+					<div class="scheduled">
+						<p>Scheduled?</p>
+						<% if params[:request].nil? || params[:request][:scheduled] == 1 %>
+							<%= f.check_box :scheduled, checked: 'checked' %>
+						<% else %>
+							<%= f.check_box :scheduled %>
+						<% end %>
+					</div>
+					<div class="notScheduled">
+						<p>Called In?</p>
+						<%= f.check_box :called_in %>
+					</div>
+					<div class="notScheduled">
+						<p>Absence Paid?</p>
+						<%= f.check_box :absence_paid %>
+					</div>
+					<div class='halfDay'>
+						<p>Half Day</p>
+						<% if @request.half_day %>
+							<%= f.check_box :half_day, checked: 'checked', check_value: 1 %>
+						<% else %>
+							<%= f.check_box :half_day, check_value: 0 %>
+						<% end %>
+					</div>
 				</div>
 			</div>
 			<div class="requestFormFields">

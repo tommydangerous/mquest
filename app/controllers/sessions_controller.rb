@@ -11,7 +11,8 @@ class SessionsController < ApplicationController
 	def create
 		redirect_to root_path if signed_in?
 		params[:session][:email] = params[:session][:email].downcase
-		user = User.authenticate(params[:session][:email], params[:session][:password])
+		user = User.authenticate(params[:session][:email], 
+			params[:session][:password])
 		if user
 			if params[:remember_me]
 				sign_in user

@@ -38,7 +38,7 @@ $(document).ready(function() {
 		}
 	})
 	// Calendar employee pop up
-	$(document).on('click', '.calendar .dateDay a', function() {
+	$(document).on('click', '.calendar .dateDay.admin a', function() {
 		var day = $(this).attr('title');
 		var date = new Date(day + ' 12:00:00');
 		var dateString = date.toDateString();

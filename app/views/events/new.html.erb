@@ -4,8 +4,12 @@
 		<div class="userNewForm">
 			<%= render 'shared/error_messages', object: f.object %>
 			<div class="field">
-				<p>Event Name</p>
-				<%= text_field_tag :event_name, '', data: { autocomplete_source: purpose_list_path } %>
+				<p>Employee's Name</p>
+				<%= text_field_tag :user_name, '', data: { autocomplete_source: user_list_path }, placeholder: 'John Doe' %>
+			</div>
+			<div class="field">
+				<p>Purpose of Event</p>
+				<%= text_field_tag :event_name, '', data: { autocomplete_source: purpose_list_path }, placeholder: 'Vacation' %>
 			</div>
 			<div class="field eventNewDate">
 				<p>Start Date</p>
@@ -18,10 +22,6 @@
 			<div class="field">
 				<p>Total Hours</p>
 				<%= text_field_tag :total_hours, '', autocomplete: 'off' %>
-			</div>
-			<div class="field">
-				<p>User</p>
-				<%= text_field_tag :user_name, '', data: { autocomplete_source: user_list_path } %>
 			</div>
 			<div class="action">
 				<%= f.submit "Save" %>

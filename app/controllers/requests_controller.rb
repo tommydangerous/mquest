@@ -26,7 +26,8 @@ class RequestsController < ApplicationController
 		date = Date.parse(params[:request][:request_start])
 		now = Time.zone.now.to_date
 		@purpose_id = params[:request][:purpose_id]
-		scheduled = params[:request][:scheduled]
+		scheduled   = params[:request][:scheduled]
+		half_day    = params[:request][:half_day].to_i
 
     # If November 29, 2013 (Black Friday) falls between dates, do not allow
     black_friday = Time.zone.parse("2013/11/29")
@@ -42,14 +43,16 @@ class RequestsController < ApplicationController
       params[:request][:request_end] != '')
 
 			# check to see if they submitted request within certain date
+			# purpose id 15 is Leave On Time, or the request is a half day
 			if (@purpose_id == '15' && date - 2.days >= now || 
-        date - 14.days >= now || scheduled == '0')
+        date - 14.days >= now || scheduled == '0' || half_day == 1)
 				conflicts = request_check(@request)
 
 				# if no conflicts, or purpose is sick/unpaid, or request is unscheduled
+				# or request is half day
 				if (conflicts.empty? || 
           Purpose.find(@purpose_id).name[/sick|unpaid/i] || 
-          params[:request][:scheduled] == '0')
+          params[:request][:scheduled] == '0' || half_day == 1)
 
 		        params[:request][:request_start] = 
               params[:request][:request_start].to_datetime + 12.hour
@@ -66,7 +69,8 @@ class RequestsController < ApplicationController
 						render 'new'
 					end
 				else
-	        dates = conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
+	        dates = conflicts.map { |conflict| conflict.strftime(
+	        	'%b %d, %y') }.join(', ')
 	        flash.now[:error] = "You cannot take the following days off: #{dates}"
 	        render 'new'
 				end
@@ -124,7 +128,8 @@ class RequestsController < ApplicationController
       }
       format.js {
         start_date = params[:start_date]
-        end_date = params[:end_date]
+        end_date   = params[:end_date]
+        @half_day  = params[:half_day].to_i
         @conflicts = request_check_date_range(start_date, end_date)
         dates = @conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
         @message = "You cannot take the following days off: #{dates}"
