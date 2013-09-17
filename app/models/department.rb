@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: departments
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  max_off    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Department < ActiveRecord::Base
 	attr_accessible :name, :max_off
 

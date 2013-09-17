@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.11'
 
 gem 'activeadmin'
+gem 'annotate'
 gem 'aws-s3'
 gem 'dalli'
 gem 'friendly_id'
