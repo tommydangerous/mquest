@@ -79,7 +79,7 @@ $(document).ready(function() {
 		<div class="requestCheckbox">
 			<div class='checkboxDropdown'>
 				<div class="scheduled">
-					<p>Scheduled?</p>
+					<p class='<%= "red" unless @request.scheduled? %>'>Scheduled?</p>
 					<%= check_box_tag :scheduled, '1', @request.scheduled?, readonly: 'readonly' %>
 				</div>
 				<div class="notScheduled">
@@ -91,7 +91,7 @@ $(document).ready(function() {
 					<%= check_box_tag :absence_paid, '1', @request.absence_paid?, readonly: 'readonly' %>
 				</div>
 				<div class='halfDay'>
-					<p>Half Day</p>
+					<p class='<%= "red" if @request.half_day? %>'>Half Day</p>
 					<%= check_box_tag :half_day, '1', @request.half_day?, readonly: :readonly %>
 				</div>
 			</div>

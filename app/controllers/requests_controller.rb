@@ -54,6 +54,18 @@ class RequestsController < ApplicationController
           Purpose.find(@purpose_id).name[/sick|unpaid/i] || 
           params[:request][:scheduled] == '0' || half_day == 1)
 
+						if half_day == 1 
+							# Check to see how many half day requests are made
+							half_day_conflicts = @request.half_day_check
+							if !half_day_conflicts.empty?
+								dates = half_day_conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
+								flash.now[:error] = 
+									"You cannot take the following half days off: #{dates}"
+								render :new
+								return
+							end
+						end
+
 		        params[:request][:request_start] = 
               params[:request][:request_start].to_datetime + 12.hour
 		        params[:request][:request_end] = 

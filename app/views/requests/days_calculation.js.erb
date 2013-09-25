@@ -1,2 +1,9 @@
 $('#request_total_days').val("<%= @days %>");
-$('#request_total_hours').val("<%= @days * 8 %>");
+
+// If half day checkbox is checked
+if ($('#request_half_day').attr('check_value') == '1') {
+  $('#request_total_hours').val("<%= @days * 4 %>");
+}
+else {
+  $('#request_total_hours').val("<%= @days * 8 %>");
+}

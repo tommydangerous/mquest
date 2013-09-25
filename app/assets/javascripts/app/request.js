@@ -73,10 +73,12 @@ $(document).ready(function() {
 	})
 	// Whenever user clicks half day, change its checked attribute
 	$(document).on('click', '#request_half_day', function() {
+		// If half day check box checked
 		if ($(this).attr('check_value') == '1') {
 			$(this).attr('check_value', '0')
 			$(this).prop('checked', false);
 		}
+		// If half day check box not checked
 		else {
 			$(this).attr('check_value', '1');
 			$(this).prop('checked', true);

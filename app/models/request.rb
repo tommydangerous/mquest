@@ -74,7 +74,9 @@ class Request < ActiveRecord::Base
 		end
 		sd = sd.to_date.to_datetime
 		ed = ed.to_date.to_datetime + 23.hours + 59.minutes + 59.seconds
- 		Event.where('event_date >= ? AND event_date <= ?', sd, ed).order('event_date DESC')
+		Event.where(event_date: sd..ed).order('event_date DESC')
+ 		# Event.where('event_date >= ? AND event_date <= ?', 
+ 		#		sd, ed).order('event_date DESC')
  	end
 
  	def days
@@ -115,6 +117,25 @@ class Request < ActiveRecord::Base
 			end
 		end
 		days
+ 	end
+
+ 	def half_day_check
+ 		# Check to see if the number of half day requests exceed 
+ 		# the half day max off
+ 		conflict_days = []
+ 		if self.conflicts
+ 			self.conflicts.group_by(&:date).each do |conflict|
+ 				date   = conflict[0]
+ 				events = conflict[1]
+ 				half_day_events = events.select { |event| event.request.half_day }
+ 				weekday_of_date = Time.zone.parse(date).strftime('%w').to_i + 1
+ 				hf_day = HalfDay.find(weekday_of_date)
+ 				if half_day_events.size >= hf_day.max_off
+ 					conflict_days.append(date.to_datetime)
+ 				end
+ 			end
+ 		end
+ 		conflict_days.sort
  	end
 
  	def month_day_year
