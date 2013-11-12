@@ -59,6 +59,10 @@ module Mquest
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # You can prevent initializing your application and connecting to the
+    # database
+    config.assets.initialize_on_precompile = false
+
     # Load environment variables from local_env.yml in /config
     config.before_configuration do
       env_file = File.join(Rails.root, 'config', 'local_env.yml')
