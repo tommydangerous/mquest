@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
  	protect_from_forgery
 
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+
  	include CalendarHelper
  	include DepartmentsHelper
  	include EventsHelper
@@ -12,8 +14,12 @@ class ApplicationController < ActionController::Base
 
  	private
 
+    def not_found
+      redirect_to root_path
+    end
+
  		def set_user_time_zone
-#	  		Time.zone = "UTC"
-			Time.zone = 'Pacific Time (US & Canada)'
-	  	end
+      #	Time.zone = "UTC"
+		  Time.zone = 'Pacific Time (US & Canada)'
+	  end
 end

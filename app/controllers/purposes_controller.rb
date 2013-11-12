@@ -4,7 +4,7 @@ class PurposesController < ApplicationController
 
 	def index
 		@title = 'All Purposes'
-		@search = Purpose.search(params[:search]).order(:name)
+		@search = Purpose.search(params[:search])
 		per_page = params[:view_all] == '1' ? 999 : 20
 		@purposes = @search.paginate(page: params[:page], per_page: per_page)
 	end
@@ -46,7 +46,7 @@ class PurposesController < ApplicationController
 
 	def requests
 		@purpose = Purpose.find(params[:id])
-		@title = "#{@purpose.name} Requests"
+		@title = "#{@purpose.name.titleize} Requests"
 		@search = @purpose.requests.search(params[:search])
 		per_page = params[:view_all] == '1' ? 999 : 10
 		@requests = @search.paginate(page: params[:page], per_page: per_page)

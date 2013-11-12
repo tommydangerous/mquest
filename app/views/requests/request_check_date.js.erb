@@ -1,4 +1,4 @@
-<% if @conflicts.size == 0 || @half_day == 1 %>
+<% if @conflicts.size == 0 || @half_day == 1 || @purpose.try(:ignore_max_off) %>
   $('.flash').remove();
   $('.requestForm .action input').removeClass('disabledConflict');
 <% else %>

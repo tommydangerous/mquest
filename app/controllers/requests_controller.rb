@@ -8,7 +8,8 @@ class RequestsController < ApplicationController
 	def new
 		@title = 'Request Time Off'
 		@request = Request.new
-		@purposes = Purpose.order(:name).collect { |p| [p.name, p.id] }
+		@purposes = Purpose.order(:name).collect { |p| [p.name.try(:titleize), 
+			p.id] }
 		@@purpose_id = 0
 	end
 
@@ -26,6 +27,7 @@ class RequestsController < ApplicationController
 		date = Date.parse(params[:request][:request_start])
 		now = Time.zone.now.to_date
 		@purpose_id = params[:request][:purpose_id]
+		purpose     = Purpose.find params[:request][:purpose_id]
 		scheduled   = params[:request][:scheduled]
 		half_day    = params[:request][:half_day].to_i
 
@@ -43,17 +45,17 @@ class RequestsController < ApplicationController
       params[:request][:request_end] != '')
 
 			# check to see if they submitted request within certain date
-			# purpose id 15 is Leave On Time, or the request is a half day
+			# purpose id 15 is Leave On Time, or the request is a half day,
+			# or if the purpose has ignore max off set to true
 			if (@purpose_id == '15' && date - 2.days >= now || 
         date - 14.days >= now || scheduled == '0' || half_day == 1)
-				conflicts = request_check(@request)
+				conflicts = request_check(@request || purpose.ignore_max_off)
 
 				# if no conflicts, or purpose is sick/unpaid, or request is unscheduled
-				# or request is half day
-				if (conflicts.empty? || 
-          Purpose.find(@purpose_id).name[/sick|unpaid/i] || 
-          params[:request][:scheduled] == '0' || half_day == 1)
-
+				# or request is half day or purpose has ignore max off set to true
+				if (conflicts.empty? || purpose.name[/sick|unpaid/i] || half_day == 1 ||
+          params[:request][:scheduled] == '0' || purpose.ignore_max_off)
+						# If request is a half day request
 						if half_day == 1 
 							# Check to see how many half day requests are made
 							half_day_conflicts = @request.half_day_check
@@ -116,8 +118,6 @@ class RequestsController < ApplicationController
 			@conflicts = @request.conflicts.select { |event| event if event.user_id != @request.user.id }.group_by(&:date)
 		end
 		redirect_to current_user unless @request.user == current_user || current_user.admin?
-	rescue ActiveRecord::RecordNotFound
-		redirect_to root_path
 	end
 
 	def days_calculation
@@ -143,8 +143,10 @@ class RequestsController < ApplicationController
         end_date   = params[:end_date]
         @half_day  = params[:half_day].to_i
         @conflicts = request_check_date_range(start_date, end_date)
-        dates = @conflicts.map { |conflict| conflict.strftime('%b %d, %y') }.join(', ')
+        dates = @conflicts.map { |conflict| conflict.strftime(
+        	'%b %d, %y') }.join(', ')
         @message = "You cannot take the following days off: #{dates}"
+        @purpose = Purpose.find_by_id params[:purpose_id]
       }
     end
   end

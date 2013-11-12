@@ -108,34 +108,11 @@ $(document).ready(function() {
 		}
 	});
 	// Ajax
-	$('#request_request_start').change(function() {
-		var half_day  = $('#request_half_day').attr('check_value');
+	// When changing the request start date or end date
+	$('#request_purpose_id, #request_request_start, request_request_end').change(function() {
 		var endDate   = $('#request_request_end').val();
-		var startDate = $(this).val();
-		if (startDate.length != 0 && endDate.length != 0) {
-			// Total days calculation
-			$.ajax({
-				type: 'GET',
-				url: '/total-days-calculation',
-				data: { start_date: startDate, end_date: endDate },
-				dataType: 'script'
-			})
-			// Request check date
-			$.ajax({
-				type: 'GET',
-				url: '/request-check-date',
-				data: { 
-					start_date: startDate,
-					end_date: endDate,
-					half_day: half_day
-				},
-				dataType: 'script'
-			})
-		}
-	})
-	$('#request_request_end').change(function() {
 		var half_day  = $('#request_half_day').attr('check_value');
-		var endDate   = $(this).val();
+		var purposeId = $('#request_purpose_id').val();
 		var startDate = $('#request_request_start').val();
 		if (startDate.length != 0 && endDate.length != 0) {
 			// Total days calculation
@@ -150,14 +127,15 @@ $(document).ready(function() {
 				type: 'GET',
 				url: '/request-check-date',
 				data: { 
-					start_date: startDate,
 					end_date: endDate,
-					half_day: half_day
+					half_day: half_day,
+					purpose_id: purposeId,
+					start_date: startDate
 				},
 				dataType: 'script'
 			})
 		}
-	})
+	})	
 	// Request check date
 	$('.disabledConflict').live('click', function() {
 		// if request is scheduled and there are conflicts
@@ -166,4 +144,4 @@ $(document).ready(function() {
 			return false;
 		}
 	})
-})
+});

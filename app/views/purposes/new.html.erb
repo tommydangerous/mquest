@@ -7,6 +7,10 @@
 				<p>Name</p>
 				<%= f.text_field :name, autocomplete: "off" %>
 			</div>
+			<div class='field'>
+				<p>Ignore Max Off</p>
+				<%= f.check_box :ignore_max_off %>
+			</div>
 			<div class="action">
 				<%= f.submit "Save" %>
 				<%= link_to "Cancel", purposes_path %>

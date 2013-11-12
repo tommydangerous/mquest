@@ -5,7 +5,7 @@
 			<%= render 'shared/error_messages', object: f.object %>
 			<div class="field">
 				<p>Event Name</p>
-				<%= text_field_tag :name, @event.purpose.name, readonly: 'readonly' %>
+				<%= text_field_tag :name, @event.purpose.name.titleize, readonly: 'readonly' %>
 			</div>
 			<div class="field eventNewDate">
 				<p>Event Date</p>

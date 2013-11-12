@@ -3,7 +3,7 @@
 		<%= link_to 'Edit', edit_purpose_path(purpose) %>
 	</div>
 	<div class="requestUser">
-		<p><%= purpose.name %></p>
+		<p><%= purpose.name.try :titleize %></p>
 	</div>
 	<div class="requestInfo">
 		<div>

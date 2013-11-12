@@ -22,7 +22,7 @@ $(document).ready(function() {
 			<p>
 				Next Event: 
 				<% if @next_event %>
-					<%= @next_event.purpose.name %> - 
+					<%= @next_event.purpose.name.titleize %> - 
 					<%= link_to(day_path(date: @next_event.event_date.strftime("%Y-%m-%d"))) do %>
 						<%= @next_event.event_date.strftime("%B %d, %Y") %>
 					<% end %>

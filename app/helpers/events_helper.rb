@@ -5,7 +5,7 @@ module EventsHelper
  		if purpose_ids.empty?
  			purposes = []
  		else
- 			purposes = Purpose.where("id IN (#{purpose_ids})").order(:name).map { |purpose| purpose.name }
+ 			purposes = Purpose.where("id IN (#{purpose_ids})").order(:name).map { |purpose| purpose.name.titleize }
  		end
  		purposes
  	end
@@ -15,7 +15,7 @@ module EventsHelper
  		if purpose_ids.empty?
  			purposes = []
  		else
- 			purposes = Purpose.where("id IN (#{purpose_ids})").order(:name).map { |purpose| purpose.name }
+ 			purposes = Purpose.where("id IN (#{purpose_ids})").order(:name).map { |purpose| purpose.name.titleize }
  		end
  		purposes
  	end
